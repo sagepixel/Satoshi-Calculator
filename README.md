@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Satoshi Calculator
 
 A sleek, Apple-style Bitcoin dashboard with calculators, charts, portfolio tracking, news, and more.  
@@ -116,3 +117,6 @@ Built for SEO + AdSense readiness.
 ---
 
 ## 📦 File Structure
+=======
+# Satoshi-Calculator
+>>>>>>> 9fbc08103126d074c4f573ed39d258d668d0543a
