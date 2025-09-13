@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
+  <url>
+    <loc>https://satoshicalculator.com.au/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Legal -->
+  <url>
+    <loc>https://satoshicalculator.com.au/privacy.html</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://satoshicalculator.com.au/terms.html</loc>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Tools (anchors are fine for humans, but here we give canonical section URLs) -->
+  <url>
+    <loc>https://satoshicalculator.com.au/#live-prices</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://satoshicalculator.com.au/#converter</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://satoshicalculator.com.au/#profit</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://satoshicalculator.com.au/#dca</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://satoshicalculator.com.au/#portfolio</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://satoshicalculator.com.au/#chart</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://satoshicalculator.com.au/#news</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://satoshicalculator.com.au/#facts</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://satoshicalculator.com.au/#wisdom</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://satoshicalculator.com.au/#whitepaper</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://satoshicalculator.com.au/#buy</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://satoshicalculator.com.au/#email</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://satoshicalculator.com.au/#faq</loc>
+    <priority>0.7</priority>
+  </url>
+</urlset>

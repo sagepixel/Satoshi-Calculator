@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Satoshi Calculator — Bitcoin (BTC) Tools: Converter, Profit, DCA, Portfolio, Live Price & Chart</title>
+  <meta name="description" content="Satoshi Calculator: premium Bitcoin dashboard with live BTC price, BTC↔Sats↔Fiat converter, profit & DCA calculators, portfolio tracker, TradingView chart, curated news and more." />
+  <meta name="keywords" content="satoshi calculator, bitcoin calculator, btc to usd, sats to btc, bitcoin profit calculator, bitcoin dca calculator, btc live price, bitcoin live chart, bitcoin portfolio tracker, bitcoin news, crypto, btc, satoshi, sats, blockchain" />
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- Canonical -->
+<link rel="canonical" href="https://satoshicalculator.com.au/" />
+
+<!-- Open Graph (FB/LinkedIn/WhatsApp) -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Satoshi Calculator" />
+<meta property="og:title" content="Satoshi Calculator — Bitcoin Tools That Feel Premium" />
+<meta property="og:description" content="Live BTC price, BTC↔Sats↔Fiat converter, profit & DCA calculators, portfolio, TradingView chart, curated news and more." />
+<meta property="og:url" content="https://satoshicalculator.com.au/" />
+<meta property="og:image" content="https://satoshicalculator.com.au/og-card.png?v=1" />
+<meta property="og:image:secure_url" content="https://satoshicalculator.com.au/og-card.png?v=1" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Satoshi Calculator — clean dashboard preview with Bitcoin tools." />
+
+<!-- X (Twitter) Cards -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@SagePixel2" />
+<meta name="twitter:creator" content="@SagePixel2" />
+<meta name="twitter:title" content="Satoshi Calculator — Bitcoin Tools That Feel Premium" />
+<meta name="twitter:description" content="Live BTC price, BTC↔Sats↔Fiat converter, profit & DCA calculators, portfolio, TradingView chart, curated news and more." />
+<meta name="twitter:image" content="https://satoshicalculator.com.au/og-card.png?v=1" />
+<meta name="twitter:image:alt" content="Satoshi Calculator — clean dashboard preview with Bitcoin tools." />
+
+<link rel="icon" href="favicon.png" />
+
+  <!-- Flags -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@6.6.6/css/flag-icons.min.css">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Scroll progress -->
+  <div id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Navbar -->
+  <nav class="nav" role="navigation" aria-label="Main">
+    <div class="container nav-inner">
+      <a href="#top" class="brand" aria-label="Satoshi Calculator Home">
+        <img src="bitcoin.png" alt="Bitcoin logo" class="brand-logo" />
+        <span class="brand-name">Satoshi Calculator</span>
+      </a>
+
+      <button id="themeToggle" class="btn-ghost small" aria-label="Toggle theme">Dark Mode</button>
+      <button id="navToggle" class="hamburger" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">☰</button>
+
+      <ul class="nav-links" id="navLinks" role="menubar" aria-label="Primary">
+        <li role="none"><a role="menuitem" href="#live-prices">💲 Price</a></li>
+        <li role="none"><a role="menuitem" href="#converter">🔁 Converter</a></li>
+        <li role="none"><a role="menuitem" href="#profit">📈 Profit</a></li>
+        <li role="none"><a role="menuitem" href="#dca">⏱ DCA</a></li>
+        <li role="none"><a role="menuitem" href="#portfolio">🧾 Portfolio</a></li>
+        <li role="none"><a role="menuitem" href="#chart">📊 Chart</a></li>
+        <li role="none"><a role="menuitem" href="#news">📰 News</a></li>
+        <li role="none"><a role="menuitem" href="#facts">💡 Facts</a></li>
+        <li role="none"><a role="menuitem" href="#wisdom">🔐 Wisdom</a></li>
+        <li role="none"><a role="menuitem" href="#faq">❓ FAQ</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header id="top" class="hero" role="banner" aria-label="Satoshi Calculator">
+    <div class="hero-inner container">
+      <img src="bitcoin.png" alt="Bitcoin" class="hero-logo" />
+      <div>
+        <h1 class="hero-title">Satoshi Calculator</h1>
+        <p class="hero-tagline">Convert sats, track profits, and master Bitcoin.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" role="main">
+    <!-- Live Price (USD only, robust caching/fallback) -->
+    <section id="live-prices" class="card" aria-labelledby="livePricesTitle">
+      <h2 id="livePricesTitle" class="card-title">Live Bitcoin Price</h2>
+      <div class="divider" aria-hidden="true"></div>
+      <div id="priceGrid" class="price-grid single" aria-live="polite">
+        <div class="price-tile">
+          <span class="price-flag fi fi-us" aria-hidden="true"></span>
+          <span class="price-code">USD</span>
+          <span id="p_usd" class="price-value">—</span>
+        </div>
+      </div>
+      <p id="priceMeta" class="muted small" aria-live="polite"></p>
+    </section>
+
+    <!-- Converter -->
+    <section id="converter" class="card highlight" aria-labelledby="converterTitle">
+      <h2 id="converterTitle" class="card-title">BTC / Sats / Fiat Converter</h2>
+      <div class="divider" aria-hidden="true"></div>
+      <form class="form-grid" id="converterForm" autocomplete="off">
+        <div class="form-field">
+          <label for="btcInput">BTC</label>
+          <input id="btcInput" type="number" step="0.00000001" inputmode="decimal" aria-describedby="btcHelp">
+          <small id="btcHelp" class="muted">Enter BTC amount</small>
+        </div>
+        <div class="form-field">
+          <label for="satsInput">Satoshis</label>
+          <input id="satsInput" type="number" step="1" inputmode="numeric" aria-describedby="satsHelp">
+          <small id="satsHelp" class="muted">1 BTC = 100,000,000 sats</small>
+        </div>
+        <div class="form-field full">
+          <label for="fiatSelect">Fiat</label>
+          <div class="select-wrap">
+            <span id="fiatFlag" class="fi fi-us" aria-hidden="true"></span>
+            <select id="fiatSelect" aria-label="Select fiat currency"></select>
+          </div>
+        </div>
+        <div class="form-actions full">
+          <button type="button" id="convertBtn" class="btn" aria-label="Convert BTC, sats and fiat">Convert</button>
+        </div>
+      </form>
+      <div id="convResult" class="result" aria-live="polite"></div>
+    </section>
+
+    <!-- Profit -->
+    <section id="profit" class="card highlight" aria-labelledby="profitTitle">
+      <h2 id="profitTitle" class="card-title">Profit Calculator</h2>
+      <div class="divider" aria-hidden="true"></div>
+      <form class="form-grid" id="profitForm" autocomplete="off">
+        <div class="form-field"><label for="holdBtc">BTC owned</label><input id="holdBtc" type="number" step="0.00000001" inputmode="decimal"></div>
+        <div class="form-field"><label for="avgBuy">Avg buy price</label><input id="avgBuy" type="number" step="0.01" inputmode="decimal"></div>
+        <div class="form-field"><label for="targetPrice">Target price</label><input id="targetPrice" type="number" step="0.01" inputmode="decimal"></div>
+        <div class="form-field">
+          <label for="profitFiat">Currency</label>
+          <div class="select-wrap"><span id="profitFlag" class="fi fi-us" aria-hidden="true"></span><select id="profitFiat" aria-label="Select currency"></select></div>
+        </div>
+        <div class="form-actions full">
+          <button type="submit" class="btn" aria-label="Calculate profit">Calculate</button>
+        </div>
+      </form>
+      <div id="profitResult" class="result" aria-live="polite"></div>
+    </section>
+
+    <!-- DCA -->
+    <section id="dca" class="card highlight" aria-labelledby="dcaTitle">
+      <h2 id="dcaTitle" class="card-title">DCA Calculator</h2>
+      <div class="divider" aria-hidden="true"></div>
+      <form class="form-grid" id="dcaForm" autocomplete="off">
+        <div class="form-field"><label for="dcaAmount">Amount per interval</label><input id="dcaAmount" type="number" step="0.01" inputmode="decimal"></div>
+        <div class="form-field"><label for="dcaFrequency">Frequency</label>
+          <select id="dcaFrequency" aria-label="Select DCA frequency"><option value="weekly">Weekly</option><option value="monthly">Monthly</option></select>
+        </div>
+        <div class="form-field"><label for="dcaDuration">Duration (months)</label><input id="dcaDuration" type="number" inputmode="numeric" step="1"></div>
+        <div class="form-field">
+          <label for="dcaFiat">Currency</label>
+          <div class="select-wrap"><span id="dcaFlag" class="fi fi-us" aria-hidden="true"></span><select id="dcaFiat" aria-label="Select currency"></select></div>
+        </div>
+        <div class="form-actions full">
+          <button type="submit" class="btn" aria-label="Run DCA">Run DCA</button>
+        </div>
+      </form>
+      <div id="dcaResult" class="result" aria-live="polite"></div>
+    </section>
+
+    <!-- Portfolio -->
+    <section id="portfolio" class="card highlight" aria-labelledby="portfolioTitle">
+      <h2 id="portfolioTitle" class="card-title">Portfolio Tracker</h2>
+      <div class="divider" aria-hidden="true"></div>
+      <form class="form-grid" id="pfForm" autocomplete="off">
+        <div class="form-field"><label for="pfBtc">BTC amount</label><input id="pfBtc" type="number" step="0.00000001" inputmode="decimal"></div>
+        <div class="form-field"><label for="pfBuy">Buy price (per BTC)</label><input id="pfBuy" type="number" step="0.01" inputmode="decimal"></div>
+        <div class="form-field">
+          <label for="pfFiat">Currency</label>
+          <div class="select-wrap"><span id="pfFlag" class="fi fi-us" aria-hidden="true"></span><select id="pfFiat" aria-label="Select currency"></select></div>
+        </div>
+        <div class="form-field"><label for="pfExchange">Exchange (optional)</label><input id="pfExchange" type="text" inputmode="text"></div>
+        <div class="form-actions full">
+          <button type="submit" class="btn" aria-label="Add portfolio transaction">Add Transaction</button>
+        </div>
+      </form>
+      <div class="table-wrap" role="region" aria-label="Portfolio table" tabindex="0">
+        <table class="table">
+          <thead><tr><th>BTC</th><th>Buy Price</th><th>Currency</th><th>Exchange</th><th>Invested</th><th>Current</th><th>P/L</th><th></th></tr></thead>
+          <tbody id="pfBody"></tbody>
+        </table>
+      </div>
+      <div class="pf-actions">
+        <button id="pfExport" class="btn-ghost">Export CSV</button>
+        <button id="pfClear" class="btn-ghost">Clear All</button>
+      </div>
+    </section>
+
+    <!-- Chart (TradingView only, lazy) -->
+    <section id="chart" class="card" aria-labelledby="chartTitle">
+      <h2 id="chartTitle" class="card-title">Bitcoin Price Chart</h2>
+      <div class="divider" aria-hidden="true"></div>
+      <div id="chartPlaceholder" role="status" aria-live="polite">Loading chart…</div>
+      <div id="tvChart" class="chart-container" aria-label="Interactive Bitcoin chart"></div>
+    </section>
+
+    <!-- News -->
+    <section id="news" class="card" aria-labelledby="newsTitle">
+      <h2 id="newsTitle" class="card-title">Latest Bitcoin News</h2>
+      <div class="divider" aria-hidden="true"></div>
+      <div id="newsGrid" class="news-grid" aria-live="polite">
+        <!-- Curated fallbacks present by default; JS will replace/augment -->
+        <div class="news-card"><div class="news-source">CoinDesk</div><a href="https://www.coindesk.com/" target="_blank" rel="noopener">Visit CoinDesk for Bitcoin news</a></div>
+        <div class="news-card"><div class="news-source">CoinTelegraph</div><a href="https://cointelegraph.com/" target="_blank" rel="noopener">Visit CoinTelegraph for updates</a></div>
+        <div class="news-card"><div class="news-source">Bitcoin Magazine</div><a href="https://bitcoinmagazine.com/" target="_blank" rel="noopener">Bitcoin Magazine Articles</a></div>
+        <div class="news-card"><div class="news-source">BTC.org</div><a href="https://bitcoin.org/en/blog" target="_blank" rel="noopener">Bitcoin.org Blog</a></div>
+      </div>
+    </section>
+
+    <!-- Facts -->
+    <section id="facts" class="card" aria-labelledby="factsTitle">
+      <h2 id="factsTitle" class="card-title">Did You Know?</h2>
+      <div class="divider" aria-hidden="true"></div>
+      <ul id="factsList" class="ticker" aria-live="polite"><li>1 BTC = 100,000,000 sats</li></ul>
+    </section>
+
+    <!-- Wisdom -->
+    <section id="wisdom" class="card" aria-labelledby="wisdomTitle">
+      <h2 id="wisdomTitle" class="card-title">Bitcoin Wisdom & Security</h2>
+      <div class="divider" aria-hidden="true"></div>
+      <ul id="wisdomList" class="ticker" aria-live="polite"><li>Not your keys, not your crypto.</li></ul>
+    </section>
+
+    <!-- Buy -->
+    <section id="buy" class="card" aria-labelledby="buyTitle">
+      <h2 id="buyTitle" class="card-title">Buy Bitcoin</h2>
+      <div class="divider" aria-hidden="true"></div>
+      <div class="exchange-grid" role="list">
+        <a href="https://promote.mexc.com/r/E6pJr2Qz" class="exchange-card" role="listitem" target="_blank" rel="noopener">
+          <img src="mexc.png" alt="MEXC logo" /><span>MEXC</span>
+        </a>
+        <a href="https://coinbase.com/join/483CGRG?src=ios-link" class="exchange-card" role="listitem" target="_blank" rel="noopener">
+          <img src="coinbase.png" alt="Coinbase logo" /><span>Coinbase</span>
+        </a>
+        <a href="https://www.kucoin.com/r/rf/QBSGKF14" class="exchange-card" role="listitem" target="_blank" rel="noopener">
+          <img src="kucoin.png" alt="KuCoin logo" class="kucoin-logo" /><span>KuCoin</span>
+        </a>
+        <a href="https://www.binance.com/" class="exchange-card" role="listitem" target="_blank" rel="noopener">
+          <img src="binance.png" alt="Binance logo" /><span>Binance</span>
+        </a>
+        <a href="https://invite.kraken.com/JDNW/fbv7fike" class="exchange-card" role="listitem" target="_blank" rel="noopener">
+          <img src="kraken.png" alt="Kraken logo" /><span>Kraken</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Email -->
+    <section id="email" class="card highlight" aria-labelledby="emailTitle">
+      <h2 id="emailTitle" class="card-title">Get Daily BTC Alerts</h2>
+      <div class="divider" aria-hidden="true"></div>
+      <form name="price-alerts" method="POST" data-netlify="true" class="form-grid" autocomplete="off" aria-label="Subscribe for BTC alerts">
+        <input type="hidden" name="form-name" value="price-alerts" />
+        <div class="form-field full"><label for="emailInput">Email</label><input id="emailInput" name="email" type="email" required placeholder="you@example.com"></div>
+        <div class="form-field">
+          <label for="emailFiat">Currency</label>
+          <div class="select-wrap"><span id="emailFlag" class="fi fi-us" aria-hidden="true"></span><select id="emailFiat" name="currency" aria-label="Preferred currency"></select></div>
+        </div>
+        <div class="form-actions full"><button type="submit" class="btn">Subscribe</button></div>
+      </form>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="card" aria-labelledby="faqTitle">
+      <h2 id="faqTitle" class="card-title">FAQ</h2>
+      <div class="divider" aria-hidden="true"></div>
+      <details><summary>What is Satoshi Calculator?</summary><p>It’s a Bitcoin tool suite: live price, converter, profit & DCA calculators, portfolio, chart, news, and more.</p></details>
+      <details><summary>Which APIs power the site?</summary><p>Prices: CoinGecko with fallback to Binance/Kraken. Chart: TradingView. News: RSS via proxy with curated fallback.</p></details>
+      <details><summary>Is my data private?</summary><p>Portfolio entries are stored locally in your browser (localStorage). We don’t collect personal data.</p></details>
+      <details><summary>How often are prices updated?</summary><p>Every 5 seconds with retries and cached last-known price for reliability.</p></details>
+      <details><summary>Why only Bitcoin?</summary><p>We specialize in premium Bitcoin-focused tools to keep the experience fast and high quality.</p></details>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-inner">
+      <p>Made by <a href="https://x.com/SagePixel2" class="orange-link" target="_blank" rel="noopener">@SagePixel2</a> using AI</p>
+      <p><a href="privacy.html" class="orange-link">Privacy Policy</a> · <a href="terms.html" class="orange-link">Terms of Service</a></p>
+    </div>
+  </footer>
+
+  <!-- Cookie Bar -->
+  <div id="cookieBar" class="cookie-bar" role="dialog" aria-live="polite" aria-label="Cookie consent">
+    <div class="cookie-inner">
+      <span class="cookie-text">We use cookies to improve your experience.</span>
+      <div class="cookie-actions">
+        <button id="cookieReject" class="btn-ghost small">Reject</button>
+        <button id="cookieAccept" class="btn small">Accept</button>
+        <button id="cookieClose" class="cookie-close" aria-label="Close">×</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts (TradingView tv.js is injected lazily in main.js for mobile perf) -->
+  <script src="main.js" defer></script>
+
+  <!-- JSON-LD (Organization + FAQ) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"Satoshi Calculator",
+    "url":"https://satoshicalculator.com.au",
+    "logo":"https://satoshicalculator.com.au/bitcoin.png",
+    "sameAs":["https://x.com/SagePixel2"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"What is Satoshi Calculator?","acceptedAnswer":{"@type":"Answer","text":"It’s a Bitcoin tool suite: live price, converter, profit & DCA calculators, portfolio, chart, news, and more."}},
+      {"@type":"Question","name":"Which APIs power the site?","acceptedAnswer":{"@type":"Answer","text":"Prices: CoinGecko with fallback to Binance/Kraken. Chart: TradingView. News: RSS (via proxy) and curated fallback."}},
+      {"@type":"Question","name":"Is my data private?","acceptedAnswer":{"@type":"Answer","text":"Portfolio entries are stored locally in your browser (localStorage). We don’t collect personal data."}},
+      {"@type":"Question","name":"How often are prices updated?","acceptedAnswer":{"@type":"Answer","text":"Every 5 seconds with retries and cached last-known price for reliability."}},
+      {"@type":"Question","name":"Why only Bitcoin?","acceptedAnswer":{"@type":"Answer","text":"We specialize in premium Bitcoin-focused tools to keep the experience fast and high quality."}}
+    ]
+  }
+  </script>
+</body>
+</html>
