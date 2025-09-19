@@ -44,7 +44,7 @@
   <!-- Scroll progress -->
   <div id="scrollProgress" aria-hidden="true"></div>
 
-  <!-- Navbar -->
+ <!-- Navbar -->
   <nav class="nav" role="navigation" aria-label="Main">
     <div class="container nav-inner">
       <a href="#top" class="brand" aria-label="Satoshi Calculator Home">
@@ -56,16 +56,19 @@
       <button id="navToggle" class="hamburger" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">☰</button>
 
       <ul class="nav-links" id="navLinks" role="menubar" aria-label="Primary">
-        <li role="none"><a role="menuitem" href="#live-prices">💲 Price</a></li>
-        <li role="none"><a role="menuitem" href="#converter">🔁 Converter</a></li>
-        <li role="none"><a role="menuitem" href="#profit">📈 Profit</a></li>
-        <li role="none"><a role="menuitem" href="#dca">⏱ DCA</a></li>
-        <li role="none"><a role="menuitem" href="#portfolio">🧾 Portfolio</a></li>
-        <li role="none"><a role="menuitem" href="#chart">📊 Chart</a></li>
-        <li role="none"><a role="menuitem" href="#news">📰 News</a></li>
-        <li role="none"><a role="menuitem" href="#facts">💡 Facts</a></li>
-        <li role="none"><a role="menuitem" href="#wisdom">🔐 Wisdom</a></li>
-        <li role="none"><a role="menuitem" href="#faq">❓ FAQ</a></li>
+        <li><a href="#live-prices">Price</a></li>
+        <li><a href="#converter">Converter</a></li>
+        <li><a href="#profit">Profit</a></li>
+        <li><a href="#dca">DCA</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#chart">Chart</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#facts">Facts</a></li>
+        <li><a href="#wisdom">Wisdom</a></li>
+        <li><a href="#halving">Halving</a></li>
+        <li><a href="#whitepaper">Whitepaper</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#faq">FAQ</a></li>
       </ul>
     </div>
   </nav>
@@ -201,6 +204,22 @@
       <div id="tvChart" class="chart-container" aria-label="Interactive Bitcoin chart"></div>
     </section>
 
+<!-- Bitcoin Halving -->
+<section id="halving" class="card" aria-labelledby="halvingTitle">
+  <h2 id="halvingTitle" class="card-title">Bitcoin Halving Countdown</h2>
+  <div class="divider"></div>
+  <p>
+    The fourth Bitcoin halving was completed on April 2024. 
+    It is difficult to predict the exact date of the next halving as it depends on the block height. 
+    Since halving happens every 210,000 blocks, the next Bitcoin halving is expected to occur in 2028.
+  </p>
+  <div id="halvingData">
+    <p><strong>Current Block Reward:</strong> <span id="currentReward">—</span> BTC</p>
+    <p><strong>Blocks Remaining:</strong> <span id="blocksRemaining">—</span></p>
+    <p><strong>Estimated Time Left:</strong> <span id="halvingCountdown">—</span></p>
+  </div>
+</section>
+
     <!-- News -->
     <section id="news" class="card" aria-labelledby="newsTitle">
       <h2 id="newsTitle" class="card-title">Latest Bitcoin News</h2>
@@ -226,6 +245,27 @@
       <h2 id="wisdomTitle" class="card-title">Bitcoin Wisdom & Security</h2>
       <div class="divider" aria-hidden="true"></div>
       <ul id="wisdomList" class="ticker" aria-live="polite"><li>Not your keys, not your crypto.</li></ul>
+    </section>
+
+  <!-- Bitcoin Whitepaper -->
+    <section id="whitepaper" class="card" aria-labelledby="whitepaperTitle">
+      <h2 id="whitepaperTitle" class="card-title">The Paper That Changed the World</h2>
+      <div class="divider"></div>
+      <p>Read the original <strong>Bitcoin Whitepaper</strong> by Satoshi Nakamoto:</p>
+      <a href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener" class="btn">Read Whitepaper</a>
+    </section>
+
+    <!-- Blog -->
+    <section id="blog" class="card" aria-labelledby="blogTitle">
+      <h2 id="blogTitle" class="card-title">Latest Blog Posts</h2>
+      <div class="divider"></div>
+      <div class="news-grid">
+        <div class="news-card"><a href="#" target="_blank">Bitcoin Basics for Beginners</a></div>
+        <div class="news-card"><a href="#" target="_blank">Why the 2024 Halving Matters</a></div>
+        <div class="news-card"><a href="#" target="_blank">Top 5 Wallets to Secure Your BTC</a></div>
+        <div class="news-card"><a href="#" target="_blank">The Future of Bitcoin Mining</a></div>
+        <div class="news-card"><a href="#" target="_blank">Understanding Bitcoin Fees</a></div>
+      </div>
     </section>
 
     <!-- Buy -->
@@ -269,12 +309,14 @@
     <!-- FAQ -->
     <section id="faq" class="card" aria-labelledby="faqTitle">
       <h2 id="faqTitle" class="card-title">FAQ</h2>
-      <div class="divider" aria-hidden="true"></div>
-      <details><summary>What is Satoshi Calculator?</summary><p>It’s a Bitcoin tool suite: live price, converter, profit & DCA calculators, portfolio, chart, news, and more.</p></details>
-      <details><summary>Which APIs power the site?</summary><p>Prices: CoinGecko with fallback to Binance/Kraken. Chart: TradingView. News: RSS via proxy with curated fallback.</p></details>
-      <details><summary>Is my data private?</summary><p>Portfolio entries are stored locally in your browser (localStorage). We don’t collect personal data.</p></details>
-      <details><summary>How often are prices updated?</summary><p>Every 5 seconds with retries and cached last-known price for reliability.</p></details>
-      <details><summary>Why only Bitcoin?</summary><p>We specialize in premium Bitcoin-focused tools to keep the experience fast and high quality.</p></details>
+      <div class="divider"></div>
+      <details><summary><strong>What is Satoshi Calculator?</strong></summary><p>It is a Bitcoin tool suite: live price, converter, profit & DCA calculators, portfolio, chart, news, and more.</p></details>
+      <details><summary><strong>Which APIs power the site?</strong></summary><p>Prices: CoinGecko with fallback to Binance/Kraken. Chart: TradingView. News: RSS via proxy with curated fallback.</p></details>
+      <details><summary><strong>Is my data private?</strong></summary><p>Portfolio entries are stored locally in your browser (localStorage). We don’t collect personal data.</p></details>
+      <details><summary><strong>How often are prices updated?</strong></summary><p>Every 5 seconds with retries and cached last-known price for reliability.</p></details>
+      <details><summary><strong>Why only Bitcoin?</strong></summary><p>We specialize in premium Bitcoin-focused tools to keep the experience fast and high quality.</p></details>
+      <details><summary><strong>When is the next Bitcoin halving?</strong></summary><p>The next halving is expected around 2028 at block height 1,050,000.</p></details>
+      <details><summary><strong>Can I use this tool on mobile?</strong></summary><p>Yes! The site is fully responsive and works on mobile and desktop.</p></details>
     </section>
   </main>
 
@@ -301,7 +343,7 @@
   <!-- Scripts (TradingView tv.js is injected lazily in main.js for mobile perf) -->
   <script src="main.js" defer></script>
 
-  <!-- JSON-LD (Organization + FAQ) -->
+    <!-- JSON-LD (Organization + FAQ) -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -309,19 +351,76 @@
     "name":"Satoshi Calculator",
     "url":"https://satoshicalculator.com.au",
     "logo":"https://satoshicalculator.com.au/bitcoin.png",
-    "sameAs":["https://x.com/SagePixel2"]
+    "sameAs":["https://x.com/SagePixel2"],
+    "creator": {
+      "@type": "Person",
+      "name": "SagePixel",
+      "sameAs": "https://x.com/SagePixel2"
+    }
   }
   </script>
+
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@type":"FAQPage",
     "mainEntity":[
-      {"@type":"Question","name":"What is Satoshi Calculator?","acceptedAnswer":{"@type":"Answer","text":"It’s a Bitcoin tool suite: live price, converter, profit & DCA calculators, portfolio, chart, news, and more."}},
-      {"@type":"Question","name":"Which APIs power the site?","acceptedAnswer":{"@type":"Answer","text":"Prices: CoinGecko with fallback to Binance/Kraken. Chart: TradingView. News: RSS (via proxy) and curated fallback."}},
-      {"@type":"Question","name":"Is my data private?","acceptedAnswer":{"@type":"Answer","text":"Portfolio entries are stored locally in your browser (localStorage). We don’t collect personal data."}},
-      {"@type":"Question","name":"How often are prices updated?","acceptedAnswer":{"@type":"Answer","text":"Every 5 seconds with retries and cached last-known price for reliability."}},
-      {"@type":"Question","name":"Why only Bitcoin?","acceptedAnswer":{"@type":"Answer","text":"We specialize in premium Bitcoin-focused tools to keep the experience fast and high quality."}}
+      {
+        "@type":"Question",
+        "name":"What is Satoshi Calculator?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"It is a Bitcoin tool suite: live price, converter, profit & DCA calculators, portfolio, chart, news, and more."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Which APIs power the site?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Prices: CoinGecko with fallback to Binance/Kraken. Chart: TradingView. News: RSS via proxy with curated fallback."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Is my data private?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Portfolio entries are stored locally in your browser (localStorage). We don’t collect personal data."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"How often are prices updated?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Every 5 seconds with retries and cached last-known price for reliability."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Why only Bitcoin?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"We specialize in premium Bitcoin-focused tools to keep the experience fast and high quality."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"When is the next Bitcoin halving?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"The next halving is expected around 2028 at block height 1,050,000."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Can I use this tool on mobile?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Yes! The site is fully responsive and works on mobile and desktop."
+        }
+      }
     ]
   }
   </script>
