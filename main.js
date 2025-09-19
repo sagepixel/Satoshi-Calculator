@@ -73,7 +73,6 @@ async function getPriceFromKraken(){
 }
 
 async function getRobustPrice(){
-  // retry strategy: CoinGecko -> Binance -> Kraken
   const fns = [getPriceFromCoinGecko, getPriceFromBinance, getPriceFromKraken];
   for (const fn of fns){
     for (let attempt=1; attempt<=2; attempt++){
@@ -99,7 +98,7 @@ function useCachedPriceIfAvailable(msg='Using last known price'){
 }
 
 async function updatePriceLoop(){
-  // First paint: never show "unavailable" — use cache if any
+  // First paint: use cache if available
   useCachedPriceIfAvailable('Cached');
   // Then fetch live
   try{
@@ -110,11 +109,9 @@ async function updatePriceLoop(){
     setPriceUI(price, source);
   }catch(err){
     console.error('[price] all failed', err);
-    // keep cached UI; if nothing cached yet, show "—" but not "unavailable"
     if (!rates.usd) { $('#p_usd').textContent = '—'; $('#priceMeta').textContent = 'Trying to connect…'; }
   }
 }
-// initial + interval
 updatePriceLoop();
 setInterval(updatePriceLoop, 5000);
 
@@ -459,8 +456,6 @@ function initTradingView(){
       withdateranges: true,
       allow_symbol_change: false,
       calendar: true
-      // onChartReady is unreliable for placeholder visibility because of cross-origin;
-      // we rely on MutationObserver + iframe load listener instead.
     });
 
     // Safety timeout: if nothing rendered after 6s, hide placeholder anyway
@@ -579,7 +574,91 @@ function rotateList(el, arr, delay=5000){
 rotateList($('#factsList'), FACTS);
 rotateList($('#wisdomList'), WISDOM);
 
-// ========= Cookie bar (already good; keep reliable close) =========
+// ========= Halving Countdown (dynamic) =========
+(function(){
+  const intervalBlocks = 210000;
+  const avgBlockSec = 600; // 10 min
+  const rewardStart = 50;
+
+  const $reward = $('#currentReward');
+  const $remain = $('#blocksRemaining');
+  const $eta    = $('#halvingCountdown');
+
+  let etaMs = null; // target timestamp for next halving
+  let heightAtFetch = null;
+
+  function trimZeros(n){
+    return n.toFixed(8).replace(/\.?0+$/,'');
+  }
+
+  function calcRewardForHeight(h){
+    const halvings = Math.floor(h / intervalBlocks);
+    return rewardStart * Math.pow(0.5, halvings);
+  }
+
+  function nextHalvingHeight(h){
+    return Math.floor(h / intervalBlocks) * intervalBlocks + intervalBlocks;
+  }
+
+  async function fetchHeight(){
+    // Try Blockchain.info first (returns plain text)
+    try {
+      const r1 = await fetch('https://blockchain.info/q/getblockcount?cors=true', { cache:'no-store' });
+      const t1 = await r1.text();
+      const n1 = parseInt(t1, 10);
+      if (Number.isFinite(n1)) return n1;
+    } catch(e){ /* ignore */ }
+
+    // Fallback: Blockstream (also plain text)
+    try {
+      const r2 = await fetch('https://blockstream.info/api/blocks/tip/height', { cache:'no-store' });
+      const t2 = await r2.text();
+      const n2 = parseInt(t2, 10);
+      if (Number.isFinite(n2)) return n2;
+    } catch(e){ /* ignore */ }
+
+    throw new Error('Unable to fetch block height');
+  }
+
+  function renderCountdown(){
+    if (etaMs == null) { $eta.textContent = '—'; return; }
+    const msLeft = Math.max(0, etaMs - Date.now());
+    const totalSec = Math.floor(msLeft / 1000);
+    const days = Math.floor(totalSec / 86400);
+    const hours = Math.floor((totalSec % 86400) / 3600);
+    const mins = Math.floor((totalSec % 3600) / 60);
+    $eta.textContent = `${days}d ${String(hours).padStart(2,'0')}h ${String(mins).padStart(2,'0')}m`;
+  }
+
+  async function refreshHalving(){
+    try{
+      const h = await fetchHeight();
+      heightAtFetch = h;
+      const nxt = nextHalvingHeight(h);
+      const blocksRemaining = Math.max(0, nxt - h);
+      const rewardNow = calcRewardForHeight(h);
+
+      // Estimate target timestamp assuming avg 10-min blocks from NOW
+      etaMs = Date.now() + blocksRemaining * avgBlockSec * 1000;
+
+      if ($reward) $reward.textContent = trimZeros(rewardNow);
+      if ($remain) $remain.textContent = blocksRemaining.toLocaleString();
+      renderCountdown();
+    }catch(err){
+      console.error('[halving]', err);
+      if ($eta) $eta.textContent = 'Data unavailable';
+    }
+  }
+
+  // Initial + periodic refresh
+  refreshHalving();
+  // Update the ETA display every second for smooth countdown
+  setInterval(renderCountdown, 1000);
+  // Refresh block height periodically to keep it accurate
+  setInterval(refreshHalving, 60 * 1000);
+})();
+
+// ========= Cookie bar =========
 const cookieBar = $('#cookieBar');
 if (sessionStorage.getItem('cookieChoice')) cookieBar.style.display = 'none';
 $('#cookieAccept').addEventListener('click', ()=>{ sessionStorage.setItem('cookieChoice','accepted'); cookieBar.style.display='none'; });
