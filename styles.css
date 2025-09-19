@@ -30,6 +30,7 @@ body.dark .nav{background:rgba(30,30,30,.95);border-color:var(--stroke-dark)}
 .nav-links{margin-left:auto;display:flex;gap:10px;list-style:none;padding:0}
 .nav-links a{display:block;padding:8px 10px;border-radius:10px;text-decoration:none;color:inherit}
 .nav-links a:hover{background:rgba(0,0,0,.05)}
+body.dark .nav-links a:hover{background:rgba(255,255,255,.08)}
 .hamburger{display:none;background:transparent;border:1px solid var(--stroke-light);border-radius:10px;padding:6px 10px;cursor:pointer}
 body.dark .hamburger{border-color:var(--stroke-dark);color:#fff}
 
@@ -82,14 +83,14 @@ body.dark .select-wrap{background:#202124;border-color:var(--stroke-dark)}
 .form-actions{display:flex;justify-content:center;margin-top:6px}
 
 /* Results */
-.result{margin-top:10px;font-weight:800}
+.result{margin-top:10px;font-weight:800;text-align:center}
 
 /* Chart */
 #chartPlaceholder{display:flex;align-items:center;justify-content:center;height:440px;border:1px dashed var(--stroke-light);border-radius:12px;color:var(--muted-light);font-style:italic;background:repeating-linear-gradient(45deg,transparent,transparent 10px,rgba(0,0,0,.02) 10px,rgba(0,0,0,.02) 20px)}
 body.dark #chartPlaceholder{border-color:var(--stroke-dark);color:var(--muted-dark);background:repeating-linear-gradient(45deg,transparent,transparent 10px,rgba(255,255,255,.03) 10px,rgba(255,255,255,.03) 20px)}
 .chart-container{width:100%;height:440px}
 
-/* News */
+/* News & Blog */
 .news-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
 .news-card{background:var(--card-light);border:1px solid var(--stroke-light);padding:14px;border-radius:12px}
 .news-card a{text-decoration:none;color:inherit}
@@ -107,7 +108,7 @@ body.dark .news-source{color:var(--muted-dark)}
 .table{width:100%;border-collapse:collapse}
 .table th,.table td{border-bottom:1px solid var(--stroke-light);padding:10px;white-space:nowrap;text-align:left}
 body.dark .table th,body.dark .table td{border-color:var(--stroke-dark)}
-.pf-actions{display:flex;gap:10px;margin-top:10px}
+.pf-actions{display:flex;gap:10px;margin-top:10px;justify-content:center}
 
 /* Buy Exchanges */
 .exchange-grid{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
@@ -119,8 +120,14 @@ body.dark .table th,body.dark .table td{border-color:var(--stroke-dark)}
 .footer{border-top:1px solid var(--stroke-light);background:var(--card-light)}
 .footer-inner{padding:24px 0;text-align:center}
 .footer-inner p{margin:.25rem 0}
+body.dark .footer{background:var(--card-dark);border-color:var(--stroke-dark)}
 .orange-link{color:var(--btc);text-decoration:none}
 .orange-link:hover{text-decoration:underline}
+
+/* FAQ */
+#faq details{margin-bottom:10px}
+#faq summary{cursor:pointer}
+#faq p{margin:6px 0 0}
 
 /* Cookie bar */
 .cookie-bar{position:fixed;left:0;right:0;bottom:0;z-index:9999;background:rgba(17,17,17,.9);color:#fff;border-top:1px solid rgba(255,255,255,.08)}
@@ -138,7 +145,7 @@ body.dark .table th,body.dark .table td{border-color:var(--stroke-dark)}
 @media (max-width: 768px){
   .hero-inner{flex-direction:column;text-align:center}
   .form-grid{grid-template-columns:1fr}
-  .btn{padding:14px 24px} /* touch-friendly */
+  .btn{padding:14px 24px}
   .ticker{height:40px}
   .ticker li{font-size:1.05rem}
   #chartPlaceholder,.chart-container{height:380px}
