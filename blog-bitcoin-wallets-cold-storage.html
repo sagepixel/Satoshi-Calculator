@@ -236,13 +236,21 @@
     </aside>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer" role="contentinfo">
-    <div class="container footer-inner">
-      <p>Made by <a href="https://x.com/SagePixel2" class="orange-link" target="_blank" rel="noopener">@SagePixel2</a> using AI</p>
-      <p><a href="privacy.html" class="orange-link">Privacy Policy</a> · <a href="terms.html" class="orange-link">Terms of Service</a> · <a href="about.html" class="orange-link">About</a> · <a href="mailto:satoshicalculator@gmail.com" class="orange-link">Contact</a></p>
-    </div>
-  </footer>
+ <!-- Footer -->
+<footer class="footer" role="contentinfo">
+  <div class="container footer-inner">
+    <p>
+      Made by <a href="https://x.com/SagePixel2" class="orange-link" target="_blank" rel="noopener">@SagePixel2</a> using AI
+    </p>
+    <p>
+      <a href="privacy.html" class="orange-link">Privacy Policy</a> · 
+      <a href="terms.html" class="orange-link">Terms of Service</a> · 
+      <a href="disclaimer.html" class="orange-link">Disclaimer</a> · 
+      <a href="contact.html" class="orange-link">Contact</a> · 
+      <a href="about.html" class="orange-link">About</a>
+    </p>
+  </div>
+</footer>
 
   <!-- Main JS (for theme toggle, nav, progress) -->
   <script src="main.js" defer></script>
@@ -276,5 +284,80 @@
     "dateModified": "2025-01-01"
   }
   </script>
+
+  <!-- JSON-LD (Organization + Trust Pages) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Satoshi Calculator",
+  "url": "https://satoshicalculator.com.au",
+  "logo": "https://satoshicalculator.com.au/bitcoin.png",
+  "sameAs": [
+    "https://x.com/SagePixel2"
+  ],
+  "creator": {
+    "@type": "Person",
+    "name": "SagePixel",
+    "sameAs": "https://x.com/SagePixel2"
+  },
+  "hasPart": [
+    {
+      "@type": "WebPage",
+      "name": "Privacy Policy",
+      "url": "https://satoshicalculator.com.au/privacy.html"
+    },
+    {
+      "@type": "WebPage",
+      "name": "Terms of Service",
+      "url": "https://satoshicalculator.com.au/terms.html"
+    },
+    {
+      "@type": "WebPage",
+      "name": "Disclaimer",
+      "url": "https://satoshicalculator.com.au/disclaimer.html"
+    },
+    {
+      "@type": "WebPage",
+      "name": "Contact",
+      "url": "https://satoshicalculator.com.au/contact.html"
+    },
+    {
+      "@type": "WebPage",
+      "name": "About",
+      "url": "https://satoshicalculator.com.au/about.html"
+    }
+  ]
+}
+</script>
+
+<!-- JSON-LD (Article Schema for this blog) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Understanding Bitcoin Wallets and Why Cold Storage Matters",
+  "description": "A detailed guide to different types of Bitcoin wallets including hot wallets, hardware wallets, and paper wallets. Learn why cold storage is the safest way to secure your BTC.",
+  "author": {
+    "@type": "Person",
+    "name": "SagePixel"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Satoshi Calculator",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://satoshicalculator.com.au/bitcoin.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://satoshicalculator.com.au/blog-bitcoin-wallets-cold-storage.html"
+  },
+  "image": "https://satoshicalculator.com.au/og-card.png?v=1",
+  "datePublished": "2025-09-21",
+  "dateModified": "2025-09-21"
+}
+</script>
 </body>
 </html>
