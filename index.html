@@ -474,23 +474,51 @@
   <!-- Scripts (TradingView tv.js is injected lazily in main.js) -->
   <script src="main.js" defer></script>
 
-  <!-- JSON-LD (Organization) -->
+    <!-- JSON-LD (Organization + Trust Pages) -->
   <script type="application/ld+json">
   {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"Satoshi Calculator",
-    "url":"https://satoshicalculator.com.au",
-    "logo":"https://satoshicalculator.com.au/bitcoin.png",
-    "sameAs":["https://x.com/SagePixel2"],
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Satoshi Calculator",
+    "url": "https://satoshicalculator.com.au",
+    "logo": "https://satoshicalculator.com.au/bitcoin.png",
+    "sameAs": [
+      "https://x.com/SagePixel2"
+    ],
     "creator": {
       "@type": "Person",
       "name": "SagePixel",
       "sameAs": "https://x.com/SagePixel2"
-    }
+    },
+    "hasPart": [
+      {
+        "@type": "WebPage",
+        "name": "Privacy Policy",
+        "url": "https://satoshicalculator.com.au/privacy.html"
+      },
+      {
+        "@type": "WebPage",
+        "name": "Terms of Service",
+        "url": "https://satoshicalculator.com.au/terms.html"
+      },
+      {
+        "@type": "WebPage",
+        "name": "Disclaimer",
+        "url": "https://satoshicalculator.com.au/disclaimer.html"
+      },
+      {
+        "@type": "WebPage",
+        "name": "Contact",
+        "url": "https://satoshicalculator.com.au/contact.html"
+      },
+      {
+        "@type": "WebPage",
+        "name": "About",
+        "url": "https://satoshicalculator.com.au/about.html"
+      }
+    ]
   }
   </script>
-
   <!-- JSON-LD (FAQPage) — must match visible FAQ content -->
   <script type="application/ld+json">
   {
