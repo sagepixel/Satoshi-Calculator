@@ -2,143 +2,316 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Why Bitcoin Mining Secures the World’s First Decentralized Network</title>
-  <meta name="description" content="Learn how Bitcoin mining secures the blockchain, why proof-of-work matters, and why Bitcoin energy use is not wasteful but essential for freedom." />
+  <title>How Bitcoin Mining Works and Why It Secures the First Decentralized Network</title>
+  <meta name="description" content="A deep, practical guide to Bitcoin mining: blocks, proof of work, difficulty, fees, energy use, incentives, and why mining secures the world’s first decentralized monetary network. Includes links to calculators, halving tracker, wallets, and more." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://satoshicalculator.com.au/blog-how-bitcoin-mining-works.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="How Bitcoin Mining Works and Why It Secures the First Decentralized Network" />
+  <meta property="og:description" content="Understand blocks, proof of work, difficulty, fees, energy, and incentives—plus why mining makes Bitcoin censorship resistant and decentralized." />
+  <meta property="og:url" content="https://satoshicalculator.com.au/blog-how-bitcoin-mining-works.html" />
+  <meta property="og:site_name" content="Satoshi Calculator" />
+  <meta property="og:image" content="https://satoshicalculator.com.au/og-card.png?v=1" />
+  <meta property="og:image:alt" content="Satoshi Calculator — clean dashboard preview with Bitcoin tools." />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@SagePixel2" />
+  <meta name="twitter:creator" content="@SagePixel2" />
+  <meta name="twitter:title" content="How Bitcoin Mining Works and Why It Secures the First Decentralized Network" />
+  <meta name="twitter:description" content="From mempool to blocks: the full journey of a Bitcoin transaction and how proof of work keeps the network secure." />
+  <meta name="twitter:image" content="https://satoshicalculator.com.au/og-card.png?v=1" />
+
+  <link rel="icon" href="favicon.png" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="container">
-    <article class="card">
-      <h1>Why Bitcoin Mining Secures the World’s First Decentralized Network</h1>
-      <p><em>By Satoshi Calculator — @SagePixel2</em></p>
+  <!-- Top progress bar -->
+  <div id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Navbar -->
+  <nav class="nav" role="navigation" aria-label="Main">
+    <div class="container nav-inner">
+      <a href="index.html#top" class="brand" aria-label="Satoshi Calculator Home">
+        <img src="bitcoin.png" alt="Bitcoin logo" class="brand-logo" />
+        <span class="brand-name">Satoshi Calculator</span>
+      </a>
+
+      <button id="themeToggle" class="btn-ghost small" aria-label="Toggle theme">Dark Mode</button>
+      <button id="navToggle" class="hamburger" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">☰</button>
+
+      <ul class="nav-links" id="navLinks" role="menubar" aria-label="Primary">
+        <li><a href="index.html#live-prices">Price</a></li>
+        <li><a href="index.html#converter">Converter</a></li>
+        <li><a href="index.html#profit">Profit</a></li>
+        <li><a href="index.html#dca">DCA</a></li>
+        <li><a href="index.html#portfolio">Portfolio</a></li>
+        <li><a href="index.html#chart">Chart</a></li>
+        <li><a href="index.html#news">News</a></li>
+        <li><a href="index.html#facts">Facts</a></li>
+        <li><a href="index.html#wisdom">Wisdom</a></li>
+        <li><a href="index.html#halving">Halving</a></li>
+        <li><a href="index.html#whitepaper">Whitepaper</a></li>
+        <li><a href="index.html#blog">Blog</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Article header -->
+  <header class="hero" role="banner" aria-label="Article header">
+    <div class="hero-inner container">
+      <img src="bitcoin.png" alt="Bitcoin" class="hero-logo" />
+      <div>
+        <h1 class="hero-title">How Bitcoin Mining Works and Why It Secures the First Decentralized Network</h1>
+        <p class="hero-tagline">From mempool to block to final settlement—learn the mechanics, the incentives, and the security model behind proof of work.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" role="main">
+    <article class="card" aria-labelledby="postTitle">
+      <h2 id="postTitle" class="card-title">A practical guide for curious Bitcoiners</h2>
+      <div class="divider" aria-hidden="true"></div>
+
+      <p class="muted small">By <a class="orange-link" href="https://x.com/SagePixel2" target="_blank" rel="noopener">@SagePixel2</a> • Educational content • Not financial advice</p>
+
+      <section id="intro" style="margin-top:12px">
+        <p>
+          Bitcoin mining is often reduced to a single sentence about computers solving math problems. The truth is richer. Mining is an economic engine that turns electricity into digital scarcity and global settlement. It connects code to the physical world through cost and competition. It aligns incentives so millions of strangers can agree on a single history of transactions without trusting a central authority. This article explains how mining works, step by step, and why it secures the first decentralized monetary network that has operated reliably for more than a decade.
+        </p>
+        <p>
+          Along the way we will link to hands on tools and guides. If you want to see how protocol events shape supply, open our <a class="orange-link" href="index.html#halving">Halving Countdown</a>. If you want to estimate returns at different prices, try the <a class="orange-link" href="index.html#profit">Profit Calculator</a>. If you are here because you care about custody, read our primer on <a class="orange-link" href="blog-bitcoin-wallets-cold-storage.html">wallets and cold storage</a>. If you are new to Bitcoin’s origin and design, the story of <a class="orange-link" href="blog-satoshi-nakamoto.html">Satoshi Nakamoto</a> is essential context.
+        </p>
+      </section>
+
+      <section id="tx-journey">
+        <h3>From wallet to mempool to block</h3>
+        <p>
+          A Bitcoin transaction begins in your wallet. You compose the amount, the recipient address, and a fee. The wallet signs the transaction using your private key and broadcasts it to the network. Nodes that receive it validate basic rules and, if valid, store it in the mempool, a waiting room for pending transactions. Miners build candidate blocks by selecting transactions from the mempool, typically prioritizing those with higher fees per byte. The goal is to include as much fee revenue as possible while staying within the block size and weight limits.
+        </p>
+        <p>
+          A block is a bundle of transactions plus a special transaction called the coinbase, which pays the miner the block subsidy and collected fees. This bundle is hashed with a pointer to the previous block’s hash, forming a chain of blocks. Miners then vary a number called the nonce and other header fields to search for a hash below a protocol target. This is the proof of work puzzle: finding a valid hash that proves you spent real computational work.
+        </p>
+      </section>
+
+      <section id="pow-difficulty">
+        <h3>Proof of work and the difficulty adjustment</h3>
+        <p>
+          Proof of work is simple to verify but deliberately costly to produce. A valid block header must have a hash lower than the current target. Because SHA-256 behaves like a random oracle, the only way to find a valid hash is to try many inputs until one lands below the threshold. That makes block production probabilistic. The more hashing power you control, the higher your chance of finding the next block.
+        </p>
+        <p>
+          To keep blocks arriving every ten minutes on average, Bitcoin adjusts difficulty every 2016 blocks, roughly every two weeks. If the previous 2016 blocks arrived too quickly, the protocol increases difficulty, lowering the target and making valid hashes rarer. If they arrived too slowly, the protocol decreases difficulty. This closed loop is one of Bitcoin’s most elegant features. No central scheduler is needed. The network adapts automatically to changes in global hashing power.
+        </p>
+      </section>
+
+      <section id="incentives">
+        <h3>Subsidy, fees, and incentives</h3>
+        <p>
+          Miners earn two revenue streams. The first is the block subsidy, newly issued bitcoins created with each block. The second is transaction fees included in that block. The subsidy follows a predictable schedule that halves every 210,000 blocks in the event known as the <a class="orange-link" href="blog-bitcoin-halving.html">halving</a>. It decreased from 50 BTC at launch to 25, 12.5, 6.25, and currently 3.125 BTC. It will keep halving until issuance effectively reaches zero in the next century.
+        </p>
+        <p>
+          As subsidy declines, fees gradually become a larger share of miner revenue. This is by design. Fees are a market signal. When many people want to transact at the same time, fees rise, and miners are incentivized to include more transactions. Over time the network transitions from security primarily funded by inflation to security primarily funded by users paying for block space.
+        </p>
+      </section>
+
+      <section id="finality">
+        <h3>Confirmations and probabilistic finality</h3>
+        <p>
+          When a miner finds a valid block, it propagates across the network. Other miners accept it and immediately start building on top of it. Because block discovery is probabilistic, there are rare moments when two miners find blocks at nearly the same time. The network temporarily sees a short fork. Soon one branch will become longer as the next block lands on it, and the other branch’s tip becomes an orphan. This is why wallets show “confirmations.” After about six confirmations, the probability of a reorganization that would remove your transaction becomes vanishingly small for most use cases.
+        </p>
+      </section>
+
+      <section id="security">
+        <h3>Why mining secures the network</h3>
+        <p>
+          Security in Bitcoin is economic. To rewrite history, an attacker must control more hashing power than the honest majority over the period they want to reverse. That means buying or hijacking an immense amount of hardware and electricity, then sustaining the attack while the rest of the world watches. Even if an attacker succeeded for a moment, the community could coordinate responses such as ignoring the attacker’s chain, upgrading software, or in extreme cases making economic changes. The cost, visibility, and coordination required make large scale attacks impractical.
+        </p>
+        <p>
+          Proof of work also resists censorship. A miner who refuses to include certain transactions forfeits fees to other miners who will gladly include them. Because miners are globally distributed and financially motivated to earn revenue, the network tends to process valid transactions without needing a central arbiter. This is how Bitcoin remains neutral infrastructure.
+        </p>
+      </section>
+
+      <section id="pools">
+        <h3>Pools, home miners, and decentralization in practice</h3>
+        <p>
+          Most miners join pools to smooth revenue. A pool aggregates hash rate from many participants and pays them proportional to contributed work when the pool finds a block. This does not mean the pool owns your hardware. It coordinates work and payouts. Healthy decentralization encourages multiple pools, geographic dispersion, and open standards so no single operator can dictate rules. Individual miners can increase resilience by choosing reputable pools and switching if policies become unfriendly.
+        </p>
+        <p>
+          Home mining with modern ASICs is still possible in some regions, especially where electricity is inexpensive or where waste heat can be repurposed to warm living spaces. Industrial miners search for energy that is cheap, stranded, or intermittent, such as hydro during rainy seasons, curtailed wind, or natural gas that would otherwise be flared. Mining puts a buyer of last resort at the edge of the grid, monetizing energy that is difficult to transport.
+        </p>
+      </section>
+
+      <section id="energy">
+        <h3>Energy use and why it is purposeful</h3>
+        <p>
+          Bitcoin’s energy use is not a byproduct. It is the mechanism that binds the digital ledger to physical reality. The network consumes energy to make history expensive to forge. Much of this energy is renewable or stranded. Miners flock to the cheapest sources they can find, which often means hydro, wind, solar during off peak periods, geothermal where available, or gas that would otherwise be wasted. In some cases miners help stabilize grids by turning on during surplus and shutting down when demand spikes.
+        </p>
+        <p>
+          Whether you view this as worthy depends on what you believe the network provides. If you see Bitcoin as a neutral, censorship resistant settlement layer for the internet that protects savings against debasement, the energy use looks like the cost of global monetary security. If you are exploring this subject, our article on <a class="orange-link" href="blog-bitcoin-mining-network-security.html">mining and network security</a> expands on these ideas.
+        </p>
+      </section>
+
+      <section id="how-to-start">
+        <h3>How to think about mining as a participant</h3>
+        <p>
+          For most individuals, buying and self custodying Bitcoin is simpler than operating miners. If you want personal exposure to mining economics, you can study at small scale first: learn about ASIC models, hashrate, expected output at your electricity rate, and noise and heat management. Consider whether you value the heat as a byproduct in colder months. Run the numbers like a small business. For many, a more practical path is to focus on accumulation through steady buying and cold storage. Experiment with our <a class="orange-link" href="index.html#dca">DCA simulator</a> and <a class="orange-link" href="index.html#profit">profit calculator</a> to plan long term.
+        </p>
+      </section>
+
+      <section id="attacks">
+        <h3>Common attack ideas and why they fail</h3>
+        <ul>
+          <li><strong>Fifty one percent attacks:</strong> Sustainably acquiring majority hash rate is massively expensive, publicly visible, and economically self defeating.</li>
+          <li><strong>Protocol change by decree:</strong> Nodes enforce rules. If code changes lack broad consensus, users simply do not run it.</li>
+          <li><strong>Censorship:</strong> Miners who censor lose fees to miners who do not. Global distribution makes collusion hard and fragile.</li>
+        </ul>
+        <p>
+          None of this means Bitcoin is invincible. It means that the cheapest path for rational actors is to follow the rules and earn revenue rather than attack the network. That incentive alignment is the heart of its resilience.
+        </p>
+      </section>
+
+      <section id="future">
+        <h3>The road ahead: fees, scaling, and layers</h3>
+        <p>
+          Over decades, block subsidies will fall. Security will rely more on fees and on robust demand for block space. This encourages efficient use of the base layer and growth on layers built above it. The <a class="orange-link" href="blog-bitcoin-lightning-network.html">Lightning Network</a> already allows near instant, low cost payments that settle back to the base chain as needed. Other protocols focus on batching and smart contracting techniques while preserving the base layer’s conservative design.
+        </p>
+        <p>
+          The core chain remains simple, auditable, and hard to change. Layers experiment and absorb use cases that do not require global broadcast of every small payment. This separation keeps the foundation robust while enabling everyday utility.
+        </p>
+      </section>
+
+      <section id="wrap">
+        <h3>Key takeaways</h3>
+        <ul>
+          <li>Mining transforms electricity into digital finality through proof of work and difficulty adjustment.</li>
+          <li>Economic incentives make honest behavior more profitable than attacks.</li>
+          <li>Energy use is purposeful security spend, increasingly sourced from cheap, renewable, or stranded energy.</li>
+          <li>Decentralization emerges from global competition among miners, pools, manufacturers, and energy sources.</li>
+          <li>For most people, steady accumulation and <a class="orange-link" href="blog-bitcoin-wallets-cold-storage.html">self custody</a> are simpler than operating miners.</li>
+        </ul>
+        <p>
+          Want to model different price targets or savings plans. Try the <a class="orange-link" href="index.html#profit">Profit Calculator</a> and <a class="orange-link" href="index.html#dca">DCA simulator</a>. Curious how supply evolves. Watch the <a class="orange-link" href="index.html#halving">Halving Countdown</a>. If you are new, start with the <a class="orange-link" href="index.html#whitepaper">whitepaper</a> and the story of <a class="orange-link" href="blog-satoshi-nakamoto.html">Satoshi Nakamoto</a>. When you are ready to buy responsibly, visit <a class="orange-link" href="index.html#buy">Buy Bitcoin</a> on our homepage and read the affiliate disclosure.
+        </p>
+      </section>
+
+      <div class="divider" aria-hidden="true"></div>
+      <p class="small muted">Educational content only. Not financial advice. Practice with small amounts first and store long term funds in cold storage.</p>
+    </article>
+
+    <!-- Helpful extras -->
+    <aside class="card">
+      <h3 class="card-title">More to explore</h3>
       <div class="divider"></div>
+      <ul>
+        <li><a class="orange-link" href="blog-bitcoin-mining-network-security.html">Why Bitcoin Mining Secures the Network</a></li>
+        <li><a class="orange-link" href="blog-bitcoin-21-million-supply.html">Why Bitcoin Has a 21 Million Supply</a></li>
+        <li><a class="orange-link" href="blog-avoid-bitcoin-scams.html">Top Bitcoin Scams and How to Avoid Them</a></li>
+        <li><a class="orange-link" href="blog-bitcoin-wallets-cold-storage.html">Bitcoin Wallets and Cold Storage</a></li>
+        <li><a class="orange-link" href="blog-bitcoin-halving.html">What is the Halving and Why it Matters</a></li>
+        <li><a class="orange-link" href="index.html#converter">BTC ↔ Sats ↔ Fiat Converter</a></li>
+      </ul>
+    </aside>
+  </main>
 
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-inner">
+      <p>Made by <a href="https://x.com/SagePixel2" class="orange-link" target="_blank" rel="noopener">@SagePixel2</a> using AI</p>
       <p>
-        Bitcoin mining is one of the most revolutionary yet misunderstood processes in modern technology. 
-        It powers the world’s first decentralized monetary system, provides security for over one trillion dollars in value, 
-        and ensures no government or corporation can control Bitcoin. Still, many people wonder: 
-        what exactly is mining, why does it matter, and why does it use so much energy? 
+        <a href="privacy.html" class="orange-link">Privacy Policy</a> ·
+        <a href="terms.html" class="orange-link">Terms of Service</a> ·
+        <a href="about.html" class="orange-link">About</a> ·
+        <a href="mailto:satoshicalculator@gmail.com" class="orange-link">Contact</a>
       </p>
+    </div>
+  </footer>
 
-      <h2>What is Bitcoin Mining?</h2>
-      <p>
-        At its core, Bitcoin mining is the process of verifying and adding new transactions to the blockchain, 
-        which is Bitcoin’s public ledger. Unlike traditional banking systems that rely on trusted intermediaries 
-        such as banks or governments, Bitcoin uses a decentralized system where anyone can participate.
-      </p>
-      <p>
-        Miners use powerful computers to solve cryptographic puzzles. The first miner to solve the puzzle gets the 
-        right to add the next block of transactions to the blockchain. As a reward, they receive newly created bitcoins 
-        (called the block reward) and transaction fees. This process is known as <strong>proof-of-work</strong>.
-      </p>
+  <!-- Main JS -->
+  <script src="main.js" defer></script>
 
-      <h2>Why Proof-of-Work Matters</h2>
-      <p>
-        Proof-of-work is not just a technical detail. It is the foundation of Bitcoin’s security model. 
-        By requiring miners to expend real-world energy and resources, Bitcoin ensures that no one can cheaply 
-        rewrite history or double-spend coins. To attack the Bitcoin network, an attacker would need to control 
-        more than 50% of the total mining power, which is astronomically expensive and practically impossible 
-        at today’s scale.
-      </p>
-      <p>
-        This means that Bitcoin’s security is directly tied to the physical world. The electricity, hardware, 
-        and effort invested by miners anchor Bitcoin in reality, making it the most secure and decentralized 
-        monetary system ever created.
-      </p>
+  <!-- JSON-LD: BlogPosting -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How Bitcoin Mining Works and Why It Secures the First Decentralized Network",
+    "description": "A practical, in-depth explainer of proof of work, blocks, difficulty, fees, energy, incentives, and why mining keeps Bitcoin decentralized and secure.",
+    "image": "https://satoshicalculator.com.au/og-card.png?v=1",
+    "author": {
+      "@type": "Person",
+      "name": "SagePixel",
+      "url": "https://x.com/SagePixel2"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Satoshi Calculator",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://satoshicalculator.com.au/bitcoin.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://satoshicalculator.com.au/blog-how-bitcoin-mining-works.html"
+    },
+    "datePublished": "2025-01-01",
+    "dateModified": "2025-01-01"
+  }
+  </script>
 
-      <h2>Busting the Energy Consumption Myth</h2>
-      <p>
-        One of the biggest criticisms of Bitcoin mining is its energy consumption. Headlines often claim 
-        that Bitcoin uses as much electricity as small countries, suggesting that it is wasteful or harmful to the environment.
-      </p>
-      <p>
-        This argument ignores three important facts:
-      </p>
-      <ol>
-        <li><strong>Bitcoin’s energy use is purposeful.</strong> The energy secures a global, decentralized currency that cannot be manipulated by governments or banks.</li>
-        <li><strong>Much of Bitcoin mining uses renewable energy.</strong> Studies show that over 50% of Bitcoin mining comes from renewable or excess energy sources such as hydro, wind, and solar.</li>
-        <li><strong>Bitcoin often uses stranded or wasted energy.</strong> Miners set up operations near power plants where excess energy would otherwise go unused. In some cases, mining reduces flaring from oil fields and helps balance renewable grids.</li>
-      </ol>
-      <p>
-        In other words, Bitcoin doesn’t “waste” energy—it transforms unused energy into financial security and freedom.
-      </p>
-
-      <h2>The Incentive System: Miners as Guardians</h2>
-      <p>
-        Bitcoin mining aligns incentives in a unique way. Miners spend money on electricity and hardware, 
-        so their natural goal is to maximize profits. The only way to do this is by playing by the rules: 
-        verifying transactions honestly and securing the network. If they tried to cheat, they would lose money 
-        and destroy their own investment.
-      </p>
-      <p>
-        This is what makes Bitcoin unstoppable. No single person or institution is “in charge.” Instead, 
-        miners all over the world compete to secure the network, while users verify the rules through their nodes. 
-        The result is a system that has run for over a decade without a single fraudulent block.
-      </p>
-
-      <h2>Bitcoin Mining and Financial Freedom</h2>
-      <p>
-        Mining is not just about computers and electricity—it is about freedom. 
-        In countries with high inflation or authoritarian governments, Bitcoin provides an alternative 
-        to failing financial systems. Mining ensures that these users can trust Bitcoin to remain neutral, 
-        uncensorable, and available to anyone with an internet connection.
-      </p>
-      <p>
-        For example, miners in Venezuela, Nigeria, and Kazakhstan often use Bitcoin to escape broken currencies 
-        and government crackdowns. Even when local economies collapse, Bitcoin’s global network keeps running, 
-        thanks to miners distributed across the world.
-      </p>
-
-      <h2>The Future of Bitcoin Mining</h2>
-      <p>
-        Bitcoin’s mining rewards halve approximately every four years in an event called the <strong>halving</strong>. 
-        In April 2024, the block reward dropped from 6.25 BTC to 3.125 BTC. In 2028, it will drop again to 1.5625 BTC. 
-        Over time, miners will rely more on transaction fees than block rewards.
-      </p>
-      <p>
-        This gradual shift ensures that Bitcoin remains secure while its supply approaches the hard cap of 21 million coins. 
-        Unlike fiat currencies that can be printed endlessly, Bitcoin’s supply is mathematically fixed.
-      </p>
-
-      <h2>Why Mining Secures the First Decentralized Network</h2>
-      <p>
-        Before Bitcoin, digital money was always controlled by a central authority. Mining changed everything. 
-        It created a decentralized system where no one needs to trust banks or governments to move value. 
-        Instead, people trust math, code, and the physical energy invested by miners worldwide.
-      </p>
-      <p>
-        Bitcoin mining is not just about generating new coins. It is about protecting a system that gives 
-        people financial sovereignty, resists censorship, and cannot be inflated away. 
-        That is why Bitcoin is often called “digital gold”—but in reality, it is more powerful than gold ever was.
-      </p>
-
-      <h2>Conclusion</h2>
-      <p>
-        Bitcoin mining is the heartbeat of the network. It turns electricity into digital scarcity, 
-        secures billions of transactions, and ensures that Bitcoin remains the first truly decentralized 
-        monetary system in history. While critics misunderstand its purpose, those who study it realize that 
-        mining is not wasteful—it is essential.
-      </p>
-      <p>
-        As the world faces economic uncertainty, the importance of a neutral, decentralized, 
-        and censorship-resistant system will only grow. Mining ensures that Bitcoin is here to stay, 
-        providing freedom for millions today and billions tomorrow.
-      </p>
-
-      <p><em>Written by Satoshi Calculator — @SagePixel2</em></p>
- 
-      <div class="divider"></div>
-<h3>Explore More Bitcoin Tools</h3>
-<ul>
-  <li><a href="index.html#converter">BTC ⇆ Fiat & Sats Converter</a></li>
-  <li><a href="index.html#profit">Bitcoin Profit Calculator</a></li>
-  <li><a href="index.html#dca">DCA (Dollar-Cost Averaging) Simulator</a></li>
-  <li><a href="index.html#portfolio">Portfolio Tracker</a></li>
-  <li><a href="index.html#halving">Bitcoin Halving Countdown</a></li>
-  <li><a href="index.html#buy">Buy Bitcoin — Start your journey here</a></li>
-</ul>
-</article>
-</main>
+  <!-- JSON-LD: Mini FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does Bitcoin mining actually do?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Miners collect valid transactions into blocks and perform proof of work so the block’s hash meets the network target. The first to find a valid block earns the subsidy and fees, and their block becomes part of the chain."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does Bitcoin use so much energy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Energy anchors the ledger to physical reality, making history costly to forge. Miners competitively seek the cheapest power, often renewable, stranded, or curtailed energy, which turns otherwise wasted energy into network security."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difficulty adjustment?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Every 2016 blocks the network adjusts the difficulty target so that blocks continue arriving about every ten minutes on average, regardless of total global hash rate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will miners rely on fees in the future?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The block subsidy halves every 210,000 blocks. Over time, fees become a larger share of miner revenue, aligning security with real demand for block space."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I get started without running miners?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most people simply buy small amounts, learn self custody, and practice good security. Use a BTC to fiat converter, try a DCA plan, and read a cold storage guide before moving meaningful funds."
+        }
+      }
+    ]
+  }
+  </script>
 </body>
 </html>
