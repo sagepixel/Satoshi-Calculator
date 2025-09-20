@@ -3,36 +3,36 @@
 <head>
   <meta charset="utf-8" />
   <title>Satoshi Calculator — Bitcoin (BTC) Tools: Converter, Profit, DCA, Portfolio, Live Price & Chart</title>
-  <meta name="description" content="Satoshi Calculator: premium Bitcoin dashboard with live BTC price, BTC↔Sats↔Fiat converter, profit & DCA calculators, portfolio tracker, TradingView chart, curated news and more." />
+  <meta name="description" content="Satoshi Calculator: premium Bitcoin dashboard with live BTC price, BTC↔Sats↔Fiat converter, profit & DCA calculators, portfolio tracker, TradingView chart, curated news and more. Clear guidance and educational text for new and advanced Bitcoin users." />
   <meta name="keywords" content="satoshi calculator, bitcoin calculator, btc to usd, sats to btc, bitcoin profit calculator, bitcoin dca calculator, btc live price, bitcoin live chart, bitcoin portfolio tracker, bitcoin news, crypto, btc, satoshi, sats, blockchain" />
- <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<!-- Canonical -->
-<link rel="canonical" href="https://satoshicalculator.com.au/" />
+  <!-- Canonical -->
+  <link rel="canonical" href="https://satoshicalculator.com.au/" />
 
-<!-- Open Graph (FB/LinkedIn/WhatsApp) -->
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Satoshi Calculator" />
-<meta property="og:title" content="Satoshi Calculator — Bitcoin Tools That Feel Premium" />
-<meta property="og:description" content="Live BTC price, BTC↔Sats↔Fiat converter, profit & DCA calculators, portfolio, TradingView chart, curated news and more." />
-<meta property="og:url" content="https://satoshicalculator.com.au/" />
-<meta property="og:image" content="https://satoshicalculator.com.au/og-card.png?v=1" />
-<meta property="og:image:secure_url" content="https://satoshicalculator.com.au/og-card.png?v=1" />
-<meta property="og:image:type" content="image/png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Satoshi Calculator — clean dashboard preview with Bitcoin tools." />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Satoshi Calculator" />
+  <meta property="og:title" content="Satoshi Calculator — Bitcoin Tools That Feel Premium" />
+  <meta property="og:description" content="Live BTC price, BTC↔Sats↔Fiat converter, profit & DCA calculators, portfolio, TradingView chart, curated news and more." />
+  <meta property="og:url" content="https://satoshicalculator.com.au/" />
+  <meta property="og:image" content="https://satoshicalculator.com.au/og-card.png?v=1" />
+  <meta property="og:image:secure_url" content="https://satoshicalculator.com.au/og-card.png?v=1" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Satoshi Calculator — clean dashboard preview with Bitcoin tools." />
 
-<!-- X (Twitter) Cards -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:site" content="@SagePixel2" />
-<meta name="twitter:creator" content="@SagePixel2" />
-<meta name="twitter:title" content="Satoshi Calculator — Bitcoin Tools That Feel Premium" />
-<meta name="twitter:description" content="Live BTC price, BTC↔Sats↔Fiat converter, profit & DCA calculators, portfolio, TradingView chart, curated news and more." />
-<meta name="twitter:image" content="https://satoshicalculator.com.au/og-card.png?v=1" />
-<meta name="twitter:image:alt" content="Satoshi Calculator — clean dashboard preview with Bitcoin tools." />
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@SagePixel2" />
+  <meta name="twitter:creator" content="@SagePixel2" />
+  <meta name="twitter:title" content="Satoshi Calculator — Bitcoin Tools That Feel Premium" />
+  <meta name="twitter:description" content="Live BTC price, BTC↔Sats↔Fiat converter, profit & DCA calculators, portfolio, TradingView chart, curated news and more." />
+  <meta name="twitter:image" content="https://satoshicalculator.com.au/og-card.png?v=1" />
+  <meta name="twitter:image:alt" content="Satoshi Calculator — clean dashboard preview with Bitcoin tools." />
 
-<link rel="icon" href="favicon.png" />
+  <link rel="icon" href="favicon.png" />
 
   <!-- Flags -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@6.6.6/css/flag-icons.min.css">
@@ -44,7 +44,7 @@
   <!-- Scroll progress -->
   <div id="scrollProgress" aria-hidden="true"></div>
 
- <!-- Navbar -->
+  <!-- Navbar -->
   <nav class="nav" role="navigation" aria-label="Main">
     <div class="container nav-inner">
       <a href="#top" class="brand" aria-label="Satoshi Calculator Home">
@@ -80,15 +80,22 @@
       <img src="bitcoin.png" alt="Bitcoin" class="hero-logo" />
       <div>
         <h1 class="hero-title">Satoshi Calculator</h1>
-        <p class="hero-tagline">Convert sats, track profits, and master Bitcoin.</p>
+        <p class="hero-tagline">Convert sats, track profits, and master Bitcoin with premium tools.</p>
       </div>
     </div>
   </header>
 
   <main class="container" role="main">
-    <!-- Live Price (USD only, robust caching/fallback) -->
+
+    <!-- Live Price -->
     <section id="live-prices" class="card" aria-labelledby="livePricesTitle">
       <h2 id="livePricesTitle" class="card-title">Live Bitcoin Price</h2>
+      <p>
+        Stay up to date with the real-time price of Bitcoin. The live price tile below refreshes frequently
+        using resilient data sources with caching and fallback. If the network blips, you’ll still see your last known price so
+        the page never looks broken.
+      </p>
+      <p class="small muted">How it works: the app tries multiple providers in sequence and caches the latest result locally for smooth UX.</p>
       <div class="divider" aria-hidden="true"></div>
       <div id="priceGrid" class="price-grid single" aria-live="polite">
         <div class="price-tile">
@@ -103,6 +110,14 @@
     <!-- Converter -->
     <section id="converter" class="card highlight" aria-labelledby="converterTitle">
       <h2 id="converterTitle" class="card-title">BTC / Sats / Fiat Converter</h2>
+      <p>
+        Instantly convert Bitcoin (BTC) into satoshis (sats) and dozens of fiat currencies.
+        Type an amount in <em>BTC</em> or <em>sats</em>, pick a currency, and hit Convert — we’ll calculate the rest.
+        This helps beginners grasp that <strong>1 BTC = 100,000,000 sats</strong>, and lets experienced users quote exact values in their local currency.
+      </p>
+      <p class="small muted">
+        Tip: You can paste a sats figure directly — the BTC field will auto-update. If you switch the fiat currency, run Convert again for the latest price.
+      </p>
       <div class="divider" aria-hidden="true"></div>
       <form class="form-grid" id="converterForm" autocomplete="off">
         <div class="form-field">
@@ -132,6 +147,12 @@
     <!-- Profit -->
     <section id="profit" class="card highlight" aria-labelledby="profitTitle">
       <h2 id="profitTitle" class="card-title">Profit Calculator</h2>
+      <p>
+        Want to check potential profit if Bitcoin reaches a target price? Enter your BTC holdings,
+        your average buy price, and any future price target. We’ll show your invested amount, projected value,
+        and profit or loss in your chosen currency — perfect for goal setting.
+      </p>
+      <p class="small muted">Tip: Use this together with our live price and DCA simulator to plan realistic outcomes.</p>
       <div class="divider" aria-hidden="true"></div>
       <form class="form-grid" id="profitForm" autocomplete="off">
         <div class="form-field"><label for="holdBtc">BTC owned</label><input id="holdBtc" type="number" step="0.00000001" inputmode="decimal"></div>
@@ -151,6 +172,12 @@
     <!-- DCA -->
     <section id="dca" class="card highlight" aria-labelledby="dcaTitle">
       <h2 id="dcaTitle" class="card-title">DCA Calculator</h2>
+      <p>
+        Dollar-Cost Averaging lets you buy small amounts regularly to reduce timing risk.
+        Choose a weekly or monthly schedule, the amount per interval, and how long you plan to keep buying.
+        We simulate approximate historical purchases and estimate your average cost.
+      </p>
+      <p class="small muted">Note: DCA results use daily history and time-step approximations for speed and clarity.</p>
       <div class="divider" aria-hidden="true"></div>
       <form class="form-grid" id="dcaForm" autocomplete="off">
         <div class="form-field"><label for="dcaAmount">Amount per interval</label><input id="dcaAmount" type="number" step="0.01" inputmode="decimal"></div>
@@ -172,6 +199,12 @@
     <!-- Portfolio -->
     <section id="portfolio" class="card highlight" aria-labelledby="portfolioTitle">
       <h2 id="portfolioTitle" class="card-title">Portfolio Tracker</h2>
+      <p>
+        Track your Bitcoin purchases privately right in your browser. Add the BTC amount, your buy price, the currency,
+        and optionally the exchange name. The table calculates invested total, current value, and profit or loss.
+        Export a CSV anytime. Your data is stored locally on your device — not on our servers.
+      </p>
+      <p class="small muted">How it works: entries are saved to localStorage. Clear All removes only your local data.</p>
       <div class="divider" aria-hidden="true"></div>
       <form class="form-grid" id="pfForm" autocomplete="off">
         <div class="form-field"><label for="pfBtc">BTC amount</label><input id="pfBtc" type="number" step="0.00000001" inputmode="decimal"></div>
@@ -197,56 +230,68 @@
       </div>
     </section>
 
-    <!-- Chart (TradingView only, lazy) -->
+    <!-- Chart (TradingView) -->
     <section id="chart" class="card" aria-labelledby="chartTitle">
       <h2 id="chartTitle" class="card-title">Bitcoin Price Chart</h2>
+      <p>
+        View an interactive TradingView chart for deeper analysis. Timeframes, drawing tools, and indicators are available
+        directly in the embedded widget. We lazy-load the chart script so the rest of the page stays fast on mobile.
+      </p>
       <div class="divider" aria-hidden="true"></div>
       <div id="chartPlaceholder" role="status" aria-live="polite">Loading chart…</div>
       <div id="tvChart" class="chart-container" aria-label="Interactive Bitcoin chart"></div>
     </section>
 
-<!-- Bitcoin Halving -->
-<section id="halving" class="card" aria-labelledby="halvingTitle">
-  <h2 id="halvingTitle" class="card-title">Bitcoin Halving Countdown</h2>
-  <div class="divider"></div>
-  <p>
-    The fourth Bitcoin halving was completed on April 2024. 
-    It is difficult to predict the exact date of the next halving as it depends on the block height. 
-    Since halving happens every 210,000 blocks, the next Bitcoin halving is expected to occur in 2028.
-  </p>
-  <div id="halvingData">
-    <p><strong>Current Block Reward:</strong> <span id="currentReward">—</span> BTC</p>
-    <p><strong>Blocks Remaining:</strong> <span id="blocksRemaining">—</span></p>
-    <p><strong>Estimated Time Left:</strong> <span id="halvingCountdown">—</span></p>
-  </div>
-</section>
+    <!-- Bitcoin Halving -->
+    <section id="halving" class="card" aria-labelledby="halvingTitle">
+      <h2 id="halvingTitle" class="card-title">Bitcoin Halving Countdown</h2>
+      <p>
+        The block reward halves every 210,000 blocks, reducing new BTC issuance and reinforcing long-term scarcity.
+        Below is a simple readout: current reward, estimated blocks to go, and a rough time estimate.
+        For a full explanation, read our article:
+        <a class="orange-link" href="blog-bitcoin-halving.html">What is Bitcoin Halving and Why it Matters?</a>
+      </p>
+      <div class="divider"></div>
+      <div id="halvingData">
+        <p><strong>Current Block Reward:</strong> <span id="currentReward">—</span> BTC</p>
+        <p><strong>Blocks Remaining:</strong> <span id="blocksRemaining">—</span></p>
+        <p><strong>Estimated Time Left:</strong> <span id="halvingCountdown">—</span></p>
+      </div>
+    </section>
 
     <!-- Blog -->
     <section id="blog" class="card" aria-labelledby="blogTitle">
       <h2 id="blogTitle" class="card-title">Latest Blog Posts</h2>
+      <p>
+        We publish clear, educational guides to help you understand Bitcoin concepts and make smarter decisions.
+        Explore deep dives below — each post cross-links to relevant tools for hands-on learning.
+      </p>
       <div class="divider"></div>
-  <div class="news-grid">
-  <div class="news-card"><a href="blog-satoshi-nakamoto.html">Satoshi Nakamoto: The Anonymous Creator Who Changed the World</a></div>
-  <div class="news-card"><a href="blog-institutions-buying-bitcoin.html" target="_self">Why Institutions Are Buying Bitcoin: From MicroStrategy to ETFs</a></div>
-  <div class="news-card"><a href="blog-stablecoins-usdt-usdc.html">Stablecoins Explained: Why USDT and USDC Matter for Crypto Adoption</a></div>
-  <div class="news-card"><a href="blog-psychology-of-hodling.html">The Psychology of HODLing: Why Bitcoiners Never Sell</a></div>
-  <div class="news-card"><a href="blog-bitcoin-mining-network-security.html">Why Bitcoin Mining Secures the World’s First Decentralized Network</a></div>
-  <div class="news-card"><a href="blog-ethereum-vs-bitcoin.html">Ethereum vs Bitcoin: What’s the Difference?</a></div>
-  <div class="news-card"><a href="blog-bitcoin-wallets-cold-storage.html">Understanding Bitcoin Wallets and Why Cold Storage Matters</a></div>
-  <div class="news-card"><a href="blog-bitcoin-lightning-network.html">The Lightning Network: Fast and Cheap Bitcoin Payments</a></div>
-  <div class="news-card"><a href="blog-avoid-bitcoin-scams.html">Top 5 Bitcoin Scams and How to Avoid Them</a></div>
-  <div class="news-card"><a href="blog-bitcoin-21-million-supply.html">Why Bitcoin is Limited to 21 Million</a></div>
-  <div class="news-card"><a href="blog-bitcoin-developing-economies.html">Bitcoin in Developing Economies: A Lifeline Against Inflation</a></div>
-  <div class="news-card"><a href="blog-bitcoin-halving.html">What is Bitcoin Halving and Why it Matters?</a></div>
-</div>
+      <div class="news-grid">
+        <div class="news-card"><a href="blog-satoshi-nakamoto.html">Satoshi Nakamoto: The Anonymous Creator Who Changed the World</a></div>
+        <div class="news-card"><a href="blog-institutions-buying-bitcoin.html">Why Institutions Are Buying Bitcoin: From MicroStrategy to ETFs</a></div>
+        <div class="news-card"><a href="blog-stablecoins-usdt-usdc.html">Stablecoins Explained: Why USDT and USDC Matter for Crypto Adoption</a></div>
+        <div class="news-card"><a href="blog-psychology-of-hodling.html">The Psychology of HODLing: Why Bitcoiners Never Sell</a></div>
+        <div class="news-card"><a href="blog-bitcoin-mining-network-security.html">Why Bitcoin Mining Secures the World’s First Decentralized Network</a></div>
+        <div class="news-card"><a href="blog-ethereum-vs-bitcoin.html">Ethereum vs Bitcoin: What’s the Difference?</a></div>
+        <div class="news-card"><a href="blog-bitcoin-wallets-cold-storage.html">Understanding Bitcoin Wallets and Why Cold Storage Matters</a></div>
+        <div class="news-card"><a href="blog-bitcoin-lightning-network.html">The Lightning Network: Fast and Cheap Bitcoin Payments</a></div>
+        <div class="news-card"><a href="blog-avoid-bitcoin-scams.html">Top 5 Bitcoin Scams and How to Avoid Them</a></div>
+        <div class="news-card"><a href="blog-bitcoin-21-million-supply.html">Why Bitcoin is Limited to 21 Million</a></div>
+        <div class="news-card"><a href="blog-bitcoin-developing-economies.html">Bitcoin in Developing Economies: A Lifeline Against Inflation</a></div>
+        <div class="news-card"><a href="blog-bitcoin-halving.html">What is Bitcoin Halving and Why it Matters?</a></div>
+      </div>
     </section>
 
     <!-- News -->
     <section id="news" class="card" aria-labelledby="newsTitle">
       <h2 id="newsTitle" class="card-title">Latest Bitcoin News</h2>
+      <p>
+        A quick jump-off to trusted sources while our feed tries to load headlines in the background.
+        Prefer long-form education? Check our blog above.
+      </p>
       <div class="divider" aria-hidden="true"></div>
       <div id="newsGrid" class="news-grid" aria-live="polite">
-        <!-- Curated fallbacks present by default; JS will replace/augment -->
         <div class="news-card"><div class="news-source">CoinDesk</div><a href="https://www.coindesk.com/" target="_blank" rel="noopener">Visit CoinDesk for Bitcoin news</a></div>
         <div class="news-card"><div class="news-source">CoinTelegraph</div><a href="https://cointelegraph.com/" target="_blank" rel="noopener">Visit CoinTelegraph for updates</a></div>
         <div class="news-card"><div class="news-source">Bitcoin Magazine</div><a href="https://bitcoinmagazine.com/" target="_blank" rel="noopener">Bitcoin Magazine Articles</a></div>
@@ -257,6 +302,7 @@
     <!-- Facts -->
     <section id="facts" class="card" aria-labelledby="factsTitle">
       <h2 id="factsTitle" class="card-title">Did You Know?</h2>
+      <p>Quick Bitcoin facts that rotate every few seconds — great for learning and sharing.</p>
       <div class="divider" aria-hidden="true"></div>
       <ul id="factsList" class="ticker" aria-live="polite"><li>1 BTC = 100,000,000 sats</li></ul>
     </section>
@@ -264,21 +310,30 @@
     <!-- Wisdom -->
     <section id="wisdom" class="card" aria-labelledby="wisdomTitle">
       <h2 id="wisdomTitle" class="card-title">Bitcoin Wisdom & Security</h2>
+      <p>Essential reminders for safe self-custody and scam avoidance. Security is a habit.</p>
       <div class="divider" aria-hidden="true"></div>
       <ul id="wisdomList" class="ticker" aria-live="polite"><li>Not your keys, not your crypto.</li></ul>
     </section>
 
-  <!-- Bitcoin Whitepaper -->
+    <!-- Bitcoin Whitepaper -->
     <section id="whitepaper" class="card" aria-labelledby="whitepaperTitle">
       <h2 id="whitepaperTitle" class="card-title">The Paper That Changed the World</h2>
+      <p>
+        Read Satoshi Nakamoto’s original <strong>Bitcoin Whitepaper</strong> to understand the core ideas behind
+        peer-to-peer electronic cash, proof-of-work, and decentralized consensus.
+      </p>
       <div class="divider"></div>
-      <p>Read the original <strong>Bitcoin Whitepaper</strong> by Satoshi Nakamoto:</p>
       <a href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener" class="btn">Read Whitepaper</a>
     </section>
 
     <!-- Buy -->
     <section id="buy" class="card" aria-labelledby="buyTitle">
       <h2 id="buyTitle" class="card-title">Buy Bitcoin</h2>
+      <p>
+        New to BTC? Consider starting small and practicing withdrawals to a self-custody wallet.
+        Our <a class="orange-link" href="blog-bitcoin-wallets-cold-storage.html">wallets and cold storage guide</a>
+        explains best practices. If you choose to sign up via the links below, we may earn an affiliate commission.
+      </p>
       <div class="divider" aria-hidden="true"></div>
       <div class="exchange-grid" role="list">
         <a href="https://promote.mexc.com/r/E6pJr2Qz" class="exchange-card" role="listitem" target="_blank" rel="noopener">
@@ -297,8 +352,8 @@
           <img src="kraken.png" alt="Kraken logo" /><span>Kraken</span>
         </a>
       </div>
-    <p class="muted small" style="margin-top:16px;">
-        ⚠️ Disclaimer: The above links are affiliate referrals. Using them supports <strong>Satoshi Calculator</strong> at no extra cost to you.  
+      <p class="muted small" style="margin-top:16px;">
+        ⚠️ Disclaimer: The above links are affiliate referrals. Using them supports <strong>Satoshi Calculator</strong> at no extra cost to you.
         This is <em>not</em> financial advice.
       </p>
     </section>
@@ -306,6 +361,7 @@
     <!-- Email -->
     <section id="email" class="card highlight" aria-labelledby="emailTitle">
       <h2 id="emailTitle" class="card-title">Get Daily BTC Alerts</h2>
+      <p>Optional email updates with key price levels. Choose your preferred currency, enter your email, and subscribe.</p>
       <div class="divider" aria-hidden="true"></div>
       <form name="price-alerts" method="POST" data-netlify="true" class="form-grid" autocomplete="off" aria-label="Subscribe for BTC alerts">
         <input type="hidden" name="form-name" value="price-alerts" />
@@ -316,35 +372,89 @@
         </div>
         <div class="form-actions full"><button type="submit" class="btn">Subscribe</button></div>
       </form>
+      <p class="small muted">Privacy: email addresses are used only for alerts you request. See our <a class="orange-link" href="privacy.html">Privacy Policy</a>.</p>
     </section>
 
     <!-- FAQ -->
     <section id="faq" class="card" aria-labelledby="faqTitle">
       <h2 id="faqTitle" class="card-title">FAQ</h2>
+      <p>Short, practical answers to the most common questions. For deeper dives, browse our blog section.</p>
       <div class="divider"></div>
-      <details><summary><strong>What is Satoshi Calculator?</strong></summary><p>It is a Bitcoin tool suite: live price, converter, profit & DCA calculators, portfolio, chart, news, and more.</p></details>
-      <details><summary><strong>Which APIs power the site?</strong></summary><p>Prices: CoinGecko with fallback to Binance/Kraken. Chart: TradingView. News: RSS via proxy with curated fallback.</p></details>
-      <details><summary><strong>Is my data private?</strong></summary><p>Portfolio entries are stored locally in your browser (localStorage). We don’t collect personal data.</p></details>
-      <details><summary><strong>How often are prices updated?</strong></summary><p>Every 5 seconds with retries and cached last-known price for reliability.</p></details>
-      <details><summary><strong>Why only Bitcoin?</strong></summary><p>We specialize in premium Bitcoin-focused tools to keep the experience fast and high quality.</p></details>
-      <details><summary><strong>When is the next Bitcoin halving?</strong></summary><p>The next halving is expected around 2028 at block height 1,050,000.</p></details>
-      <details><summary><strong>Can I use this tool on mobile?</strong></summary><p>Yes! The site is fully responsive and works on mobile and desktop.</p></details>
+
+      <details>
+        <summary><strong>What is Satoshi Calculator?</strong></summary>
+        <p>It is a premium Bitcoin tool suite with live price, BTC↔Sats↔Fiat converter, profit and DCA calculators, a private portfolio tracker, an interactive chart, curated news, and educational blog posts.</p>
+      </details>
+
+      <details>
+        <summary><strong>How do I use the BTC / sats / fiat converter?</strong></summary>
+        <p>Enter a number in either the BTC or sats field, choose a fiat currency, and press <em>Convert</em>. We fetch the latest price and display all equivalents. 1 BTC always equals 100,000,000 sats.</p>
+      </details>
+
+      <details>
+        <summary><strong>Is my portfolio data private?</strong></summary>
+        <p>Yes. Portfolio entries are stored locally in your browser via localStorage. We do not collect, sell, or track your financial data. You can export or clear your entries anytime.</p>
+      </details>
+
+      <details>
+        <summary><strong>How often are prices updated?</strong></summary>
+        <p>Prices refresh every few seconds. If a provider is unavailable, we show your last known price to maintain a smooth experience.</p>
+      </details>
+
+      <details>
+        <summary><strong>What is Dollar-Cost Averaging (DCA)?</strong></summary>
+        <p>DCA means investing smaller amounts on a regular schedule (weekly or monthly). It reduces timing risk and can smooth your average cost. Use our DCA tool to model simple scenarios.</p>
+      </details>
+
+      <details>
+        <summary><strong>When is the next Bitcoin halving?</strong></summary>
+        <p>Halving occurs every 210,000 blocks. The next event is expected around 2028 (exact date depends on block time). See our <a class="orange-link" href="blog-bitcoin-halving.html">halving guide</a>.</p>
+      </details>
+
+      <details>
+        <summary><strong>Do you cover buying and self-custody best practices?</strong></summary>
+        <p>Yes. See <a class="orange-link" href="blog-bitcoin-wallets-cold-storage.html">wallets and cold storage</a> for private key safety, and <a class="orange-link" href="#buy">Buy Bitcoin</a> for supported exchanges.</p>
+      </details>
+
+      <details>
+        <summary><strong>How can I avoid Bitcoin scams?</strong></summary>
+        <p>Never share your seed phrase, avoid unsolicited DMs, and verify URLs. Read our guide: <a class="orange-link" href="blog-avoid-bitcoin-scams.html">Top 5 Bitcoin Scams and How to Avoid Them</a>.</p>
+      </details>
+
+      <details>
+        <summary><strong>Is any of this financial advice?</strong></summary>
+        <p>No. Satoshi Calculator is for educational purposes only. Always do your own research and consider consulting a licensed professional before investing.</p>
+      </details>
+
+      <details>
+        <summary><strong>Do you have resources for beginners?</strong></summary>
+        <p>Yes. Start with <a class="orange-link" href="blog-satoshi-nakamoto.html">Who created Bitcoin</a>, <a class="orange-link" href="blog-bitcoin-21-million-supply.html">21 million supply</a>, and <a class="orange-link" href="blog-bitcoin-lightning-network.html">Lightning payments</a>.</p>
+      </details>
+
+      <details>
+        <summary><strong>How does the TradingView chart load so fast?</strong></summary>
+        <p>We lazy-load the TradingView script when you scroll near the chart and hide the placeholder as soon as the widget renders to keep the page responsive.</p>
+      </details>
+
+      <details>
+        <summary><strong>Where can I read more?</strong></summary>
+        <p>Browse the <a class="orange-link" href="#blog">Blog section</a> and the original <a class="orange-link" href="#whitepaper">Bitcoin whitepaper</a>. You can also visit <a class="orange-link" href="about.html">About</a> for project details.</p>
+      </details>
     </section>
   </main>
 
-<!-- Footer -->
-<footer class="footer" role="contentinfo">
-  <div class="container footer-inner">
-    <p>
-      Made by <a href="https://x.com/SagePixel2" class="orange-link" target="_blank" rel="noopener">@SagePixel2</a> using AI
-    </p>
-    <p>
-      <a href="privacy.html" class="orange-link">Privacy Policy</a> · 
-      <a href="terms.html" class="orange-link">Terms of Service</a> · 
-      <a href="about.html" class="orange-link">About</a>
-    </p>
-  </div>
-</footer>
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-inner">
+      <p>Made by <a href="https://x.com/SagePixel2" class="orange-link" target="_blank" rel="noopener">@SagePixel2</a> using AI</p>
+      <p>
+        <a href="privacy.html" class="orange-link">Privacy Policy</a> ·
+        <a href="terms.html" class="orange-link">Terms of Service</a> ·
+        <a href="about.html" class="orange-link">About</a> ·
+        <a href="mailto:satoshicalculator@gmail.com" class="orange-link">Contact</a>
+      </p>
+    </div>
+  </footer>
 
   <!-- Cookie Bar -->
   <div id="cookieBar" class="cookie-bar" role="dialog" aria-live="polite" aria-label="Cookie consent">
@@ -358,10 +468,10 @@
     </div>
   </div>
 
-  <!-- Scripts (TradingView tv.js is injected lazily in main.js for mobile perf) -->
+  <!-- Scripts (TradingView tv.js is injected lazily in main.js) -->
   <script src="main.js" defer></script>
 
-    <!-- JSON-LD (Organization + FAQ) -->
+  <!-- JSON-LD (Organization) -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -378,6 +488,7 @@
   }
   </script>
 
+  <!-- JSON-LD (FAQPage) — must match visible FAQ content -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -386,58 +497,62 @@
       {
         "@type":"Question",
         "name":"What is Satoshi Calculator?",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"It is a Bitcoin tool suite: live price, converter, profit & DCA calculators, portfolio, chart, news, and more."
-        }
+        "acceptedAnswer":{"@type":"Answer","text":"Satoshi Calculator is a premium Bitcoin tool suite with live price, BTC↔Sats↔Fiat converter, profit and DCA calculators, a private portfolio tracker, an interactive chart, curated news, and educational blog posts."}
       },
       {
         "@type":"Question",
-        "name":"Which APIs power the site?",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"Prices: CoinGecko with fallback to Binance/Kraken. Chart: TradingView. News: RSS via proxy with curated fallback."
-        }
+        "name":"How do I use the BTC / sats / fiat converter?",
+        "acceptedAnswer":{"@type":"Answer","text":"Enter a number in either the BTC or sats field, choose a fiat currency, and press Convert. The app fetches the latest price and computes all equivalents. 1 BTC always equals 100,000,000 satoshis."}
       },
       {
         "@type":"Question",
-        "name":"Is my data private?",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"Portfolio entries are stored locally in your browser (localStorage). We don’t collect personal data."
-        }
+        "name":"Is my portfolio data private?",
+        "acceptedAnswer":{"@type":"Answer","text":"Yes. Portfolio entries are stored locally in your browser using localStorage. We do not collect, sell, or track your financial data. You can export or clear your entries at any time."}
       },
       {
         "@type":"Question",
         "name":"How often are prices updated?",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"Every 5 seconds with retries and cached last-known price for reliability."
-        }
+        "acceptedAnswer":{"@type":"Answer","text":"Prices refresh every few seconds with resilient fallbacks. If a provider is unavailable, the last known price is shown to maintain a smooth experience."}
       },
       {
         "@type":"Question",
-        "name":"Why only Bitcoin?",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"We specialize in premium Bitcoin-focused tools to keep the experience fast and high quality."
-        }
+        "name":"What is Dollar-Cost Averaging (DCA)?",
+        "acceptedAnswer":{"@type":"Answer","text":"DCA means investing smaller amounts on a regular schedule, such as weekly or monthly, to reduce timing risk and smooth your average cost. The DCA tool models simple scenarios using daily history."}
       },
       {
         "@type":"Question",
         "name":"When is the next Bitcoin halving?",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"The next halving is expected around 2028 at block height 1,050,000."
-        }
+        "acceptedAnswer":{"@type":"Answer","text":"Bitcoin halvings occur every 210,000 blocks. The next event is expected around 2028, with the exact date depending on block times. See the halving guide for details."}
       },
       {
         "@type":"Question",
-        "name":"Can I use this tool on mobile?",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"Yes! The site is fully responsive and works on mobile and desktop."
-        }
+        "name":"Do you cover buying and self-custody best practices?",
+        "acceptedAnswer":{"@type":"Answer","text":"Yes. Read the wallets and cold storage guide for private key safety, and the Buy Bitcoin section for supported exchanges and an affiliate disclaimer."}
+      },
+      {
+        "@type":"Question",
+        "name":"How can I avoid Bitcoin scams?",
+        "acceptedAnswer":{"@type":"Answer","text":"Never share your seed phrase, avoid unsolicited DMs, verify URLs and app signatures, and test small transactions first. See the Top 5 Bitcoin Scams article for specifics."}
+      },
+      {
+        "@type":"Question",
+        "name":"Is any of this financial advice?",
+        "acceptedAnswer":{"@type":"Answer","text":"No. The site is for educational purposes only. Always do your own research and consider consulting a licensed professional before investing."}
+      },
+      {
+        "@type":"Question",
+        "name":"Do you have resources for beginners?",
+        "acceptedAnswer":{"@type":"Answer","text":"Yes. Start with Satoshi Nakamoto’s story, the 21 million supply explainer, and the Lightning Network guide. The blog links all beginner-friendly articles."}
+      },
+      {
+        "@type":"Question",
+        "name":"How does the TradingView chart load so fast?",
+        "acceptedAnswer":{"@type":"Answer","text":"We lazy-load the TradingView library when the chart scrolls into view and hide the placeholder as soon as the widget renders, improving responsiveness on mobile."}
+      },
+      {
+        "@type":"Question",
+        "name":"Where can I read more?",
+        "acceptedAnswer":{"@type":"Answer","text":"Browse the Blog section for detailed guides and the original Bitcoin whitepaper for foundational concepts. The About page outlines the project and its mission."}
       }
     ]
   }
