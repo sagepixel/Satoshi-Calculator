@@ -1,104 +1,338 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Why Bitcoin Has a Hard Cap of 21 Million Coins and What It Means for the Future</title>
-  <meta name="description" content="Learn why Bitcoin is capped at 21 million coins, the reasoning behind its fixed supply, and how this scarcity impacts Bitcoin's value and future.">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <title>Why Bitcoin Has a Hard Cap of 21 Million Coins and What It Means for the Future | Satoshi Calculator</title>
+  <meta name="description" content="Learn why Bitcoin has a fixed supply of 21 million, how halvings enforce scarcity, the math behind the cap, and what this means for miners, investors, and the future of money." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Canonical (aligns with your blog list naming) -->
+  <link rel="canonical" href="https://satoshicalculator.com.au/blog-bitcoin-21-million-supply.html" />
+
+  <!-- Social -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Why Bitcoin Has a Hard Cap of 21 Million Coins and What It Means for the Future" />
+  <meta property="og:description" content="The design, math, and implications of Bitcoin’s 21 million supply cap—and how it shapes the network’s economics and long-term value." />
+  <meta property="og:url" content="https://satoshicalculator.com.au/blog-bitcoin-21-million-supply.html" />
+  <meta property="og:site_name" content="Satoshi Calculator" />
+  <meta property="og:image" content="https://satoshicalculator.com.au/og-card.png?v=1" />
+  <meta property="og:image:alt" content="Satoshi Calculator — premium Bitcoin tools and education." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@SagePixel2" />
+  <meta name="twitter:creator" content="@SagePixel2" />
+  <meta name="twitter:title" content="Why Bitcoin Has a Hard Cap of 21 Million Coins and What It Means for the Future" />
+  <meta name="twitter:description" content="The design, math, and implications of Bitcoin’s 21M cap—and how it shapes long-term value." />
+  <meta name="twitter:image" content="https://satoshicalculator.com.au/og-card.png?v=1" />
+
+  <link rel="icon" href="favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="hero">
-    <div class="container hero-inner">
-      <h1 class="hero-title">Why Bitcoin Has a Hard Cap of 21 Million Coins and What It Means for the Future</h1>
-      <p class="hero-tagline">Exploring Bitcoin’s fixed supply, scarcity, and the economic future of the world’s first digital currency.</p>
+  <!-- Top progress bar -->
+  <div id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Navbar (kept consistent with main site) -->
+  <nav class="nav" role="navigation" aria-label="Main">
+    <div class="container nav-inner">
+      <a href="index.html#top" class="brand" aria-label="Satoshi Calculator Home">
+        <img src="bitcoin.png" alt="Bitcoin logo" class="brand-logo" />
+        <span class="brand-name">Satoshi Calculator</span>
+      </a>
+
+      <button id="themeToggle" class="btn-ghost small" aria-label="Toggle theme">Dark Mode</button>
+      <button id="navToggle" class="hamburger" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">☰</button>
+
+      <ul class="nav-links" id="navLinks" role="menubar" aria-label="Primary">
+        <li><a href="index.html#live-prices">Price</a></li>
+        <li><a href="index.html#converter">Converter</a></li>
+        <li><a href="index.html#profit">Profit</a></li>
+        <li><a href="index.html#dca">DCA</a></li>
+        <li><a href="index.html#portfolio">Portfolio</a></li>
+        <li><a href="index.html#chart">Chart</a></li>
+        <li><a href="index.html#news">News</a></li>
+        <li><a href="index.html#facts">Facts</a></li>
+        <li><a href="index.html#wisdom">Wisdom</a></li>
+        <li><a href="index.html#halving">Halving</a></li>
+        <li><a href="index.html#whitepaper">Whitepaper</a></li>
+        <li><a href="index.html#blog">Blog</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Article header -->
+  <header class="hero" role="banner" aria-label="Article header">
+    <div class="hero-inner container">
+      <img src="bitcoin.png" alt="Bitcoin" class="hero-logo" />
+      <div>
+        <h1 class="hero-title">Why Bitcoin Has a Hard Cap of 21 Million Coins and What It Means for the Future</h1>
+        <p class="hero-tagline">Scarcity by design, math that enforces it, and the long-term implications for miners and holders.</p>
+      </div>
     </div>
   </header>
 
-  <main class="container">
-    <article class="card">
-      <h2>Introduction</h2>
-      <p>
-        One of the most remarkable and misunderstood features of Bitcoin is its fixed supply of 21 million coins. Unlike traditional currencies such as the US dollar, euro, or yen, which can be printed in unlimited quantities by central banks, Bitcoin follows a radically different model. Its supply is predetermined by computer code and enforced by a decentralized network of nodes and miners. Once the total number of Bitcoin reaches 21 million, no new coins will ever be created.
-      </p>
-      <p>
-        This fixed cap is not just a random number. It is the backbone of Bitcoin’s monetary design, giving it scarcity and ensuring it remains resistant to inflation. But why exactly was 21 million chosen? How does the system enforce this limit? And what will happen when all coins are mined? Let’s explore these questions in depth and understand what Bitcoin’s hard cap means for the future of money.
+  <main class="container" role="main">
+    <article class="card" aria-labelledby="postTitle">
+      <h2 id="postTitle" class="card-title">A deep dive into Bitcoin’s supply schedule</h2>
+      <div class="divider" aria-hidden="true"></div>
+
+      <p class="muted small">
+        By <a class="orange-link" href="https://x.com/SagePixel2" target="_blank" rel="noopener">@SagePixel2</a> • Educational content • Not financial advice
       </p>
 
-      <h2>Why 21 Million? The Origin of the Limit</h2>
-      <p>
-        When Satoshi Nakamoto launched Bitcoin in 2009, he embedded a rule in the software that the total number of coins would never exceed 21 million. The choice of this number is not fully explained in Satoshi’s writings, but it is believed to have been chosen for both technical and symbolic reasons. 
-      </p>
-      <p>
-        The supply is governed by Bitcoin’s block reward system. Every time miners validate transactions and add a new block to the blockchain, they receive a certain amount of Bitcoin as a reward. This started with 50 BTC per block in 2009, and every 210,000 blocks, or roughly every four years, the reward is cut in half in an event called the <strong>halving</strong>. This process ensures that fewer and fewer new Bitcoins enter circulation over time until the maximum limit is reached.
-      </p>
-      <p>
-        The halving cycles create a predictable issuance schedule. With 50 BTC initially, halved to 25, then 12.5, 6.25, and now 3.125 as of 2024, the rewards will keep shrinking until eventually they are negligible, and miners will rely on transaction fees alone. By running this math, the total number of coins that will ever exist comes out close to 21 million.
-      </p>
+      <!-- Table of Contents -->
+      <nav class="card" aria-label="Table of contents" style="margin-top:12px">
+        <h3 class="card-title" style="margin-bottom:6px">Contents</h3>
+        <div class="divider" aria-hidden="true"></div>
+        <ul>
+          <li><a class="orange-link" href="#intro">Introduction</a></li>
+          <li><a class="orange-link" href="#design">Why a fixed cap exists</a></li>
+          <li><a class="orange-link" href="#mechanics">How the cap is enforced</a></li>
+          <li><a class="orange-link" href="#math">The math behind twenty one million</a></li>
+          <li><a class="orange-link" href="#timeline">Timeline to twenty one million and beyond</a></li>
+          <li><a class="orange-link" href="#miners">What it means for miners and fees</a></li>
+          <li><a class="orange-link" href="#investors">What it means for investors</a></li>
+          <li><a class="orange-link" href="#risks">Could the cap change</a></li>
+          <li><a class="orange-link" href="#faqs-quick">Quick answers</a></li>
+          <li><a class="orange-link" href="#conclusion">Conclusion</a></li>
+        </ul>
+      </nav>
 
-      <h2>Scarcity as a Feature, Not a Bug</h2>
-      <p>
-        The importance of Bitcoin’s hard cap becomes clear when compared to fiat currencies. Governments and central banks often increase the money supply, leading to inflation. Over time, this reduces the purchasing power of money. Bitcoin is designed to avoid this fate. By fixing its supply, Bitcoin guarantees scarcity similar to gold, which has historically been valued precisely because it cannot be created out of thin air.
-      </p>
-      <p>
-        Economists often refer to Bitcoin as “digital gold” for this reason. Just like gold must be mined through physical labor, Bitcoin must be mined through computational effort. And just like gold has limited availability in the Earth’s crust, Bitcoin has a hard-coded maximum supply. This scarcity provides confidence to holders that their purchasing power cannot be inflated away.
-      </p>
+      <section id="intro" style="margin-top:18px">
+        <h3>Introduction</h3>
+        <p>
+          Bitcoin has a legendary design choice that sets it apart from every national currency and most crypto assets. Its supply is capped at twenty one million coins. That number is not a marketing slogan or a policy guideline. It is embedded in the software rules that nodes enforce and miners follow. The cap shapes Bitcoin’s culture and its economics. It is why people call Bitcoin digital gold and why long term holders view it as a hedge against monetary expansion in the fiat world.
+        </p>
+        <p>
+          In this guide we explain why the cap exists, how it is enforced through halvings, and the simple math that leads to a total supply of roughly twenty one million. We will also explore implications for miners, fee markets, investors, and the long term health of the network. Along the way you can try our on site tools like the
+          <a class="orange-link" href="index.html#converter">BTC and sats converter</a>,
+          <a class="orange-link" href="index.html#profit">Profit Calculator</a>, and
+          <a class="orange-link" href="index.html#dca">DCA Simulator</a>.
+          For background reading, check out
+          <a class="orange-link" href="blog-satoshi-nakamoto.html">Satoshi Nakamoto</a>,
+          <a class="orange-link" href="blog-bitcoin-halving.html">Bitcoin halving</a>, and
+          <a class="orange-link" href="blog-bitcoin-mining-network-security.html">Bitcoin mining and network security</a>.
+        </p>
+      </section>
 
-      <h2>How the Hard Cap is Enforced</h2>
-      <p>
-        A common question is whether Bitcoin’s 21 million limit could ever be changed. Technically, the code could be modified to allow more coins. However, Bitcoin’s decentralized nature makes this practically impossible. Every node in the network runs the same rules, and if someone tried to change the supply, it would result in a fork. The overwhelming majority of the community supports the fixed limit because it is central to Bitcoin’s value proposition. Without scarcity, Bitcoin would lose its credibility as sound money.
-      </p>
-      <p>
-        The enforcement is baked into the software itself. The block reward schedule and halving mechanism are not optional—they are part of the consensus rules. Miners cannot simply decide to award themselves more coins, as other nodes would reject these invalid blocks. In this way, the network ensures discipline without requiring trust in any single party.
-      </p>
+      <section id="design">
+        <h3>Why a fixed cap exists</h3>
+        <p>
+          Satoshi designed Bitcoin as a peer to peer electronic cash that resists debasement. In traditional systems, currency supply can be expanded by policy makers to respond to crises or political pressures. Expansion can stabilize markets, but it can also dilute savings and distort price signals. Bitcoin chooses the opposite path. It keeps issuance predictable and declining. The purpose is simple. Align incentives for savers, users, and miners around a money that nobody can arbitrarily inflate.
+        </p>
+        <p>
+          The cap also supports a key social property. If everyone knows that new supply will keep dropping, the system becomes neutral to political change. People do not have to trust a committee. They can verify the rules by running a node and agreeing only to blocks that follow the schedule. This is why the phrase verify do not trust sits at the heart of Bitcoin’s culture.
+        </p>
+      </section>
 
-      <h2>What Happens When All 21 Million Are Mined?</h2>
-      <p>
-        Another frequent question is what will happen when the last Bitcoin is mined. This is projected to occur around the year 2140. After this point, miners will no longer receive block subsidies. Instead, their incentive to continue securing the network will come from transaction fees paid by users. 
-      </p>
-      <p>
-        Many people worry that without new coins as rewards, miners may leave the network. However, by the time all coins are mined, Bitcoin is expected to be so widely adopted and valuable that transaction fees will be more than enough to support the mining industry. In fact, even today, a portion of miner revenue already comes from fees.
-      </p>
-      <p>
-        The shift from block subsidies to fees will also make Bitcoin’s security model more sustainable long-term, as it relies on actual economic activity instead of new coin issuance.
-      </p>
+      <section id="mechanics">
+        <h3>How the cap is enforced</h3>
+        <p>
+          Issuance in Bitcoin comes from block subsidies. When a miner finds a valid block, they include a special transaction that creates new coins. The subsidy started at fifty bitcoin per block in 2009. Every two hundred ten thousand blocks the subsidy is cut in half. This event is called the halving and it happens roughly every four years, because the network targets a ten minute average between blocks. Halvings continue until the subsidy becomes so small that it effectively reaches zero.
+        </p>
+        <p>
+          You can view live progress toward the next event on our
+          <a class="orange-link" href="index.html#halving">Halving Countdown</a>.
+          The schedule does not depend on human votes. It is automatic and enforced by the nodes that check blocks.
+        </p>
+      </section>
 
-      <h2>Implications for Bitcoin Holders</h2>
-      <p>
-        For those who own Bitcoin, the fixed cap means that their holdings cannot be diluted. Unlike stocks that issue new shares or currencies that suffer inflation, Bitcoin’s scarcity ensures that demand directly impacts price. If adoption continues to grow while supply remains fixed, the logical outcome is price appreciation.
-      </p>
-      <p>
-        This dynamic also makes Bitcoin an attractive hedge against inflation. In countries where the local currency is rapidly losing value, Bitcoin provides an alternative store of wealth. The certainty of a capped supply is particularly powerful in a world where almost every other asset can be inflated or manipulated.
-      </p>
+      <section id="math">
+        <h3>The math behind twenty one million</h3>
+        <p>
+          The total supply is the sum of a geometric series. Start at fifty bitcoin per block for the first era. Each era lasts two hundred ten thousand blocks. Then you halve the subsidy each era. The total new coins across all eras converge toward twenty one million. If you write the series as 50 × 210,000 × (1 + 1/2 + 1/4 + 1/8 + …) the part in parentheses converges to 2. The first era issues ten and a half million, the second issues five and a quarter million, the third two point six two five million, and so on. Add them and you approach the cap.
+        </p>
+        <p>
+          In reality the exact count will be slightly below twenty one million because the stream of halvings eventually reaches a smallest unit limit. Subsidies become dust and cannot be created in practice. Also a meaningful number of coins have been lost forever due to misplaced keys or early wallet mistakes. This makes effective circulating supply even scarcer than the theoretical limit.
+        </p>
+      </section>
 
-      <h2>Why 21 Million Matters for the Future of Money</h2>
-      <p>
-        Bitcoin’s supply limit challenges the traditional financial system. It introduces the idea that money can exist without central banks or governments controlling it. By enforcing scarcity, Bitcoin restores the concept of sound money in the digital age.
-      </p>
-      <p>
-        In the future, as block rewards diminish and transaction fees take over, Bitcoin will increasingly reflect the real demand for block space. This creates a self-sustaining ecosystem where users pay directly for security and miners continue to be incentivized to protect the network.
-      </p>
-      <p>
-        Moreover, the hard cap sets Bitcoin apart from thousands of other cryptocurrencies that often lack discipline in supply. Many altcoins have inflationary models or unlimited supply, which reduces their credibility as long-term stores of value. Bitcoin’s strict 21 million cap ensures its dominance as the original and most trusted digital asset.
-      </p>
+      <section id="timeline">
+        <h3>Timeline to twenty one million and beyond</h3>
+        <p>
+          The network passed several halvings already. The first halving happened in 2012, the second in 2016, the third in 2020, and the fourth in April 2024 when the reward dropped to three point one two five bitcoin per block. The next halving is expected around 2028 and will reduce the subsidy to one point five six two five bitcoin. Over ninety six percent of the total supply will exist by then. The remainder will trickle out over decades until the subsidy asymptotically approaches zero around the year 2140.
+        </p>
+        <p>
+          This long tail gives the network time to mature its fee market. As subsidies decline, transaction fees must carry more of the burden for miner revenue. The network is already seeing periods where fees surge during demand spikes. Over time, improvements in transaction batching, channel management, and layer two protocols should balance fee dynamics.
+        </p>
+      </section>
 
-      <h2>Conclusion</h2>
-      <p>
-        The 21 million Bitcoin limit is not just an arbitrary design choice. It is the foundation of Bitcoin’s monetary policy and the reason it has value as digital scarcity. By embedding this rule into its code, Satoshi Nakamoto created a system that resists inflation, ensures fairness, and preserves purchasing power for generations to come.
-      </p>
-      <p>
-        As we move into the future, the hard cap will remain one of Bitcoin’s defining features. It guarantees that those who hold Bitcoin are part of a system where scarcity is real, predictable, and incorruptible. Whether you are a new investor or a long-term HODLer, understanding the importance of this supply limit is key to appreciating why Bitcoin matters.
-      </p>
+      <section id="miners">
+        <h3>What it means for miners and fees</h3>
+        <p>
+          Miners secure the network by expending real world energy to produce valid blocks. Their revenue is a combination of subsidies and fees. Halvings reduce the subsidy component overnight. If a miner runs inefficient hardware or pays high electricity costs, their margins can compress quickly following a halving. This competitive pressure encourages upgrades, better energy sourcing, and operational discipline. It also thins out weaker operators and concentrates hash rate in efficient hands.
+        </p>
+        <p>
+          Over the long run, fees must rise or remain consistently healthy for mining to remain profitable. That does not mean fees must be high all the time. It means that the network must be useful enough that people willingly pay to settle. As more activity migrates to payment layers such as the
+          <a class="orange-link" href="blog-bitcoin-lightning-network.html">Lightning Network</a>, on chain transactions become high value settlements. That pattern can sustain a robust fee market while still supporting daily payments off chain.
+        </p>
+      </section>
 
-      <p><em>The paper that changed the world, the Bitcoin Whitepaper, can be read <a href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener">here</a>.</em></p>
+      <section id="investors">
+        <h3>What it means for investors</h3>
+        <p>
+          For savers, the cap creates a clear proposition. You have an asset with absolute scarcity. There will never be more than twenty one million coins and each coin can be divided into one hundred million satoshis. Scarcity does not guarantee price appreciation. Demand must still exist. But the cap aligns incentives between early adopters and future entrants. No central party can dilute holders through issuance surprises or political cycles.
+        </p>
+        <p>
+          Volatility remains part of the journey. A common approach is to use dollar cost averaging to reduce timing risk. Our
+          <a class="orange-link" href="index.html#dca">DCA Calculator</a> lets you simulate contributions over months and years, using historical prices to estimate results. If you already own bitcoin, the
+          <a class="orange-link" href="index.html#profit">Profit Calculator</a> helps you estimate outcomes at different future prices. After you accumulate, consider self custody and read our deep dive on
+          <a class="orange-link" href="blog-bitcoin-wallets-cold-storage.html">wallets and cold storage</a>. If you choose to purchase on an exchange, see the
+          <a class="orange-link" href="index.html#buy">Buy Bitcoin section</a> and always verify addresses before sending.
+        </p>
+      </section>
+
+      <section id="risks">
+        <h3>Could the cap change</h3>
+        <p>
+          Some newcomers ask whether a future vote could raise the cap. In practice, changing the cap would require a contentious hard fork that most node operators would reject. The social contract around Bitcoin’s supply is one of its strongest norms. Any software that tries to inflate supply would almost certainly be treated as an alt chain with little support. The game theory is simple. Holders, miners, and builders have no incentive to dilute themselves. The cap is not just code. It is culture backed by incentives.
+        </p>
+        <p>
+          A more realistic risk is user error. If you lose your keys, your coins are gone. That loss makes the remaining supply effectively scarcer, but it does not help you. Take custody seriously and follow best practices from our
+          <a class="orange-link" href="blog-avoid-bitcoin-scams.html">security focused guide to avoiding scams</a> and the
+          <a class="orange-link" href="blog-bitcoin-wallets-cold-storage.html">cold storage guide</a>.
+        </p>
+      </section>
+
+      <section id="faqs-quick">
+        <h3>Quick answers</h3>
+        <p><strong>Why twenty one million specifically</strong> It emerges from the initial subsidy, halving cadence, and block schedule. The geometric series converges to about twenty one million.</p>
+        <p><strong>Does scarcity guarantee number go up</strong> No. Scarcity is one input. Demand, adoption, liquidity, and macro conditions also matter.</p>
+        <p><strong>What happens when subsidies end</strong> Miners rely on fees. Bitcoin becomes a pure settlement network plus payment layers on top.</p>
+        <p><strong>What if I want smaller than a satoshi</strong> The protocol could support smaller accounting units in the future through soft forks or layer two abstractions, but on chain today the satoshi is the smallest unit.</p>
+      </section>
+
+      <section id="conclusion">
+        <h3>Conclusion</h3>
+        <p>
+          The twenty one million cap is not a marketing tagline. It is the foundation of Bitcoin’s monetary policy and the root of its culture. Fixed issuance, enforced by simple rules and public verification, gives savers a predictable asset and miners a clear schedule to plan around. The cap makes Bitcoin different from fiat not because it promises wealth, but because it refuses to change the rules mid game.
+        </p>
+        <p>
+          If you want to explore the economics further, start with our
+          <a class="orange-link" href="index.html#halving">Halving Countdown</a>,
+          simulate contributions with the <a class="orange-link" href="index.html#dca">DCA Calculator</a>,
+          or estimate outcomes with the <a class="orange-link" href="index.html#profit">Profit Calculator</a>.
+          When you are ready to hold with conviction, study
+          <a class="orange-link" href="blog-psychology-of-hodling.html">the psychology of HODLing</a> and secure your keys with
+          <a class="orange-link" href="blog-bitcoin-wallets-cold-storage.html">cold storage best practices</a>.
+        </p>
+      </section>
+
+      <div class="divider" aria-hidden="true"></div>
+      <p class="small muted">Educational content only. Nothing here is financial advice.</p>
     </article>
+
+    <!-- More to explore / internal links -->
+    <aside class="card">
+      <h3 class="card-title">More to explore</h3>
+      <div class="divider"></div>
+      <ul>
+        <li><a class="orange-link" href="blog-bitcoin-halving.html">What is Bitcoin Halving and Why it Matters</a></li>
+        <li><a class="orange-link" href="blog-satoshi-nakamoto.html">Satoshi Nakamoto and the invention of Bitcoin</a></li>
+        <li><a class="orange-link" href="blog-bitcoin-mining-network-security.html">How mining secures Bitcoin</a></li>
+        <li><a class="orange-link" href="blog-psychology-of-hodling.html">The psychology of HODLing</a></li>
+        <li><a class="orange-link" href="blog-bitcoin-wallets-cold-storage.html">Wallets and cold storage</a></li>
+        <li><a class="orange-link" href="index.html#buy">Buy Bitcoin</a></li>
+      </ul>
+    </aside>
   </main>
 
-  <footer class="footer">
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
     <div class="container footer-inner">
-      <p>Made by <a href="https://x.com/SagePixel2" class="orange-link" target="_blank">@SagePixel2</a> using AI</p>
-      <p><a href="privacy.html" class="orange-link">Privacy Policy</a> · <a href="terms.html" class="orange-link">Terms of Service</a></p>
+      <p>Made by <a href="https://x.com/SagePixel2" class="orange-link" target="_blank" rel="noopener">@SagePixel2</a> using AI</p>
+      <p>
+        <a href="privacy.html" class="orange-link">Privacy Policy</a> ·
+        <a href="terms.html" class="orange-link">Terms of Service</a> ·
+        <a href="about.html" class="orange-link">About</a> ·
+        <a href="mailto:satoshicalculator@gmail.com" class="orange-link">Contact</a>
+      </p>
     </div>
   </footer>
+
+  <!-- Main JS (theme toggle, nav, progress) -->
+  <script src="main.js" defer></script>
+
+  <!-- JSON-LD: BlogPosting -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BlogPosting",
+    "headline":"Why Bitcoin Has a Hard Cap of 21 Million Coins and What It Means for the Future",
+    "description":"Why Bitcoin is capped at 21 million, how halvings enforce scarcity, the math behind the cap, and the implications for miners, investors, and the network.",
+    "mainEntityOfPage":{
+      "@type":"WebPage",
+      "@id":"https://satoshicalculator.com.au/blog-bitcoin-21-million-supply.html"
+    },
+    "image":"https://satoshicalculator.com.au/og-card.png?v=1",
+    "author":{
+      "@type":"Person",
+      "name":"SagePixel",
+      "url":"https://x.com/SagePixel2"
+    },
+    "publisher":{
+      "@type":"Organization",
+      "name":"Satoshi Calculator",
+      "logo":{
+        "@type":"ImageObject",
+        "url":"https://satoshicalculator.com.au/bitcoin.png"
+      }
+    },
+    "datePublished":"2025-01-01",
+    "dateModified":"2025-01-01",
+    "articleSection":"Bitcoin",
+    "url":"https://satoshicalculator.com.au/blog-bitcoin-21-million-supply.html"
+  }
+  </script>
+
+  <!-- JSON-LD: Mini FAQ for rich results -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Why is Bitcoin capped at 21 million coins?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"The cap results from the initial 50 BTC block subsidy, the halving schedule every 210,000 blocks, and the 10 minute block target. The geometric series of subsidies converges near 21 million."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Can Bitcoin’s 21 million cap be changed?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Changing the cap would require a contentious hard fork that most nodes would likely reject. The social contract and incentives around a fixed supply make such a change extremely unlikely."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"What happens to miners when block rewards shrink?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Over time miner revenue shifts from subsidies to transaction fees. Efficient operations, better energy sourcing, and a healthy fee market keep mining sustainable."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Does a fixed cap guarantee that price goes up?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"No. Scarcity is one factor. Adoption, liquidity, and macro conditions also matter. Many investors use DCA strategies to reduce timing risk."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Where can I learn more about halving and wallets?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Use the Halving Countdown on the main page and read our guides on Bitcoin halving, wallets and cold storage, mining, and the psychology of long term holding."
+        }
+      }
+    ]
+  }
+  </script>
 </body>
 </html>
