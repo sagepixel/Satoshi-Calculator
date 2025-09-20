@@ -2,20 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>What is Bitcoin Halving and Why it Matters? | Satoshi Calculator Blog</title>
-  <meta name="description" content="Learn what Bitcoin halving is, how it works, why it matters, and what to expect from the next halving in 2028." />
+  <title>What is Bitcoin Halving and Why it Matters? | Satoshi Calculator</title>
+  <meta name="description" content="A deep dive into Bitcoin halving: how it works, why it exists, the math behind it, historical impact, miner economics, investor strategies, and what to watch ahead of 2028." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://satoshicalculator.com.au/blog-bitcoin-halving.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="What is Bitcoin Halving and Why it Matters?" />
+  <meta property="og:description" content="Understand halving, the schedule every 210,000 blocks, the 21M cap, effects on price and miners, and how to prepare." />
+  <meta property="og:url" content="https://satoshicalculator.com.au/blog-bitcoin-halving.html" />
+  <meta property="og:site_name" content="Satoshi Calculator" />
+  <meta property="og:image" content="https://satoshicalculator.com.au/og-card.png?v=1" />
+  <meta property="og:image:alt" content="Satoshi Calculator — premium Bitcoin tools and education." />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@SagePixel2" />
+  <meta name="twitter:creator" content="@SagePixel2" />
+  <meta name="twitter:title" content="What is Bitcoin Halving and Why it Matters?" />
+  <meta name="twitter:description" content="Everything you need to know about Bitcoin halving and how it shapes supply, miners, and long-term value." />
+  <meta name="twitter:image" content="https://satoshicalculator.com.au/og-card.png?v=1" />
+
+  <link rel="icon" href="favicon.png" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="nav">
+  <!-- Top progress bar -->
+  <div id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Navbar (consistent with main site) -->
+  <nav class="nav" role="navigation" aria-label="Main">
     <div class="container nav-inner">
-      <a href="index.html" class="brand">
+      <a href="index.html#top" class="brand" aria-label="Satoshi Calculator Home">
         <img src="bitcoin.png" alt="Bitcoin logo" class="brand-logo" />
         <span class="brand-name">Satoshi Calculator</span>
       </a>
-      <ul class="nav-links">
+
+      <button id="themeToggle" class="btn-ghost small" aria-label="Toggle theme">Dark Mode</button>
+      <button id="navToggle" class="hamburger" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">☰</button>
+
+      <ul class="nav-links" id="navLinks" role="menubar" aria-label="Primary">
         <li><a href="index.html#live-prices">Price</a></li>
         <li><a href="index.html#converter">Converter</a></li>
         <li><a href="index.html#profit">Profit</a></li>
@@ -23,130 +52,293 @@
         <li><a href="index.html#portfolio">Portfolio</a></li>
         <li><a href="index.html#chart">Chart</a></li>
         <li><a href="index.html#news">News</a></li>
+        <li><a href="index.html#facts">Facts</a></li>
+        <li><a href="index.html#wisdom">Wisdom</a></li>
+        <li><a href="index.html#halving">Halving</a></li>
+        <li><a href="index.html#whitepaper">Whitepaper</a></li>
         <li><a href="index.html#blog">Blog</a></li>
         <li><a href="about.html">About</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- Blog Content -->
-  <main class="container card">
-    <h1>What is Bitcoin Halving and Why it Matters?</h1>
-    <p><em>Published on: 20 September 2025 • Written by @SagePixel2</em></p>
+  <!-- Article header -->
+  <header class="hero" role="banner" aria-label="Article header">
+    <div class="hero-inner container">
+      <img src="bitcoin.png" alt="Bitcoin" class="hero-logo" />
+      <div>
+        <h1 class="hero-title">What is Bitcoin Halving and Why it Matters?</h1>
+        <p class="hero-tagline">The heartbeat of Bitcoin’s monetary policy, explained for investors, miners, and curious learners.</p>
+      </div>
+    </div>
+  </header>
 
-    <div class="divider"></div>
+  <main class="container" role="main">
+    <article class="card" aria-labelledby="postTitle">
+      <h2 id="postTitle" class="card-title">Complete Guide</h2>
+      <div class="divider" aria-hidden="true"></div>
 
-    <p>
-      If you’ve been following Bitcoin for a while, you may have heard the term <strong>“halving”</strong>. 
-      It’s one of the most important events in the Bitcoin ecosystem, shaping everything from miner incentives to long-term scarcity. 
-      But what exactly is Bitcoin halving, and why does it matter so much to investors, miners, and the future of money? 
-      Let’s break it down step by step.
-    </p>
+      <p class="muted small">
+        By <a class="orange-link" href="https://x.com/SagePixel2" target="_blank" rel="noopener">@SagePixel2</a> • Educational content • Not financial advice
+      </p>
 
-    <h2>1. What is Bitcoin Halving?</h2>
-    <p>
-      Bitcoin halving is a scheduled event that happens roughly every four years, or more precisely, every 
-      <strong>210,000 blocks</strong>. During a halving, the reward that Bitcoin miners receive for validating transactions 
-      is cut in half. This directly reduces the rate at which new bitcoins enter circulation.
-    </p>
-    <p>
-      When Bitcoin launched in 2009, miners received <strong>50 BTC per block</strong>. In 2012, the reward halved to 25 BTC. 
-      In 2016, it dropped to 12.5 BTC. In 2020, it fell again to 6.25 BTC. And in April 2024, the fourth halving reduced it 
-      further to <strong>3.125 BTC per block</strong>. The next halving, expected in 2028, will bring the reward down to <strong>1.5625 BTC</strong>.
-    </p>
+      <!-- Table of contents -->
+      <nav class="card" aria-label="Table of contents" style="margin-top:12px">
+        <h3 class="card-title" style="margin-bottom:6px">Contents</h3>
+        <div class="divider" aria-hidden="true"></div>
+        <ul>
+          <li><a class="orange-link" href="#intro">Introduction</a></li>
+          <li><a class="orange-link" href="#what-is-halving">What is Bitcoin halving</a></li>
+          <li><a class="orange-link" href="#why-exists">Why halving exists</a></li>
+          <li><a class="orange-link" href="#schedule">The halving schedule and block timing</a></li>
+          <li><a class="orange-link" href="#math">The math that enforces scarcity</a></li>
+          <li><a class="orange-link" href="#history">What happened after past halvings</a></li>
+          <li><a class="orange-link" href="#miners">How halving affects miners</a></li>
+          <li><a class="orange-link" href="#investors">How to prepare as an investor</a></li>
+          <li><a class="orange-link" href="#misconceptions">Common misconceptions</a></li>
+          <li><a class="orange-link" href="#next-halving">Looking ahead to 2028</a></li>
+          <li><a class="orange-link" href="#conclusion">Conclusion</a></li>
+        </ul>
+      </nav>
 
-    <h2>2. Why Does Halving Exist?</h2>
-    <p>
-      Satoshi Nakamoto, Bitcoin’s creator, designed halving as part of Bitcoin’s monetary policy. 
-      Unlike fiat currencies, which can be printed endlessly by central banks, Bitcoin has a fixed maximum supply of <strong>21 million coins</strong>. 
-      Halvings ensure that this supply is released gradually over more than a century, with the last bitcoin expected to be mined around the year 2140.
-    </p>
-    <p>
-      In short: halving makes Bitcoin <em>scarce</em>. Each halving reduces new supply, making BTC harder to get over time.
-    </p>
+      <section id="intro" style="margin-top:18px">
+        <h3>Introduction</h3>
+        <p>
+          Every few years the Bitcoin community circles a date on the calendar and begins to buzz with anticipation. The halving is approaching. This scheduled event is not a marketing gimmick. It is the mechanism that steadily reduces the rate at which new bitcoin enters circulation and it is central to how Bitcoin preserves its scarcity over time. Understanding halving helps you grasp why Bitcoin behaves differently from national currencies and why people often call it digital gold.
+        </p>
+        <p>
+          This guide explains what halving is, the exact schedule that governs it, the simple math behind the twenty one million supply cap, and what tends to happen around halving cycles. We will also cover miner economics, investor strategies such as dollar cost averaging, and practical steps for navigating the period before and after a halving. Along the way you can try our on site tools including the
+          <a class="orange-link" href="index.html#profit">Profit Calculator</a>,
+          <a class="orange-link" href="index.html#dca">DCA Simulator</a>, and
+          <a class="orange-link" href="index.html#converter">BTC and sats converter</a>. For background reading, see
+          <a class="orange-link" href="blog-bitcoin-21-million-supply.html">Why Bitcoin has a hard cap of 21 million</a>,
+          <a class="orange-link" href="blog-bitcoin-mining-network-security.html">How mining secures the network</a>, and
+          <a class="orange-link" href="blog-psychology-of-hodling.html">The psychology of HODLing</a>.
+        </p>
+      </section>
 
-    <h2>3. Historical Impact of Bitcoin Halving</h2>
-    <p>
-      While halving primarily affects miners, its impact ripples across the entire ecosystem. Let’s look at past events:
-    </p>
-    <ul>
-      <li><strong>2012 Halving:</strong> Price jumped from around $12 to over $1,000 within a year.</li>
-      <li><strong>2016 Halving:</strong> Price rose from $650 to nearly $20,000 by late 2017.</li>
-      <li><strong>2020 Halving:</strong> Price grew from $9,000 to an all-time high of $69,000 in 2021.</li>
-      <li><strong>2024 Halving:</strong> It’s still playing out, but many believe it could trigger the next bull cycle.</li>
-    </ul>
-    <p>
-      While past performance doesn’t guarantee future results, halvings have historically been followed by significant bull markets. 
-      This is because supply is reduced while demand often remains steady or grows.
-    </p>
+      <section id="what-is-halving">
+        <h3>What is Bitcoin halving</h3>
+        <p>
+          When miners add a new block of transactions to Bitcoin’s blockchain, they include a special transaction that creates new coins. This is called the block subsidy or block reward. At launch in 2009, the reward was fifty bitcoin per block. Approximately every two hundred ten thousand blocks the subsidy is cut in half. This event is known as the halving. Because the network targets an average of ten minutes per block, two hundred ten thousand blocks works out to roughly four years.
+        </p>
+        <p>
+          Over time the reward steps down from fifty to twenty five to twelve point five to six point two five and so on. In April 2024 the network completed its fourth halving, reducing the subsidy to three point one two five bitcoin per block. The next halving in 2028 will reduce it to one point five six two five bitcoin. This steady decay continues until the subsidy becomes negligible and miners rely primarily on transaction fees.
+        </p>
+      </section>
 
-    <h2>4. The Economics Behind Halving</h2>
-    <p>
-      Imagine a commodity like gold or oil suddenly becoming twice as hard to extract. 
-      The supply shock usually makes it more valuable. Bitcoin operates on a similar principle. 
-      As fewer coins are mined each day, scarcity increases. If demand stays constant or rises, prices tend to go up.
-    </p>
-    <p>
-      For miners, however, halving is a challenge. Their rewards are cut in half overnight, which can make older, less efficient mining rigs unprofitable. 
-      This often forces miners to upgrade equipment, switch to renewable energy, or leave the market entirely. 
-      In the long run, this strengthens the network by ensuring only efficient miners survive.
-    </p>
+      <section id="why-exists">
+        <h3>Why halving exists</h3>
+        <p>
+          Bitcoin’s design rejects the idea that a small group should control the money supply. Instead, it encodes a predictable issuance schedule that anyone can verify. Halving serves three goals. First, it steadily reduces new issuance, preventing surprise inflation. Second, it distributes the majority of coins earlier in the network’s life when adoption is growing, helping secure the chain while it matures. Third, it allows the network to transition from subsidy driven security to fee driven security over a century-scale timeline.
+        </p>
+        <p>
+          The result is a money system where users do not have to trust a committee. They can run a node, check the code, and verify that blocks follow the rules. This credibility is a big part of why long term holders have confidence through bear and bull cycles alike.
+        </p>
+      </section>
 
-    <h2>5. Why Should Investors Care?</h2>
-    <p>
-      For investors, halving is a reminder of Bitcoin’s scarcity and unique monetary design. 
-      Unlike fiat currencies, which are subject to inflation, Bitcoin’s supply becomes increasingly limited. 
-      This predictable scarcity is one of the main reasons Bitcoin is often called <em>“digital gold.”</em>
-    </p>
-    <p>
-      Historically, buying Bitcoin before or shortly after a halving has proven to be a profitable long-term strategy. 
-      Many investors use tools like <a href="index.html#profit">profit calculators</a> and <a href="index.html#dca">DCA simulators</a> 
-      to plan their entry points around these events.
-    </p>
+      <section id="schedule">
+        <h3>The halving schedule and block timing</h3>
+        <p>
+          A common misconception is that halvings occur on a fixed date. In reality they are triggered by block height. That means the exact day depends on how quickly blocks arrive. When network hash rate rises, blocks can arrive slightly faster than ten minutes for a while until the difficulty adjustment nudges timing back toward the target. Over months these small variations add up and can shift the expected date.
+        </p>
+        <p>
+          You can watch live progress toward the next milestone using our
+          <a class="orange-link" href="index.html#halving">Halving Countdown</a> which estimates remaining blocks and time based on current block height and average block interval.
+        </p>
+      </section>
 
-    <h2>6. Looking Ahead to the 2028 Halving</h2>
-    <p>
-      The next halving is expected in <strong>2028</strong>, at block height <strong>1,050,000</strong>. 
-      At that point, the block reward will fall to 1.5625 BTC. By then, more than 96% of all bitcoins will already be mined.
-    </p>
-    <p>
-      If history is any guide, the years following the 2028 halving could bring another surge in adoption and possibly new price highs. 
-      However, investors should remember that Bitcoin is volatile, and no outcome is guaranteed.
-    </p>
+      <section id="math">
+        <h3>The math that enforces scarcity</h3>
+        <p>
+          The halving schedule creates a geometric series of rewards: 50, 25, 12.5, 6.25, 3.125, and so on, each for two hundred ten thousand blocks. If you sum all eras, the total issuance converges near twenty one million coins. You can express it as 50 × 210,000 × (1 + 1/2 + 1/4 + 1/8 + …). The part in parentheses approaches 2, so the total tends toward approximately twenty one million. In practice the figure ends up slightly below that due to rounding at tiny amounts and because lost coins reduce effective circulating supply.
+        </p>
+        <p>
+          This predictable scarcity is why people compare Bitcoin to gold. The difference is that Bitcoin’s issuance is not governed by geology, mining companies, or policy makers. It is governed by open code and independent verification.
+        </p>
+      </section>
 
-    <h2>7. Conclusion</h2>
-    <p>
-      Bitcoin halving is more than just a technical event—it’s the heartbeat of Bitcoin’s economy. 
-      It ensures scarcity, strengthens the network, and reminds the world why Bitcoin is different from traditional money. 
-      Whether you’re a miner, investor, or curious beginner, understanding halving helps you appreciate the long-term vision of Bitcoin.
-    </p>
+      <section id="history">
+        <h3>What happened after past halvings</h3>
+        <p>
+          History never repeats exactly, but it often rhymes. After each halving, the market has eventually seen powerful bull cycles as reduced new supply met steady or rising demand. The 2012 halving was followed by a run from double digits to over one thousand dollars within a year. The 2016 halving led into the 2017 cycle near twenty thousand. The 2020 halving preceded the expansion to new highs in 2021. The 2024 halving occurred alongside growing institutional interest and improving infrastructure.
+        </p>
+        <p>
+          It is important to remember that halvings do not guarantee immediate price gains. Markets are influenced by macro conditions, leverage, liquidity, and investor psychology. Sometimes the narrative is priced in early. Other times the supply shock takes months to show up. This is why many long term participants prefer systematic approaches like dollar cost averaging rather than trying to call tops and bottoms. You can test different DCA plans with our
+          <a class="orange-link" href="index.html#dca">DCA Simulator</a> and explore scenario outcomes with the
+          <a class="orange-link" href="index.html#profit">Profit Calculator</a>.
+        </p>
+      </section>
 
-    <div class="divider"></div>
-    <p><strong>Tip:</strong> Use our <a href="index.html#halving">Bitcoin Halving Countdown</a> tool to track live progress toward the next halving in 2028.</p>
-  </main>
+      <section id="miners">
+        <h3>How halving affects miners</h3>
+        <p>
+          For miners, halving means an immediate revenue shock. If the reward is cut in half while price remains the same, inefficient operators see margins compress. This pressure forces upgrades to more efficient hardware, improved energy sourcing, and better treasury management. Over time the network becomes more resilient because only efficient miners survive. This competitive process is a feature, not a bug.
+        </p>
+        <p>
+          As subsidies decline, transaction fees become a larger share of miner revenue. This creates a natural incentive to include transactions that pay adequate fees and encourages users and services to optimize how they use block space. Technology such as batching and payment layers like the
+          <a class="orange-link" href="blog-bitcoin-lightning-network.html">Lightning Network</a> help balance demand between cheap instant payments off chain and high value settlements on chain.
+        </p>
+      </section>
 
-<!-- Internal links snippet -->
-    <div class="divider"></div>
-    <section class="related-tools">
-      <h3>Explore More Bitcoin Tools</h3>
+      <section id="investors">
+        <h3>How to prepare as an investor</h3>
+        <p>
+          If your time horizon is long, halving is a reminder to focus on process over prediction. Build a plan, test it, and execute consistently. Many investors map out entry schedules in advance using a fixed contribution strategy. Others allocate more aggressively near key events. Whatever your style, tools can help you stay objective. Try the
+          <a class="orange-link" href="index.html#dca">DCA Simulator</a> to design a schedule and the
+          <a class="orange-link" href="index.html#profit">Profit Calculator</a> to estimate outcomes at different target prices. When you accumulate, learn how to self-custody with our
+          <a class="orange-link" href="blog-bitcoin-wallets-cold-storage.html">wallets and cold storage guide</a>. If you plan to buy, our
+          <a class="orange-link" href="index.html#buy">Buy Bitcoin section</a> lists popular exchanges. Always verify addresses and protect your recovery phrase.
+        </p>
+      </section>
+
+      <section id="misconceptions">
+        <h3>Common misconceptions</h3>
+        <p><strong>“Halving sets an exact date every four years.”</strong> False. Halving is triggered by block height, not calendar date. Timing shifts with network conditions.</p>
+        <p><strong>“Price always moons right after halving.”</strong> Not necessarily. The supply shock is real, but markets can chop for months. A plan beats a prediction.</p>
+        <p><strong>“Miners will quit and the network will fail.”</strong> Historically hash rate dips have been temporary as difficulty adjusts and efficient miners gain share. The mechanism is self-correcting.</p>
+        <p><strong>“Fees will make Bitcoin unusable.”</strong> Fees fluctuate with demand. Over time, a combination of on chain settlement and off chain payments helps balance costs and throughput.</p>
+      </section>
+
+      <section id="next-halving">
+        <h3>Looking ahead to 2028</h3>
+        <p>
+          The next halving will reduce the reward to one point five six two five bitcoin per block. By then, more than ninety six percent of the eventual supply will exist. Bitcoin will be even more scarce in issuance terms, and miner economics will rely more on fees. For users this underscores the value of learning fee management, batching, and payment layers. For investors it highlights the importance of long-term thinking and secure storage.
+        </p>
+        <p>
+          Follow the countdown, watch blocks, and keep your strategy simple. Scarcity is predictable. Human behavior is not. The edge comes from discipline.
+        </p>
+      </section>
+
+      <section id="conclusion">
+        <h3>Conclusion</h3>
+        <p>
+          Halving is the heartbeat of Bitcoin’s monetary policy. It steadily reduces new issuance, enforces digital scarcity, and aligns incentives between miners, users, and long-term savers. While price narratives around halving can get loud, the real story is quieter. The rules remain the same, blocks keep arriving, and the network keeps securing value for anyone who opts in.
+        </p>
+        <p>
+          To continue learning, explore
+          <a class="orange-link" href="blog-bitcoin-21-million-supply.html">the 21 million supply cap</a>,
+          <a class="orange-link" href="blog-satoshi-nakamoto.html">Satoshi Nakamoto’s vision</a>, and
+          <a class="orange-link" href="blog-bitcoin-mining-network-security.html">why proof of work secures Bitcoin</a>. Then put ideas into practice with the
+          <a class="orange-link" href="index.html#dca">DCA Simulator</a> and
+          <a class="orange-link" href="index.html#profit">Profit Calculator</a>.
+        </p>
+      </section>
+
+      <div class="divider" aria-hidden="true"></div>
+      <p class="small muted">Educational content only. Nothing here is financial advice.</p>
+    </article>
+
+    <!-- Related reading / internal links -->
+    <aside class="card">
+      <h3 class="card-title">Related guides</h3>
+      <div class="divider"></div>
       <ul>
-        <li><a href="index.html#converter">BTC ⇆ Fiat Converter</a></li>
-        <li><a href="index.html#profit">Profit Calculator</a></li>
-        <li><a href="index.html#dca">DCA Simulator</a></li>
-        <li><a href="index.html#portfolio">Portfolio Tracker</a></li>
-        <li><a href="index.html#buy">Buy Bitcoin (Affiliate Links)</a></li>
+        <li><a class="orange-link" href="blog-bitcoin-21-million-supply.html">Why Bitcoin Has a Hard Cap of 21 Million</a></li>
+        <li><a class="orange-link" href="blog-bitcoin-wallets-cold-storage.html">Wallets and Why Cold Storage Matters</a></li>
+        <li><a class="orange-link" href="blog-psychology-of-hodling.html">The Psychology of HODLing</a></li>
+        <li><a class="orange-link" href="blog-avoid-bitcoin-scams.html">Top Bitcoin Scams and How to Avoid Them</a></li>
+        <li><a class="orange-link" href="blog-bitcoin-lightning-network.html">Lightning Network: Fast and Cheap Payments</a></li>
       </ul>
-    </section>
+    </aside>
   </main>
-  
+
   <!-- Footer -->
-  <footer class="footer">
+  <footer class="footer" role="contentinfo">
     <div class="container footer-inner">
-      <p>Made by <a href="https://x.com/SagePixel2" class="orange-link" target="_blank">@SagePixel2</a> using AI</p>
-      <p><a href="privacy.html" class="orange-link">Privacy Policy</a> · 
-         <a href="terms.html" class="orange-link">Terms of Service</a> · 
-         <a href="about.html" class="orange-link">About</a></p>
+      <p>Made by <a href="https://x.com/SagePixel2" class="orange-link" target="_blank" rel="noopener">@SagePixel2</a> using AI</p>
+      <p>
+        <a href="privacy.html" class="orange-link">Privacy Policy</a> ·
+        <a href="terms.html" class="orange-link">Terms of Service</a> ·
+        <a href="about.html" class="orange-link">About</a> ·
+        <a href="mailto:satoshicalculator@gmail.com" class="orange-link">Contact</a>
+      </p>
     </div>
   </footer>
+
+  <!-- Main JS (theme toggle, nav, progress) -->
+  <script src="main.js" defer></script>
+
+  <!-- JSON-LD: BlogPosting -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BlogPosting",
+    "headline":"What is Bitcoin Halving and Why it Matters?",
+    "description":"A deep dive into Bitcoin halving: the schedule every 210,000 blocks, the math behind the 21M cap, miner economics, investor strategies, and 2028 outlook.",
+    "mainEntityOfPage":{
+      "@type":"WebPage",
+      "@id":"https://satoshicalculator.com.au/blog-bitcoin-halving.html"
+    },
+    "image":"https://satoshicalculator.com.au/og-card.png?v=1",
+    "author":{
+      "@type":"Person",
+      "name":"SagePixel",
+      "url":"https://x.com/SagePixel2"
+    },
+    "publisher":{
+      "@type":"Organization",
+      "name":"Satoshi Calculator",
+      "logo":{
+        "@type":"ImageObject",
+        "url":"https://satoshicalculator.com.au/bitcoin.png"
+      }
+    },
+    "datePublished":"2025-01-01",
+    "dateModified":"2025-01-01",
+    "articleSection":"Bitcoin",
+    "url":"https://satoshicalculator.com.au/blog-bitcoin-halving.html"
+  }
+  </script>
+
+  <!-- JSON-LD: Mini FAQ for rich results -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"How often does Bitcoin halving occur?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Roughly every four years, but specifically every 210,000 blocks. The exact calendar date varies based on block times."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Why does Bitcoin halving matter?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"It reduces new supply, enforcing Bitcoin’s scarcity and shaping miner economics. Historically, halvings have preceded strong adoption cycles."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Does price always go up after halving?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"No outcome is guaranteed. The halving cuts issuance, but price depends on demand, liquidity, and macro factors. Many investors use DCA to reduce timing risk."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"What happens to miners when rewards are cut?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Inefficient miners may drop off while efficient ones upgrade and optimize. Over time, transaction fees play a larger role in miner revenue."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Where can I track the next halving?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Use the Halving Countdown on the Satoshi Calculator homepage, which estimates remaining blocks and time based on current network conditions."
+        }
+      }
+    ]
+  }
+  </script>
 </body>
 </html>
