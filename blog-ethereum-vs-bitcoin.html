@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Ethereum vs Bitcoin: What’s the Difference? | Satoshi Calculator</title>
+  <meta name="description" content="A beginner-friendly deep dive into Bitcoin vs Ethereum: goals, monetary policy, consensus, smart contracts, security, scaling, and use cases. Learn what sets them apart and how to choose." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://satoshicalculator.com.au/blog-ethereum-vs-bitcoin.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Ethereum vs Bitcoin: What’s the Difference?" />
+  <meta property="og:description" content="Compare Bitcoin and Ethereum from first principles. Digital gold vs smart contracts, PoW vs PoS, issuance, security, and more." />
+  <meta property="og:url" content="https://satoshicalculator.com.au/blog-ethereum-vs-bitcoin.html" />
+  <meta property="og:site_name" content="Satoshi Calculator" />
+  <meta property="og:image" content="https://satoshicalculator.com.au/og-card.png?v=1" />
+  <meta property="og:image:alt" content="Satoshi Calculator — clean dashboard preview with Bitcoin tools." />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@SagePixel2" />
+  <meta name="twitter:creator" content="@SagePixel2" />
+  <meta name="twitter:title" content="Ethereum vs Bitcoin: What’s the Difference?" />
+  <meta name="twitter:description" content="Beginner-friendly comparison of Bitcoin and Ethereum: purpose, policy, security, and use." />
+  <meta name="twitter:image" content="https://satoshicalculator.com.au/og-card.png?v=1" />
+
+  <link rel="icon" href="favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Top progress bar -->
+  <div id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Navbar (same structure as index) -->
+  <nav class="nav" role="navigation" aria-label="Main">
+    <div class="container nav-inner">
+      <a href="index.html#top" class="brand" aria-label="Satoshi Calculator Home">
+        <img src="bitcoin.png" alt="Bitcoin logo" class="brand-logo" />
+        <span class="brand-name">Satoshi Calculator</span>
+      </a>
+
+      <button id="themeToggle" class="btn-ghost small" aria-label="Toggle theme">Dark Mode</button>
+      <button id="navToggle" class="hamburger" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">☰</button>
+
+      <ul class="nav-links" id="navLinks" role="menubar" aria-label="Primary">
+        <li><a href="index.html#live-prices">Price</a></li>
+        <li><a href="index.html#converter">Converter</a></li>
+        <li><a href="index.html#profit">Profit</a></li>
+        <li><a href="index.html#dca">DCA</a></li>
+        <li><a href="index.html#portfolio">Portfolio</a></li>
+        <li><a href="index.html#chart">Chart</a></li>
+        <li><a href="index.html#news">News</a></li>
+        <li><a href="index.html#facts">Facts</a></li>
+        <li><a href="index.html#wisdom">Wisdom</a></li>
+        <li><a href="index.html#halving">Halving</a></li>
+        <li><a href="index.html#whitepaper">Whitepaper</a></li>
+        <li><a href="index.html#blog">Blog</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="hero" role="banner" aria-label="Article header">
+    <div class="hero-inner container">
+      <img src="bitcoin.png" alt="Bitcoin" class="hero-logo" />
+      <div>
+        <h1 class="hero-title">Ethereum vs Bitcoin: What’s the Difference?</h1>
+        <p class="hero-tagline">Digital gold versus programmable money. Two networks, two visions, one Internet of value.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" role="main">
+    <article class="card" aria-labelledby="postTitle">
+      <h2 id="postTitle" class="card-title">A clear, beginner-friendly comparison</h2>
+      <div class="divider" aria-hidden="true"></div>
+
+      <p class="muted small">By <a href="https://x.com/SagePixel2" target="_blank" rel="noopener" class="orange-link">@SagePixel2</a> • Educational content • Not financial advice</p>
+
+      <!-- Contents -->
+      <nav class="card" aria-label="Table of contents" style="margin-top:12px">
+        <h3 class="card-title" style="margin-bottom:6px">Contents</h3>
+        <div class="divider" aria-hidden="true"></div>
+        <ul>
+          <li><a class="orange-link" href="#origins">Origins and purpose</a></li>
+          <li><a class="orange-link" href="#policy">Monetary policy and issuance</a></li>
+          <li><a class="orange-link" href="#consensus">Consensus and security</a></li>
+          <li><a class="orange-link" href="#programmability">Programmability and smart contracts</a></li>
+          <li><a class="orange-link" href="#scaling">Scaling paths and trade offs</a></li>
+          <li><a class="orange-link" href="#use-cases">Real world use cases</a></li>
+          <li><a class="orange-link" href="#self-custody">Self custody and user responsibility</a></li>
+          <li><a class="orange-link" href="#investor">Investor frameworks: conviction and risk</a></li>
+          <li><a class="orange-link" href="#quick-compare">Quick comparison</a></li>
+          <li><a class="orange-link" href="#conclusion">Conclusion</a></li>
+        </ul>
+      </nav>
+
+      <section id="origins" style="margin-top:18px">
+        <h3>Origins and purpose</h3>
+        <p>
+          Bitcoin launched in 2009 with a single, audacious goal. Create sound money for the internet that nobody can inflate, freeze, or control.
+          Satoshi Nakamoto’s design favored simplicity, verifiability, and long term credibility. The network focuses on doing one thing well:
+          secure, uncensorable settlement of value. If you want the backstory and why the anonymous creator changed the world,
+          read our feature <a class="orange-link" href="blog-satoshi-nakamoto.html">Satoshi Nakamoto: The Anonymous Creator Who Changed the World</a>.
+        </p>
+        <p>
+          Ethereum launched in 2015 with a broader vision: a general purpose blockchain where developers can deploy smart contracts
+          and build decentralized applications. If Bitcoin is a conservative base layer for savings and settlement,
+          Ethereum positioned itself as a flexible platform for programmable money and digital agreements.
+        </p>
+      </section>
+
+      <section id="policy">
+        <h3>Monetary policy and issuance</h3>
+        <p>
+          Bitcoin’s monetary policy is famously rigid. Supply is capped at <strong>21 million</strong> coins.
+          Issuance follows a predictable schedule called the <em>halving</em>, where block rewards are cut every 210,000 blocks
+          until new issuance asymptotically approaches zero. If you want to track progress, use our
+          <a class="orange-link" href="index.html#halving">Halving Countdown</a>, and dive deeper in
+          <a class="orange-link" href="blog-bitcoin-21-million-supply.html">Why Bitcoin Has a 21 Million Supply</a>.
+        </p>
+        <p>
+          Ethereum’s supply policy has evolved over time. After its transition to proof of stake, issuance dropped,
+          and network fees that are burned can offset issuance during high activity, leading to periods of net reduction in supply.
+          The key difference: Bitcoin optimizes for scarcity credibility via hard cap and predictable issuance,
+          while Ethereum optimizes for flexible economics that support a programmable platform.
+        </p>
+      </section>
+
+      <section id="consensus">
+        <h3>Consensus and security</h3>
+        <p>
+          Bitcoin secures the ledger with proof of work mining. Specialized hardware expends energy to propose blocks,
+          and the chain with the most accumulated work wins. This makes attacks extremely expensive,
+          ties security to objective physical cost, and has withstood real world stress for more than a decade.
+          For a clear primer, see <a class="orange-link" href="blog-bitcoin-mining-network-security.html">Why Bitcoin Mining Secures the Network</a>.
+        </p>
+        <p>
+          Ethereum began with proof of work but later migrated to proof of stake. Validators stake ETH, propose and attest to blocks,
+          and risk losing stake if they misbehave. This design reduces energy requirements and improves certain programmability features,
+          while shifting the economic model of security from electricity and hardware to capital at stake.
+        </p>
+      </section>
+
+      <section id="programmability">
+        <h3>Programmability and smart contracts</h3>
+        <p>
+          Ethereum’s signature innovation is native smart contracts. Developers write logic that automatically executes on chain.
+          This enables tokens, stablecoins, decentralized exchanges, lending markets, NFTs, and more. The platform acts as an open,
+          composable financial operating system where apps can interconnect like Lego bricks.
+        </p>
+        <p>
+          Bitcoin intentionally keeps the base layer conservative and simpler. Script exists but is limited by design to preserve auditability,
+          verifiability, and minimization of attack surface. More complex functionality can be added on layers above the base,
+          such as the Lightning Network for payments.
+        </p>
+      </section>
+
+      <section id="scaling">
+        <h3>Scaling paths and trade offs</h3>
+        <p>
+          Bitcoin’s mainstream scaling path emphasizes layers. The base layer remains slow and highly secure, while
+          payment speed and throughput move to protocols like Lightning. If you want to experiment with everyday amounts,
+          try converting with our <a class="orange-link" href="index.html#converter">BTC ⇄ Fiat ⇄ Sats Converter</a> first,
+          then explore Lightning-friendly wallets discussed in
+          <a class="orange-link" href="blog-bitcoin-wallets-cold-storage.html">Understanding Wallets and Cold Storage</a>.
+        </p>
+        <p>
+          Ethereum scales through a combination of on chain improvements and off chain layers often called rollups.
+          In this model, transactions are executed off the main chain but inherit security by posting proofs or data to Ethereum.
+          The design increases expressiveness for applications while distributing throughput across many rollups.
+        </p>
+      </section>
+
+      <section id="use-cases">
+        <h3>Real world use cases</h3>
+        <p>
+          <strong>Bitcoin</strong> is primarily used as a store of value and neutral settlement layer. Individuals use it as
+          inflation protection, a cross border savings technology, and a way to exit capital controls.
+          For powerful stories from emerging markets, read
+          <a class="orange-link" href="blog-bitcoin-developing-economies.html">Bitcoin in Developing Economies</a>.
+        </p>
+        <p>
+          <strong>Ethereum</strong> is used to deploy and interact with applications. Decentralized exchanges, stablecoins,
+          NFTs, and on chain organizations are all built with smart contracts. Many teams treat Ethereum as programmable infrastructure
+          for building new digital markets.
+        </p>
+        <p>
+          Both networks are complementary in practice. People may save long term in Bitcoin and still use Ethereum applications,
+          just as people save in one currency and spend in another.
+        </p>
+      </section>
+
+      <section id="self-custody">
+        <h3>Self custody and user responsibility</h3>
+        <p>
+          On both networks, the golden rule is the same. Your keys, your coins. Without self custody, you hold an IOU at best.
+          If you are new to hardware wallets, backup phrases, and safe spending flows, bookmark our deep dive:
+          <a class="orange-link" href="blog-bitcoin-wallets-cold-storage.html">Understanding Bitcoin Wallets and Why Cold Storage Matters</a>.
+          The concepts apply broadly even if you later interact with smart contracts elsewhere.
+        </p>
+      </section>
+
+      <section id="investor">
+        <h3>Investor frameworks: conviction and risk</h3>
+        <p>
+          If you are evaluating these networks as investments, begin with first principles and behavior.
+          What are you buying and why? Are you drawn to Bitcoin’s conservative design and hard cap scarcity,
+          or to Ethereum’s flexible platform and application ecosystem? Many long term savers prefer intentional simplicity
+          and the discipline of holding. If you are curious about that mindset, read
+          <a class="orange-link" href="blog-psychology-of-hodling.html">The Psychology of HODLing</a>.
+        </p>
+        <p>
+          Build a written plan. Use our <a class="orange-link" href="index.html#dca">DCA Calculator</a> to model recurring buys,
+          and the <a class="orange-link" href="index.html#profit">Profit Calculator</a> to sanity check targets.
+          If you decide to accumulate BTC and want on-ramps, we list major exchanges in the
+          <a class="orange-link" href="index.html#buy">Buy Bitcoin</a> section. Always verify local regulations and fees.
+        </p>
+      </section>
+
+      <section id="quick-compare">
+        <h3>Quick comparison</h3>
+        <div class="table-wrap" role="region" aria-label="Comparison table" tabindex="0">
+          <table class="table">
+            <thead>
+              <tr><th>Aspect</th><th>Bitcoin</th><th>Ethereum</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Primary goal</td><td>Sound money and settlement</td><td>Programmable contracts and apps</td></tr>
+              <tr><td>Supply policy</td><td>Hard cap at 21M, halving schedule</td><td>Adaptive issuance with fee burn dynamics</td></tr>
+              <tr><td>Consensus</td><td>Proof of Work</td><td>Proof of Stake</td></tr>
+              <tr><td>Scaling</td><td>Layers like Lightning</td><td>Rollups and on-chain upgrades</td></tr>
+              <tr><td>Philosophy</td><td>Conservative, minimize change</td><td>Flexible, application centric</td></tr>
+              <tr><td>Security anchor</td><td>Energy and hardware cost</td><td>Capital at stake and slashing</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="conclusion">
+        <h3>Conclusion</h3>
+        <p>
+          Bitcoin and Ethereum emerged from the same movement yet chose different priorities. Bitcoin sacrifices some flexibility
+          to maximize credibility as global digital savings. Ethereum sacrifices some simplicity to enable a rich world of on chain logic.
+          Neither design is an accident. Both reflect clear values and trade offs.
+        </p>
+        <p>
+          If you came here to decide “which is better,” the honest answer is that it depends on your goals.
+          If you want a neutral base savings asset with a transparent issuance schedule, Bitcoin’s design will likely resonate.
+          If you want to experiment with programmable money and decentralized applications, Ethereum offers a powerful toolkit.
+          Many participants end up using both for different reasons.
+        </p>
+        <p>
+          Whatever you choose, act with intention. Model your plan with the
+          <a class="orange-link" href="index.html#dca">DCA Calculator</a>, test outcomes with the
+          <a class="orange-link" href="index.html#profit">Profit Calculator</a>, learn cold storage in our
+          <a class="orange-link" href="blog-bitcoin-wallets-cold-storage.html">wallet guide</a>,
+          and keep an eye on the <a class="orange-link" href="index.html#halving">Halving Countdown</a>.
+          Strong process beats hot takes.
+        </p>
+      </section>
+
+      <div class="divider" aria-hidden="true"></div>
+      <p class="small muted">Educational content only. Nothing here is financial advice.</p>
+    </article>
+
+    <!-- Simple next steps card -->
+    <aside class="card">
+      <h3 class="card-title">Next steps</h3>
+      <div class="divider"></div>
+      <ul>
+        <li><a class="orange-link" href="index.html#converter">Convert BTC ⇄ Fiat ⇄ Sats</a></li>
+        <li><a class="orange-link" href="index.html#dca">Simulate a recurring buy plan with DCA</a></li>
+        <li><a class="orange-link" href="blog-psychology-of-hodling.html">Read: The Psychology of HODLing</a></li>
+        <li><a class="orange-link" href="blog-bitcoin-mining-network-security.html">Read: Why Bitcoin Mining Secures the Network</a></li>
+        <li><a class="orange-link" href="index.html#buy">Visit the Buy Bitcoin section</a></li>
+      </ul>
+    </aside>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-inner">
+      <p>Made by <a href="https://x.com/SagePixel2" class="orange-link" target="_blank" rel="noopener">@SagePixel2</a> using AI</p>
+      <p><a href="privacy.html" class="orange-link">Privacy Policy</a> ·
+         <a href="terms.html" class="orange-link">Terms of Service</a> ·
+         <a href="about.html" class="orange-link">About</a></p>
+    </div>
+  </footer>
+
+  <!-- Main JS (theme toggle, nav, progress) -->
+  <script src="main.js" defer></script>
+
+  <!-- JSON-LD: BlogPosting -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BlogPosting",
+    "headline":"Ethereum vs Bitcoin: What’s the Difference?",
+    "description":"A beginner-friendly comparison of Bitcoin and Ethereum covering goals, monetary policy, consensus, programmability, scaling, and use cases.",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://satoshicalculator.com.au/blog-ethereum-vs-bitcoin.html"},
+    "author":{"@type":"Person","name":"SagePixel","url":"https://x.com/SagePixel2"},
+    "publisher":{
+      "@type":"Organization",
+      "name":"Satoshi Calculator",
+      "logo":{"@type":"ImageObject","url":"https://satoshicalculator.com.au/bitcoin.png"}
+    },
+    "image":"https://satoshicalculator.com.au/og-card.png?v=1",
+    "datePublished":"2025-01-01",
+    "dateModified":"2025-01-01"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQ for rich results -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Is Bitcoin or Ethereum better?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"It depends on your goal. Bitcoin optimizes for long-term monetary credibility and simple, robust settlement. Ethereum optimizes for programmability and decentralized applications. Many people save in Bitcoin and use Ethereum apps."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Why does Bitcoin have a fixed supply?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Bitcoin uses a hard cap of 21 million and a predictable halving schedule to ensure scarcity and resist debasement. This design is intended to build long-term trust in the monetary policy."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"What makes Ethereum unique?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Ethereum enables smart contracts, letting developers create applications like decentralized exchanges, lending markets, and NFTs. It emphasizes composability and a rich ecosystem of programmable money."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"How should beginners start?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Learn self-custody with a hardware wallet, write a simple plan, and consider dollar-cost averaging. You can model recurring buys with a DCA calculator and test targets with a profit calculator before committing funds."
+        }
+      }
+    ]
+  }
+  </script>
+</body>
+</html>
