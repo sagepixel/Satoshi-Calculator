@@ -10,15 +10,20 @@ function setTheme(mode){
   else { document.body.classList.remove('dark'); themeToggle.textContent='Dark Mode'; }
 }
 setTheme('light');
-themeToggle.addEventListener('click', ()=> setTheme(document.body.classList.contains('dark') ? 'light' : 'dark'));
+themeToggle?.addEventListener('click', ()=> setTheme(document.body.classList.contains('dark') ? 'light' : 'dark'));
 
-// ========= Navbar (hamburger) =========
+// ========= Navbar (hamburger + responsive tweaks) =========
 const navToggle = $('#navToggle');
 const navLinks  = $('#navLinks');
-navToggle.addEventListener('click', ()=>{
+navToggle?.addEventListener('click', ()=>{
   const expanded = navToggle.getAttribute('aria-expanded') === 'true';
   navToggle.setAttribute('aria-expanded', String(!expanded));
   navLinks.style.display = expanded ? 'none' : 'flex';
+});
+
+// Prevent cramming: auto-center links on resize
+window.addEventListener('resize', ()=>{
+  if(window.innerWidth > 920) navLinks.style.display = 'flex';
 });
 
 // ========= Scroll progress =========
@@ -28,6 +33,20 @@ window.addEventListener('scroll', ()=>{
   const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
   progressBar.style.width = (scrolled * 100) + '%';
 });
+
+// ========= Fade-in animations =========
+const fadeEls = $$('.fade-in');
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.1});
+  fadeEls.forEach(el => io.observe(el));
+}
 
 // ========= Live BTC price (USD) with retry + fallbacks + cache =========
 let rates = { usd: null };
@@ -41,10 +60,7 @@ function setPriceUI(value, source = 'Cached'){
 }
 
 async function fetchWithTimeout(url, opts = {}, timeout = 4000){
-  return Promise.race([
-    fetch(url, opts),
-    new Promise((_, rej) => setTimeout(()=>rej(new Error('timeout')), timeout))
-  ]);
+  return Promise.race([ fetch(url, opts), new Promise((_, rej) => setTimeout(()=>rej(new Error('timeout')), timeout)) ]);
 }
 
 async function getPriceFromCoinGecko(){
@@ -98,9 +114,7 @@ function useCachedPriceIfAvailable(msg='Using last known price'){
 }
 
 async function updatePriceLoop(){
-  // First paint: use cache if available
   useCachedPriceIfAvailable('Cached');
-  // Then fetch live
   try{
     const { price, source } = await getRobustPrice();
     rates.usd = price;
@@ -117,29 +131,20 @@ setInterval(updatePriceLoop, 5000);
 
 // ========= Fiat selects (for tools) =========
 const CURRENCIES = [
-  { code:'usd', name:'USD', flag:'us' },
-  { code:'eur', name:'EUR', flag:'eu' },
-  { code:'aud', name:'AUD', flag:'au' },
-  { code:'inr', name:'INR', flag:'in' },
-  { code:'gbp', name:'GBP', flag:'gb' },
-  { code:'jpy', name:'JPY', flag:'jp' },
-  { code:'pkr', name:'PKR', flag:'pk' },
-  { code:'rub', name:'RUB', flag:'ru' },
-  { code:'mxn', name:'MXN', flag:'mx' },
-  { code:'ngn', name:'NGN', flag:'ng' },
-  { code:'ars', name:'ARS', flag:'ar' },
-  { code:'try', name:'TRY', flag:'tr' },
-  { code:'idr', name:'IDR', flag:'id' },
-  { code:'php', name:'PHP', flag:'ph' },
+  { code:'usd', name:'USD', flag:'us' }, { code:'eur', name:'EUR', flag:'eu' },
+  { code:'aud', name:'AUD', flag:'au' }, { code:'inr', name:'INR', flag:'in' },
+  { code:'gbp', name:'GBP', flag:'gb' }, { code:'jpy', name:'JPY', flag:'jp' },
+  { code:'pkr', name:'PKR', flag:'pk' }, { code:'rub', name:'RUB', flag:'ru' },
+  { code:'mxn', name:'MXN', flag:'mx' }, { code:'ngn', name:'NGN', flag:'ng' },
+  { code:'ars', name:'ARS', flag:'ar' }, { code:'try', name:'TRY', flag:'tr' },
+  { code:'idr', name:'IDR', flag:'id' }, { code:'php', name:'PHP', flag:'ph' },
   { code:'vnd', name:'VND', flag:'vn' },
 ];
-
 function populateFiatSelect(selectEl, flagEl){
+  if (!selectEl) return;
   selectEl.innerHTML = '';
   CURRENCIES.forEach(c=>{
-    const o = document.createElement('option');
-    o.value = c.code; o.textContent = c.name;
-    selectEl.appendChild(o);
+    const o = document.createElement('option'); o.value = c.code; o.textContent = c.name; selectEl.appendChild(o);
   });
   if (flagEl){
     const setFlag = ()=> {
@@ -155,7 +160,7 @@ populateFiatSelect($('#dcaFiat'),     $('#dcaFlag'));
 populateFiatSelect($('#pfFiat'),      $('#pfFlag'));
 populateFiatSelect($('#emailFiat'),   $('#emailFlag'));
 
-// ========= Converter (BTC/Sats/Fiat) — FIXED & CURRENCY-AWARE =========
+// ========= Converter (BTC/Sats/Fiat) =========
 (() => {
   const btcInput   = $('#btcInput');
   const satsInput  = $('#satsInput');
@@ -163,7 +168,6 @@ populateFiatSelect($('#emailFiat'),   $('#emailFlag'));
   const convBtn    = $('#convertBtn');
   const convOut    = $('#convResult');
 
-  // Helpers
   const btcToSats = (btc) => Math.round((+btc || 0) * 100_000_000);
   const satsToBtc = (sats) => (+sats || 0) / 100_000_000;
 
@@ -171,11 +175,9 @@ populateFiatSelect($('#emailFiat'),   $('#emailFlag'));
     new Intl.NumberFormat(undefined, { style: 'currency', currency: code.toUpperCase() })
       .format(+n || 0);
 
-  // Local cache for converter prices (independent from USD-only live tile)
   const PX_CACHE_KEY = 'btc_px_converter';
   const PX_TTL_MS    = 60 * 1000; // 60s
 
-  // Warm all prices for the currencies present in the select
   async function refreshAllPrices() {
     const options = Array.from(fiatSelect.options).map(o => o.value.toLowerCase());
     const unique  = Array.from(new Set(options));
@@ -197,21 +199,17 @@ populateFiatSelect($('#emailFiat'),   $('#emailFlag'));
 
   async function getBtcPriceFor(curCode) {
     const now = Date.now();
-    // 1) Try fresh cache
     try {
       const cached = JSON.parse(localStorage.getItem(PX_CACHE_KEY) || 'null');
       if (cached && (now - cached.t) < PX_TTL_MS && cached.rates?.[curCode]) {
-        // Refresh in background to keep warm
         refreshAllPrices().catch(() => {});
         return cached.rates[curCode];
       }
     } catch {}
 
-    // 2) Fetch all synchronously if no fresh cache
     const refreshed = await refreshAllPrices();
     if (refreshed?.[curCode]) return refreshed[curCode];
 
-    // 3) Fall back to any stale cache for smooth UX
     try {
       const cached = JSON.parse(localStorage.getItem(PX_CACHE_KEY) || 'null');
       if (cached?.rates?.[curCode]) return cached.rates[curCode];
@@ -220,29 +218,26 @@ populateFiatSelect($('#emailFiat'),   $('#emailFlag'));
     throw new Error('Price unavailable');
   }
 
-  // Keep BTC & sats in sync while typing
-  btcInput.addEventListener('input', () => {
+  btcInput?.addEventListener('input', () => {
     const v = parseFloat(btcInput.value);
     satsInput.value = Number.isFinite(v) ? btcToSats(v) : '';
     convOut.textContent = '';
     convOut.classList.remove('show');
   });
 
-  satsInput.addEventListener('input', () => {
+  satsInput?.addEventListener('input', () => {
     const v = parseFloat(satsInput.value);
     btcInput.value = Number.isFinite(v) ? satsToBtc(v).toFixed(8) : '';
     convOut.textContent = '';
     convOut.classList.remove('show');
   });
 
-  // Clear output when fiat changes
-  fiatSelect.addEventListener('change', () => {
+  fiatSelect?.addEventListener('change', () => {
     convOut.textContent = '';
     convOut.classList.remove('show');
   });
 
-  // Convert action
-  convBtn.addEventListener('click', async () => {
+  convBtn?.addEventListener('click', async () => {
     let btc = parseFloat(btcInput.value);
     if (!Number.isFinite(btc)) {
       const sats = parseFloat(satsInput.value);
@@ -272,7 +267,6 @@ populateFiatSelect($('#emailFiat'),   $('#emailFlag'));
       `;
       convOut.classList.add('show');
     } catch {
-      // Try stale cache before giving up
       try {
         const cur = fiatCode.toLowerCase();
         const cached = JSON.parse(localStorage.getItem(PX_CACHE_KEY) || 'null');
@@ -297,12 +291,11 @@ populateFiatSelect($('#emailFiat'),   $('#emailFlag'));
     }
   });
 
-  // Warm cache once on load (non-blocking)
   refreshAllPrices().catch(() => {});
-})();
+})();  
 
 // ========= Profit =========
-$('#profitForm').addEventListener('submit', (e)=>{
+$('#profitForm')?.addEventListener('submit', (e)=>{
   e.preventDefault();
   const btc = parseFloat($('#holdBtc').value);
   const avg = parseFloat($('#avgBuy').value);
@@ -317,12 +310,12 @@ $('#profitForm').addEventListener('submit', (e)=>{
     `Profit: <span style="color:${profit>=0?'#138000':'#b00020'}">${fmt(profit,cur)}</span>`;
 });
 
-// ========= DCA (daily history, approximate calendar intervals) =========
-$('#dcaForm').addEventListener('submit', async (e)=>{
+// ========= DCA (daily history) =========
+$('#dcaForm')?.addEventListener('submit', async (e)=>{
   e.preventDefault();
   const amount = parseFloat($('#dcaAmount').value);
   const months = parseInt($('#dcaDuration').value,10);
-  const freq   = $('#dcaFrequency').value;  // weekly / monthly
+  const freq   = $('#dcaFrequency').value;  
   const cur    = $('#dcaFiat').value || 'usd';
   if (!Number.isFinite(amount) || !Number.isFinite(months)) return;
   try{
@@ -335,7 +328,6 @@ $('#dcaForm').addEventListener('submit', async (e)=>{
 
     const stepDays = (freq==='weekly')?7:30;
     let totalInvested=0, totalBTC=0, buys=0;
-    // Select from end (today) stepping back by stepDays
     for (let i = prices.length-1; i >= 0; i -= stepDays) {
       const price = prices[i].price;
       totalInvested += amount;
@@ -362,6 +354,7 @@ function savePF(rows){ localStorage.setItem('pf', JSON.stringify(rows)); }
 function renderPF(){
   const rows = loadPF();
   const tbody = $('#pfBody');
+  if (!tbody) return;
   tbody.innerHTML = '';
   rows.forEach((r, idx)=>{
     const invested = r.btc * r.buy;
@@ -382,7 +375,7 @@ function renderPF(){
     tbody.appendChild(tr);
   });
 }
-$('#pfForm').addEventListener('submit', (e)=>{
+$('#pfForm')?.addEventListener('submit', (e)=>{
   e.preventDefault();
   const btc = parseFloat($('#pfBtc').value);
   const buy = parseFloat($('#pfBuy').value);
@@ -392,13 +385,14 @@ $('#pfForm').addEventListener('submit', (e)=>{
   const rows = loadPF(); rows.push({ btc:+btc.toFixed(8), buy:+buy.toFixed(2), fiat, exchange:ex });
   savePF(rows); renderPF(); e.target.reset();
 });
-$('#pfBody').addEventListener('click', (e)=>{
+$('#pfBody')?.addEventListener('click', (e)=>{
   const idx = e.target.getAttribute('data-del');
   if (idx !== null && idx !== undefined){
     const rows = loadPF(); rows.splice(+idx,1); savePF(rows); renderPF();
   }
 });
-$('#pfExport').addEventListener('click', ()=>{
+$('#pfExport')?.addEventListener('click', ()=>{
+  alert('Your CSV will download now.');
   const rows = loadPF();
   const csv = ['BTC,Buy Price,Currency,Exchange'].concat(
     rows.map(r => `${r.btc},${r.buy},${r.fiat.toUpperCase()},${r.exchange||''}`)
@@ -408,12 +402,12 @@ $('#pfExport').addEventListener('click', ()=>{
   const a = document.createElement('a'); a.href=url; a.download='portfolio.csv'; a.click();
   URL.revokeObjectURL(url);
 });
-$('#pfClear').addEventListener('click', ()=>{
+$('#pfClear')?.addEventListener('click', ()=>{
   if (confirm('Clear all portfolio entries?')) { localStorage.removeItem('pf'); renderPF(); }
 });
 renderPF();
 
-// ========= TradingView chart (lazy + placeholder hide when iframe renders) =========
+// ========= TradingView chart (lazy load) =========
 let tvLoaded = false;
 function injectTVScriptOnce(cb){
   if (window.TradingView) return cb();
@@ -429,10 +423,7 @@ function initTradingView(){
   try{
     const placeholder = $('#chartPlaceholder');
     const containerId = 'tvChart';
-    // Hide placeholder as soon as the iframe appears or loads
     const hidePlaceholder = ()=>{ if (placeholder) placeholder.style.display='none'; };
-
-    // Observe for iframe insertion
     const mo = new MutationObserver(()=>{
       const iframe = document.querySelector(`#${containerId} iframe`);
       if (iframe){
@@ -458,14 +449,12 @@ function initTradingView(){
       calendar: true
     });
 
-    // Safety timeout: if nothing rendered after 6s, hide placeholder anyway
     setTimeout(hidePlaceholder, 6000);
   }catch(e){
     console.error('TradingView init error', e);
     $('#chartPlaceholder').textContent = 'Chart failed to load. Please refresh.';
   }
 }
-// Lazy-load: only when chart section is near viewport
 const chartSection = $('#chart');
 if ('IntersectionObserver' in window){
   const io = new IntersectionObserver((entries)=>{
@@ -478,11 +467,10 @@ if ('IntersectionObserver' in window){
   }, { root:null, rootMargin:'200px', threshold:0.01 });
   io.observe(chartSection);
 } else {
-  // Fallback: load immediately
   injectTVScriptOnce(initTradingView);
 }
 
-// ========= News (attempt RSS via proxy, keep curated fallback if fails) =========
+// ========= News =========
 async function loadNews(){
   const grid = $('#newsGrid');
   const feeds = [
@@ -505,7 +493,6 @@ async function loadNews(){
     }catch(e){ console.warn('[news] feed failed', f.src, e); }
   }
   if (items.length){
-    // Replace curated with fetched headlines (keep at least 6)
     grid.innerHTML = '';
     items.slice(0,6).forEach(n=>{
       const card = document.createElement('div');
@@ -513,13 +500,11 @@ async function loadNews(){
       card.innerHTML = `<div class="news-source">${n.source}</div><a href="${n.link}" target="_blank" rel="noopener">${n.title}</a>`;
       grid.appendChild(card);
     });
-  } else {
-    // keep curated default in HTML (already present)
   }
 }
 loadNews();
 
-// ========= Tickers (bolder rotation) =========
+// ========= Tickers =========
 const FACTS = [
   '1 Bitcoin = 100,000,000 satoshis.',
   'Bitcoin supply is capped at 21M.',
@@ -564,7 +549,6 @@ const WISDOM = [
   'Double-check fee settings before sending.',
   'If it sounds too good to be true, it is.'
 ];
-
 function rotateList(el, arr, delay=5000){
   let i = 0;
   const render = () => { el.innerHTML = `<li>${arr[i % arr.length]}</li>`; i++; };
@@ -574,52 +558,41 @@ function rotateList(el, arr, delay=5000){
 rotateList($('#factsList'), FACTS);
 rotateList($('#wisdomList'), WISDOM);
 
-// ========= Halving Countdown (dynamic) =========
+// ========= Halving Countdown =========
 (function(){
   const intervalBlocks = 210000;
-  const avgBlockSec = 600; // 10 min
+  const avgBlockSec = 600; 
   const rewardStart = 50;
-
   const $reward = $('#currentReward');
   const $remain = $('#blocksRemaining');
   const $eta    = $('#halvingCountdown');
-
-  let etaMs = null; // target timestamp for next halving
-  let heightAtFetch = null;
+  let etaMs = null;
 
   function trimZeros(n){
     return n.toFixed(8).replace(/\.?0+$/,'');
   }
-
   function calcRewardForHeight(h){
     const halvings = Math.floor(h / intervalBlocks);
     return rewardStart * Math.pow(0.5, halvings);
   }
-
   function nextHalvingHeight(h){
     return Math.floor(h / intervalBlocks) * intervalBlocks + intervalBlocks;
   }
-
   async function fetchHeight(){
-    // Try Blockchain.info first (returns plain text)
     try {
       const r1 = await fetch('https://blockchain.info/q/getblockcount?cors=true', { cache:'no-store' });
       const t1 = await r1.text();
       const n1 = parseInt(t1, 10);
       if (Number.isFinite(n1)) return n1;
-    } catch(e){ /* ignore */ }
-
-    // Fallback: Blockstream (also plain text)
+    } catch(e){}
     try {
       const r2 = await fetch('https://blockstream.info/api/blocks/tip/height', { cache:'no-store' });
       const t2 = await r2.text();
       const n2 = parseInt(t2, 10);
       if (Number.isFinite(n2)) return n2;
-    } catch(e){ /* ignore */ }
-
+    } catch(e){}
     throw new Error('Unable to fetch block height');
   }
-
   function renderCountdown(){
     if (etaMs == null) { $eta.textContent = '—'; return; }
     const msLeft = Math.max(0, etaMs - Date.now());
@@ -629,18 +602,13 @@ rotateList($('#wisdomList'), WISDOM);
     const mins = Math.floor((totalSec % 3600) / 60);
     $eta.textContent = `${days}d ${String(hours).padStart(2,'0')}h ${String(mins).padStart(2,'0')}m`;
   }
-
   async function refreshHalving(){
     try{
       const h = await fetchHeight();
-      heightAtFetch = h;
       const nxt = nextHalvingHeight(h);
       const blocksRemaining = Math.max(0, nxt - h);
       const rewardNow = calcRewardForHeight(h);
-
-      // Estimate target timestamp assuming avg 10-min blocks from NOW
       etaMs = Date.now() + blocksRemaining * avgBlockSec * 1000;
-
       if ($reward) $reward.textContent = trimZeros(rewardNow);
       if ($remain) $remain.textContent = blocksRemaining.toLocaleString();
       renderCountdown();
@@ -649,18 +617,14 @@ rotateList($('#wisdomList'), WISDOM);
       if ($eta) $eta.textContent = 'Data unavailable';
     }
   }
-
-  // Initial + periodic refresh
   refreshHalving();
-  // Update the ETA display every second for smooth countdown
   setInterval(renderCountdown, 1000);
-  // Refresh block height periodically to keep it accurate
   setInterval(refreshHalving, 60 * 1000);
 })();
 
 // ========= Cookie bar =========
 const cookieBar = $('#cookieBar');
-if (sessionStorage.getItem('cookieChoice')) cookieBar.style.display = 'none';
-$('#cookieAccept').addEventListener('click', ()=>{ sessionStorage.setItem('cookieChoice','accepted'); cookieBar.style.display='none'; });
-$('#cookieReject').addEventListener('click', ()=>{ sessionStorage.setItem('cookieChoice','rejected'); cookieBar.style.display='none'; });
-$('#cookieClose').addEventListener('click',  ()=>{ sessionStorage.setItem('cookieChoice','closed');   cookieBar.style.display='none'; });
+if (cookieBar && sessionStorage.getItem('cookieChoice')) cookieBar.style.display = 'none';
+$('#cookieAccept')?.addEventListener('click', ()=>{ sessionStorage.setItem('cookieChoice','accepted'); cookieBar.style.display='none'; });
+$('#cookieReject')?.addEventListener('click', ()=>{ sessionStorage.setItem('cookieChoice','rejected'); cookieBar.style.display='none'; });
+$('#cookieClose')?.addEventListener('click',  ()=>{ sessionStorage.setItem('cookieChoice','closed');   cookieBar.style.display='none'; });
