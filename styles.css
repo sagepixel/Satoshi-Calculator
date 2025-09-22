@@ -8,15 +8,10 @@
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
-  margin:0;
-  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-  background:var(--bg-light);
-  color:var(--txt-light);
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
+  margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  background:var(--bg-light); color:var(--txt-light); line-height:1.6;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
   transition:background .25s ease,color .25s ease;
-  padding-top:90px; /* prevent navbar overlap */
 }
 body.dark{background:var(--bg-dark); color:var(--txt-dark)}
 
@@ -28,6 +23,7 @@ body.dark{background:var(--bg-dark); color:var(--txt-dark)}
 /* Navbar */
 .nav{
   position:fixed;top:0;left:0;width:100%;z-index:10000;
+  height:60px; /* fixed height */
   background:rgba(250,250,250,.85);
   border-bottom:1px solid var(--stroke-light);
   backdrop-filter:blur(12px) saturate(150%);
@@ -48,42 +44,24 @@ body.dark .nav-links a:hover{background:rgba(255,255,255,.12)}
 body.dark .hamburger{border-color:var(--stroke-dark);color:#fff}
 #themeToggle{margin-left:auto;white-space:nowrap}
 
-/* Hero – seamless marquee ticker */
+/* Push content below navbar */
+.page-wrapper { padding-top:60px; }
+
+/* Hero – scrolling ticker */
 .hero{
   background:linear-gradient(90deg, rgba(247,147,26,0.1), transparent);
   border-bottom:1px solid var(--stroke-light);
-  height:42px;
-  display:flex;
-  align-items:center;
-  overflow:hidden;
-  margin-top:70px; /* push below navbar */
+  height:38px;display:flex;align-items:center;overflow:hidden;
 }
-body.dark .hero{
-  background:linear-gradient(90deg, rgba(247,147,26,0.15), transparent);
-  border-color:var(--stroke-dark);
-}
+body.dark .hero{background:linear-gradient(90deg, rgba(247,147,26,0.15), transparent);border-color:var(--stroke-dark)}
 
-.hero-inner{
-  display:flex;
-  width:200%; /* double width for smooth looping */
-  animation:scrollTicker 15s linear infinite;
-}
-.hero-tagline{
-  display:flex;
-  gap:60px;
-  flex:1;
-}
-.hero-tagline span{
-  white-space:nowrap;
-  font-size:1rem;
-  font-weight:600;
-  color:var(--btc);
-}
+.hero-inner{width:100%;overflow:hidden;position:relative}
+.hero-tagline{display:inline-flex;gap:60px;white-space:nowrap;animation:scrollTicker 12s linear infinite;will-change:transform}
+.hero-tagline span{font-size:1rem;font-weight:600;color:var(--btc);display:inline-block;padding-right:60px}
 
-/* Seamless marquee effect */
-@keyframes scrollTicker {
-  0%   { transform:translateX(0); }
-  100% { transform:translateX(-50%); }
+@keyframes scrollTicker{
+  0% { transform:translateX(100%) }
+  100% { transform:translateX(-100%) }
 }
 
 /* Cards */
