@@ -31,11 +31,6 @@ window.addEventListener('resize', ()=>{
   }
 });
 
-// Prevent cramming: auto-center links on resize
-window.addEventListener('resize', ()=>{
-  if(window.innerWidth > 920) navLinks.style.display = 'flex';
-});
-
 // ========= Scroll progress =========
 const progressBar = $('#scrollProgress');
 window.addEventListener('scroll', ()=>{
