@@ -22,14 +22,18 @@ navToggle?.addEventListener('click', ()=>{
   navLinks.classList.toggle('open');
 });
 
-// Reset on resize
-window.addEventListener('resize', ()=>{
-  if(window.innerWidth > 920){
-    navLinks.classList.add('open');   // desktop always visible
+// Handle resize between mobile <-> desktop
+function handleResize() {
+  if (window.innerWidth > 920) {
+    // Always show links on desktop
+    navLinks.classList.add('open');
   } else {
-    navLinks.classList.remove('open'); // mobile toggle only
+    // Reset to hidden until hamburger is clicked
+    navLinks.classList.remove('open');
   }
-});
+}
+window.addEventListener('resize', handleResize);
+handleResize(); // run once on page load
 
 // ========= Scroll progress =========
 const progressBar = $('#scrollProgress');
