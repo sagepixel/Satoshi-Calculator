@@ -16,24 +16,24 @@ themeToggle?.addEventListener('click', ()=> setTheme(document.body.classList.con
 const navToggle = document.getElementById('navToggle');
 const navLinks  = document.getElementById('navLinks');
 
-navToggle?.addEventListener('click', ()=>{
-  const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-  navToggle.setAttribute('aria-expanded', String(!expanded));
-  navLinks.classList.toggle('open');
+navToggle?.addEventListener('click', () => {
+  navLinks.classList.toggle('open');  // CSS .open handles display + layout
+
+  // Update ARIA accessibility
+  const expanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
+  navToggle.setAttribute('aria-expanded', !expanded);
 });
 
 // Handle resize between mobile <-> desktop
 function handleResize() {
   if (window.innerWidth > 920) {
-    // Always show links on desktop
-    navLinks.classList.add('open');
+    navLinks.classList.add('open');   // always show on desktop
   } else {
-    // Reset to hidden until hamburger is clicked
-    navLinks.classList.remove('open');
+    navLinks.classList.remove('open'); // reset on mobile
   }
 }
 window.addEventListener('resize', handleResize);
-handleResize(); // run once on page load
+handleResize();
 
 // ========= Scroll progress =========
 const progressBar = $('#scrollProgress');
