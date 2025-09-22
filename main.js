@@ -13,14 +13,21 @@ setTheme('light');
 themeToggle?.addEventListener('click', ()=> setTheme(document.body.classList.contains('dark') ? 'light' : 'dark'));
 
 // ========= Navbar (hamburger + responsive tweaks) =========
+const navToggle = document.getElementById('navToggle');
+const navLinks  = document.getElementById('navLinks');
+
+navToggle?.addEventListener('click', ()=>{
+  const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+  navToggle.setAttribute('aria-expanded', String(!expanded));
+  navLinks.classList.toggle('open');
+});
 
 // Reset on resize
 window.addEventListener('resize', ()=>{
   if(window.innerWidth > 920){
-    navLinks.classList.remove('open');
-    navLinks.style.display = 'flex';
+    navLinks.classList.add('open');   // desktop always visible
   } else {
-    navLinks.style.display = ''; // let CSS control it
+    navLinks.classList.remove('open'); // mobile toggle only
   }
 });
 
