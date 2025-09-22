@@ -12,6 +12,7 @@ body{
   background:var(--bg-light); color:var(--txt-light); line-height:1.6;
   -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
   transition:background .25s ease,color .25s ease;
+  padding-top: 60px;
 }
 body.dark{background:var(--bg-dark); color:var(--txt-dark)}
 
