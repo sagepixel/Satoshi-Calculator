@@ -8,11 +8,15 @@
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
-  margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-  background:var(--bg-light); color:var(--txt-light); line-height:1.6;
-  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  background:var(--bg-light);
+  color:var(--txt-light);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
   transition:background .25s ease,color .25s ease;
-  padding-top:70px; /* prevent navbar overlap */
+  padding-top:90px; /* prevent navbar overlap */
 }
 body.dark{background:var(--bg-dark); color:var(--txt-dark)}
 
@@ -44,7 +48,7 @@ body.dark .nav-links a:hover{background:rgba(255,255,255,.12)}
 body.dark .hamburger{border-color:var(--stroke-dark);color:#fff}
 #themeToggle{margin-left:auto;white-space:nowrap}
 
-/* Hero – tagline ticker with multiple spans */
+/* Hero – tagline ticker */
 .hero{
   background:linear-gradient(90deg, rgba(247,147,26,0.1), transparent);
   border-bottom:1px solid var(--stroke-light);
@@ -53,9 +57,18 @@ body.dark .hamburger{border-color:var(--stroke-dark);color:#fff}
 body.dark .hero{background:linear-gradient(90deg, rgba(247,147,26,0.15), transparent);border-color:var(--stroke-dark)}
 
 .hero-inner{width:100%;overflow:hidden;position:relative}
-.hero-tagline{display:flex;gap:60px;animation:scrollTicker 25s linear infinite}
-.hero-tagline span{white-space:nowrap;font-size:1rem;font-weight:600;color:var(--btc)}
-
+.hero-tagline{
+  display:inline-block;
+  white-space:nowrap;
+  animation:scrollTicker 8s linear infinite; /* faster ticker */
+}
+.hero-tagline span{
+  display:inline-block;
+  margin-right:60px; /* spacing between taglines */
+  font-size:1rem;
+  font-weight:600;
+  color:var(--btc);
+}
 @keyframes scrollTicker{
   0% { transform:translateX(100%) }
   100% { transform:translateX(-100%) }
