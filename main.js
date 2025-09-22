@@ -34,6 +34,26 @@ window.addEventListener('scroll', ()=>{
   progressBar.style.width = (scrolled * 100) + '%';
 });
 
+// ========= Hero rotating taglines =========
+const HERO_TAGLINES = [
+  "Simple. Fast. Live Bitcoin Tools ⚡",
+  "Convert BTC ↔ Sats ↔ Fiat in seconds 🚀",
+  "Plan profits & DCA smarter 📊",
+  "Track your Bitcoin portfolio with ease 🔑",
+  "Stay safe. Stay sats-stacked 💡"
+];
+let taglineIndex = 0;
+
+function rotateHeroTagline(){
+  const el = document.querySelector('.hero-tagline');
+  if (!el) return;
+  el.textContent = HERO_TAGLINES[taglineIndex % HERO_TAGLINES.length];
+  taglineIndex++;
+}
+
+rotateHeroTagline();
+setInterval(rotateHeroTagline, 8000); // every 8 seconds
+
 // ========= Fade-in animations =========
 const fadeEls = $$('.fade-in');
 if ('IntersectionObserver' in window) {
