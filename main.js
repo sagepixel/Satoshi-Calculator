@@ -325,17 +325,20 @@ $('#dcaForm')?.addEventListener('submit', async (e)=>{
   const amount = parseFloat($('#dcaAmount').value);
   const months = parseInt($('#dcaDuration').value,10);
   const freq   = $('#dcaFrequency').value;  
-  const cur    = $('#dcaFiat').value || 'usd';
+  const cur    = ($('#dcaFiat').value || 'usd').toLowerCase();
   if (!Number.isFinite(amount) || !Number.isFinite(months)) return;
-  try{
+
+  try {
     const days = Math.max(1, months * 30);
-    const url  = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${cur}&days=${days}&interval=daily`;
-    const res  = await fetch(url);
+    const url  = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${cur}&days=${days}&interval=day`;
+    const res  = await fetch(url, { cache: "no-store" });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
+
     const prices = (data.prices||[]).map(p => ({ ts:p[0], price:p[1] }));
     if (!prices.length) throw new Error('no history');
 
-    const stepDays = (freq==='weekly')?7:30;
+    const stepDays = (freq === 'weekly') ? 7 : 30;
     let totalInvested=0, totalBTC=0, buys=0;
     for (let i = prices.length-1; i >= 0; i -= stepDays) {
       const price = prices[i].price;
@@ -343,17 +346,34 @@ $('#dcaForm')?.addEventListener('submit', async (e)=>{
       totalBTC      += (amount / price);
       buys++;
     }
+
     const avgCost = totalInvested / totalBTC;
-    const lastRate = rates[cur] || prices.at(-1).price;
+    const lastRate = rates[cur] || prices.at(-1)?.price || prices[0]?.price;
     const currentValue = totalBTC * lastRate;
 
     $('#dcaResult').innerHTML =
-      `Buys: ${buys} · Invested: ${fmt(totalInvested,cur)} · ` +
-      `BTC: ${totalBTC.toFixed(8)} · Avg Cost: ${fmt(avgCost,cur)} · ` +
-      `Current: ${fmt(currentValue,cur)}`;
-  }catch(err){
+      `✅ Simulation complete<br>` +
+      `Buys: ${buys} · Invested: ${fmt(totalInvested,cur)}<br>` +
+      `BTC: ${totalBTC.toFixed(8)} · Avg Cost: ${fmt(avgCost,cur)}<br>` +
+      `Current Value: ${fmt(currentValue,cur)}`;
+  } catch(err) {
     console.error('[dca]', err);
-    $('#dcaResult').textContent = 'Unable to fetch historical data. Please try again.';
+
+    // 🔥 Fallback: approximate using only latest rate
+    const lastRate = rates[cur] || rates['usd'] || 0;
+    if (lastRate) {
+      const invested = amount * months;
+      const totalBTC = invested / lastRate;
+      const current  = totalBTC * lastRate;
+
+      $('#dcaResult').innerHTML =
+        `⚠ Historical data unavailable — showing estimate.<br>` +
+        `Invested: ${fmt(invested,cur)}<br>` +
+        `BTC: ${totalBTC.toFixed(8)}<br>` +
+        `Current Value: ${fmt(current,cur)}`;
+    } else {
+      $('#dcaResult').textContent = 'Unable to fetch any data at this time.';
+    }
   }
 });
 
