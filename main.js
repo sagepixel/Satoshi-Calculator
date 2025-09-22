@@ -13,14 +13,6 @@ setTheme('light');
 themeToggle?.addEventListener('click', ()=> setTheme(document.body.classList.contains('dark') ? 'light' : 'dark'));
 
 // ========= Navbar (hamburger + responsive tweaks) =========
-const navToggle = document.getElementById('navToggle');
-const navLinks  = document.getElementById('navLinks');
-
-navToggle?.addEventListener('click', ()=>{
-  const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-  navToggle.setAttribute('aria-expanded', String(!expanded));
-  navLinks.classList.toggle('open', !expanded);  // use class, not inline style
-});
 
 // Reset on resize
 window.addEventListener('resize', ()=>{
