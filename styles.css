@@ -48,30 +48,42 @@ body.dark .nav-links a:hover{background:rgba(255,255,255,.12)}
 body.dark .hamburger{border-color:var(--stroke-dark);color:#fff}
 #themeToggle{margin-left:auto;white-space:nowrap}
 
-/* Hero – tagline ticker */
+/* Hero – seamless marquee ticker */
 .hero{
   background:linear-gradient(90deg, rgba(247,147,26,0.1), transparent);
   border-bottom:1px solid var(--stroke-light);
-  height:42px;display:flex;align-items:center;overflow:hidden;
+  height:42px;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  margin-top:70px; /* push below navbar */
 }
-body.dark .hero{background:linear-gradient(90deg, rgba(247,147,26,0.15), transparent);border-color:var(--stroke-dark)}
+body.dark .hero{
+  background:linear-gradient(90deg, rgba(247,147,26,0.15), transparent);
+  border-color:var(--stroke-dark);
+}
 
-.hero-inner{width:100%;overflow:hidden;position:relative}
+.hero-inner{
+  display:flex;
+  width:200%; /* double width for smooth looping */
+  animation:scrollTicker 15s linear infinite;
+}
 .hero-tagline{
-  display:inline-block;
-  white-space:nowrap;
-  animation:scrollTicker 8s linear infinite; /* faster ticker */
+  display:flex;
+  gap:60px;
+  flex:1;
 }
 .hero-tagline span{
-  display:inline-block;
-  margin-right:60px; /* spacing between taglines */
+  white-space:nowrap;
   font-size:1rem;
   font-weight:600;
   color:var(--btc);
 }
-@keyframes scrollTicker{
-  0% { transform:translateX(100%) }
-  100% { transform:translateX(-100%) }
+
+/* Seamless marquee effect */
+@keyframes scrollTicker {
+  0%   { transform:translateX(0); }
+  100% { transform:translateX(-50%); }
 }
 
 /* Cards */
