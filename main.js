@@ -319,64 +319,155 @@ $('#profitForm')?.addEventListener('submit', (e)=>{
     `Profit: <span style="color:${profit>=0?'#138000':'#b00020'}">${fmt(profit,cur)}</span>`;
 });
 
-// ========= DCA (daily history) =========
-$('#dcaForm')?.addEventListener('submit', async (e)=>{
+// ========= DCA (robust daily history with fallbacks) =========
+$('#dcaForm')?.addEventListener('submit', async (e) => {
   e.preventDefault();
+
   const amount = parseFloat($('#dcaAmount').value);
-  const months = parseInt($('#dcaDuration').value,10);
-  const freq   = $('#dcaFrequency').value;  
+  const months = parseInt($('#dcaDuration').value, 10);
+  const freq   = ($('#dcaFrequency').value || 'monthly').toLowerCase();
   const cur    = ($('#dcaFiat').value || 'usd').toLowerCase();
-  if (!Number.isFinite(amount) || !Number.isFinite(months)) return;
 
-  try {
-    const days = Math.max(1, months * 30);
-    const url  = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${cur}&days=${days}&interval=day`;
-    const res  = await fetch(url, { cache: "no-store" });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
+  const out  = $('#dcaResult');
+  out.textContent = 'Calculating…';
 
-    const prices = (data.prices||[]).map(p => ({ ts:p[0], price:p[1] }));
-    if (!prices.length) throw new Error('no history');
+  // Basic validation
+  if (!(Number.isFinite(amount) && amount > 0) || !(Number.isFinite(months) && months > 0)) {
+    out.textContent = 'Please enter a positive amount and duration.';
+    return;
+  }
 
-    const stepDays = (freq === 'weekly') ? 7 : 30;
-    let totalInvested=0, totalBTC=0, buys=0;
-    for (let i = prices.length-1; i >= 0; i -= stepDays) {
-      const price = prices[i].price;
-      totalInvested += amount;
-      totalBTC      += (amount / price);
-      buys++;
-    }
+  // --- Helpers ---
+  const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
-    const avgCost = totalInvested / totalBTC;
-    const lastRate = rates[cur] || prices.at(-1)?.price || prices[0]?.price;
-    const currentValue = totalBTC * lastRate;
-
-    $('#dcaResult').innerHTML =
-      `✅ Simulation complete<br>` +
-      `Buys: ${buys} · Invested: ${fmt(totalInvested,cur)}<br>` +
-      `BTC: ${totalBTC.toFixed(8)} · Avg Cost: ${fmt(avgCost,cur)}<br>` +
-      `Current Value: ${fmt(currentValue,cur)}`;
-  } catch(err) {
-    console.error('[dca]', err);
-
-    // 🔥 Fallback: approximate using only latest rate
-    const lastRate = rates[cur] || rates['usd'] || 0;
-    if (lastRate) {
-      const invested = amount * months;
-      const totalBTC = invested / lastRate;
-      const current  = totalBTC * lastRate;
-
-      $('#dcaResult').innerHTML =
-        `⚠ Historical data unavailable — showing estimate.<br>` +
-        `Invested: ${fmt(invested,cur)}<br>` +
-        `BTC: ${totalBTC.toFixed(8)}<br>` +
-        `Current Value: ${fmt(current,cur)}`;
-    } else {
-      $('#dcaResult').textContent = 'Unable to fetch any data at this time.';
+  async function fetchJSON(url, { timeout = 7000 } = {}) {
+    // normal attempt
+    try {
+      const res = await Promise.race([
+        fetch(url, { cache: 'no-store' }),
+        new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), timeout))
+      ]);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    } catch (e1) {
+      // try via allorigins proxy (handles random CORS/rate-limit hiccups)
+      try {
+        const proxied = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+        const res2 = await Promise.race([
+          fetch(proxied, { cache: 'no-store' }),
+          new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), timeout + 2000))
+        ]);
+        if (!res2.ok) throw new Error(`HTTP ${res2.status}`);
+        return await res2.json();
+      } catch (e2) {
+        throw e2;
+      }
     }
   }
-});
 
+  // CoinGecko daily history (first choice)
+  async function getCGDaily(days, vs) {
+    const url = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${vs}&days=${days}&interval=daily&precision=full`;
+    const data = await fetchJSON(url);
+    if (!data?.prices?.length) throw new Error('cg shape');
+    return data.prices.map(p => ({ ts: p[0], price: +p[1] }));
+  }
+
+  // Coindesk USD daily history (fallback) then scale to other fiat
+  async function getUSDHistoryFromCoindesk(days) {
+    const end = new Date();
+    const start = new Date(end.getTime() - days * 86400000);
+    const fmt  = d => d.toISOString().slice(0, 10);
+    const url  = `https://api.coindesk.com/v1/bpi/historical/close.json?currency=USD&start=${fmt(start)}&end=${fmt(end)}`;
+    const data = await fetchJSON(url);
+    const entries = Object.entries(data?.bpi || {});
+    if (!entries.length) throw new Error('coindesk shape');
+    return entries.map(([date, px]) => ({ ts: Date.parse(date + 'T00:00:00Z'), price: +px }));
+  }
+
+  // Spot prices (usd + chosen fiat) to scale USD series if needed
+  async function getSpotUSDand(cur) {
+    const url = `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,${cur}`;
+    const data = await fetchJSON(url);
+    const usd = +data?.bitcoin?.usd || NaN;
+    const cc  = +data?.bitcoin?.[cur] || NaN;
+    if (!Number.isFinite(usd)) throw new Error('no spot usd');
+    return { usd, cur: Number.isFinite(cc) ? cc : null };
+  }
+
+  // --- Fetch a price series robustly ---
+  const days = Math.max(30, Math.round(months * 30)); // >= 1 month of daily candles
+  let series = null;
+  let usedEstimate = false;
+  let lastSpot = null;
+
+  try {
+    // 1) Try CoinGecko directly in requested currency
+    series = await getCGDaily(days, cur);
+    lastSpot = series.at(-1).price;
+  } catch {
+    try {
+      // 2) Try Coindesk (USD only) then scale by current FX from CoinGecko
+      const usdSeries = await getUSDHistoryFromCoindesk(days);
+      const spot = await getSpotUSDand(cur);
+      lastSpot = spot.cur ?? spot.usd; // pick the best we have
+      const scale = spot.cur && spot.usd ? (spot.cur / spot.usd) : 1;
+      series = usdSeries.map(p => ({ ts: p.ts, price: p.price * scale }));
+    } catch {
+      // 3) Final estimate (flat price using current spot)
+      usedEstimate = true;
+      try {
+        const spot = await getSpotUSDand(cur);
+        lastSpot = spot.cur ?? spot.usd;
+      } catch { /* ignore */ }
+    }
+  }
+
+  // If we *still* have no lastSpot, bail gracefully
+  if (!Number.isFinite(lastSpot)) {
+    out.textContent = 'Temporarily unable to fetch prices. Please try again in a moment.';
+    return;
+  }
+
+  // --- DCA calculation ---
+  const step = freq === 'weekly' ? 7 : 30; // purchase spacing (days)
+  let invested = 0, totalBTC = 0, buys = 0;
+
+  if (series && series.length && !usedEstimate) {
+    // Use real daily history (oldest -> newest sampling with exact spacing)
+    // Align so the last buy is "today"
+    for (let i = series.length - 1; i >= 0; i -= step) {
+      const px = +series[i].price;
+      if (!Number.isFinite(px) || px <= 0) continue;
+      invested += amount;
+      totalBTC += (amount / px);
+      buys++;
+    }
+    if (buys === 0) {
+      usedEstimate = true; // fall through to estimate if weird data
+    }
+  }
+
+  if (usedEstimate) {
+    // No history: approximate count of buys by frequency
+    const estBuys = Math.max(1, freq === 'weekly' ? Math.round(months * 4.33) : months);
+    invested = estBuys * amount;
+    totalBTC = invested / lastSpot;
+    buys     = estBuys;
+  }
+
+  const avgCost = invested / totalBTC;
+  const current = totalBTC * lastSpot;
+
+  out.innerHTML = `
+    ${usedEstimate ? `<div class="muted small" style="margin-bottom:6px">⚠️ Historical data unavailable — showing estimate.</div>` : ''}
+    Buys: ${buys.toLocaleString()} ·
+    Invested: ${fmt(invested, cur)} ·
+    BTC: ${totalBTC.toFixed(8)} ·
+    Avg Cost: ${fmt(avgCost, cur)} ·
+    Current Value: ${fmt(current, cur)}
+  `;
+});
 // ========= Portfolio =========
 function loadPF(){ try{return JSON.parse(localStorage.getItem('pf')||'[]')}catch{return[]} }
 function savePF(rows){ localStorage.setItem('pf', JSON.stringify(rows)); }
