@@ -204,7 +204,7 @@ body.dark .footer{background:var(--card-dark);border-color:var(--stroke-dark)}
   .nav-links {
     display: none;
     flex-direction: column;
-    position: absolute;
+    position: fixed;
     top: 120px; /* same as navbar height */
     left: 0;
     width: 100%;
