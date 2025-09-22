@@ -13,12 +13,23 @@ setTheme('light');
 themeToggle?.addEventListener('click', ()=> setTheme(document.body.classList.contains('dark') ? 'light' : 'dark'));
 
 // ========= Navbar (hamburger + responsive tweaks) =========
-const navToggle = $('#navToggle');
-const navLinks  = $('#navLinks');
+const navToggle = document.getElementById('navToggle');
+const navLinks  = document.getElementById('navLinks');
+
 navToggle?.addEventListener('click', ()=>{
   const expanded = navToggle.getAttribute('aria-expanded') === 'true';
   navToggle.setAttribute('aria-expanded', String(!expanded));
-  navLinks.style.display = expanded ? 'none' : 'flex';
+  navLinks.classList.toggle('open', !expanded);  // use class, not inline style
+});
+
+// Reset on resize
+window.addEventListener('resize', ()=>{
+  if(window.innerWidth > 920){
+    navLinks.classList.remove('open');
+    navLinks.style.display = 'flex';
+  } else {
+    navLinks.style.display = ''; // let CSS control it
+  }
 });
 
 // Prevent cramming: auto-center links on resize
