@@ -207,10 +207,13 @@ body.dark .footer{background:var(--card-dark);border-color:var(--stroke-dark)}
     position: fixed;
     top: 120px; /* same as navbar height */
     left: 0;
+    right:0;
+    bottom:0;             /* extend to bottom */    
     width: 100%;
     background: var(--bg-light); /* solid background */
     border-top: 1px solid var(--stroke-light);
-    padding: 12px 0;
+    padding: 20px;
+    overflow-y:auto;      /* makes it scroll */
     z-index: 9999;
     box-shadow: 0 6px 16px rgba(0,0,0,.08);
   }
