@@ -44,7 +44,7 @@ body.dark .nav-links a:hover{background:rgba(255,255,255,.12)}
 body.dark .hamburger{border-color:var(--stroke-dark);color:#fff}
 #themeToggle{margin-left:auto;white-space:nowrap}
 
-/* Hero – tagline ticker only */
+/* Hero – tagline ticker with multiple spans */
 .hero{
   background:linear-gradient(90deg, rgba(247,147,26,0.1), transparent);
   border-bottom:1px solid var(--stroke-light);
@@ -52,14 +52,11 @@ body.dark .hamburger{border-color:var(--stroke-dark);color:#fff}
 }
 body.dark .hero{background:linear-gradient(90deg, rgba(247,147,26,0.15), transparent);border-color:var(--stroke-dark)}
 
-.hero-tagline{
-  white-space:nowrap;display:inline-block;
-  font-size:1rem;font-weight:600;color:var(--txt-light);
-  animation:scrollTagline 15s linear infinite;
-}
-body.dark .hero-tagline{color:var(--txt-dark)}
+.hero-inner{width:100%;overflow:hidden;position:relative}
+.hero-tagline{display:flex;gap:60px;animation:scrollTicker 25s linear infinite}
+.hero-tagline span{white-space:nowrap;font-size:1rem;font-weight:600;color:var(--btc)}
 
-@keyframes scrollTagline {
+@keyframes scrollTicker{
   0% { transform:translateX(100%) }
   100% { transform:translateX(-100%) }
 }
