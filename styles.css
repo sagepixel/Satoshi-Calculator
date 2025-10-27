@@ -70,10 +70,6 @@ body.dark .hamburger{border-color:var(--stroke-dark);color:#fff}
   overflow:hidden;
   z-index:1;
 }
-@media (min-width: 920px) {
-  .hero{
-    margin-top:0px
-}
  
 body.dark .hero{
   background:linear-gradient(90deg, rgba(247,147,26,0.15), transparent);
