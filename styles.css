@@ -57,6 +57,7 @@ body.dark .hamburger{border-color:var(--stroke-dark);color:#fff}
 
 /* Hero – scrolling ticker */
 .hero{
+  margin:auto;
   position:relative;   /* not fixed anymore */
   margin-top:60px;     /* sits below navbar */
   width:100%;
