@@ -204,6 +204,9 @@ body.dark .footer{background:var(--card-dark);border-color:var(--stroke-dark)}
 .fade-in.visible{opacity:1;transform:translateY(0)}
 
 /* Responsive */
+.nav-links {
+  top: 120px; /* same as navbar height */
+}
 @media (max-width: 920px) {
   .nav-inner {
     flex-wrap: wrap;
@@ -213,7 +216,7 @@ body.dark .footer{background:var(--card-dark);border-color:var(--stroke-dark)}
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 120px; /* same as navbar height */
+    top: 100px; /* same as navbar height */
     left: 0;
     width: 100%;
     background: var(--bg-light); /* solid background */
